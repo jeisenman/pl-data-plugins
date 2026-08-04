@@ -1,0 +1,4 @@
+interface:
+  display_name: "Data Creator"
+  short_description: "Create representative PrecisionLender data"
+  default_prompt: "Use $datacreaor to create representative PrecisionLender test data."

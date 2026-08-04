@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prod Support"
+  short_description: "Triage and remediate prod failures"
+  default_prompt: "Use $prod-support to discover production Airflow failures, triage them, and safely resend recoverable opportunity snapshots."

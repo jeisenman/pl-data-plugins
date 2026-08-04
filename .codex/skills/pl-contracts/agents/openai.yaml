@@ -1,0 +1,4 @@
+interface:
+  display_name: "PL Contracts"
+  short_description: "Inspect and validate PrecisionLender data contracts"
+  default_prompt: "Use $pl-contracts to inspect or update a PrecisionLender data contract."

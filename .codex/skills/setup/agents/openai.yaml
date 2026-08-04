@@ -1,0 +1,4 @@
+interface:
+  display_name: "Workspace Setup"
+  short_description: "Clone data repos and create worktrees"
+  default_prompt: "Use $setup to add the data repositories as submodules and create their worktrees."

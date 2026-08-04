@@ -1,0 +1,4 @@
+interface:
+  display_name: "Data Studio Enablement"
+  short_description: "Enable Data Studio Snowflake shares"
+  default_prompt: "Use $data-studio-enablement to enable a client for Data Studio."

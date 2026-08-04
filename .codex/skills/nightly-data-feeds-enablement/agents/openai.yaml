@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nightly Data Feeds Enablement"
+  short_description: "Enable clients for nightly data feeds"
+  default_prompt: "Use $nightly-data-feeds-enablement to add a provisioned client to nightly data feeds."

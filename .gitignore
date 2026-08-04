@@ -1,0 +1,4 @@
+/worktrees/
+repositories/*
+.env
+.gitmodules

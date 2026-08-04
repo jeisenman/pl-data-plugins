@@ -1,0 +1,4 @@
+interface:
+  display_name: "DI Field"
+  short_description: "Trace PrecisionLender data fields"
+  default_prompt: "Use $di-field to trace a PrecisionLender data field."

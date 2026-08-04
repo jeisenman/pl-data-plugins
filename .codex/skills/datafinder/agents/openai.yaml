@@ -1,0 +1,4 @@
+interface:
+  display_name: "DataFinder"
+  short_description: "Trace PL and RA data definitions and lineage"
+  default_prompt: "Use $datafinder to find where this PL or RA data field or dataset is defined and produced."
