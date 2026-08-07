@@ -28,3 +28,10 @@ git clone git@github.com:precisionlender/pl-application.git
 ## Set up the workspace
 
 In Codex, run `/setup` to add these repositories as submodules and create a dedicated worktree for each one.
+
+## Jira ticket taxonomy
+
+The Jira board catalog lives in [`repository/taxonomy`](repository/taxonomy/README.md).
+It records ticket ownership, reporting, descriptions, dates, links, and board/sprint
+membership for Data Platform and PL Data.
+# pl-data-plugins
