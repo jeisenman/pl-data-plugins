@@ -5,12 +5,22 @@ description: Validate PrecisionLender Data Intelligence Pipeline changes before 
 
 # PL-DIPL peer review
 
+## Review-only boundary
+
+This skill is purely a code-review tool. Do not edit source code, tests, configuration, tickets, pull requests, or other project artifacts while using it. Report findings, risks, missing validation, and recommended follow-up work to the user instead.
+
+## Local Test-Suite Policy
+
+When working in `di-pipelines`, `di-scheduling`, or `di-pyjobs`, do not run local unit, integration, or full test suites. Use static inspection, targeted non-test checks, and remote or Alpha evidence instead. Run a local test suite only when the user explicitly requests it.
+
 Before sharing a code request with the team, check every applicable item below. Mark an item complete only after inspecting the diff or attaching evidence. Keep unresolved questions visible in the PR description.
 
-## Request validity
+## Ticket and scope alignment
 
-- [ ] The request links to the ticket or source requirement. Check Jira ticket. Validate no extraneous code exists.
-- [ ] Check Jira ticket. Validate no extraneous code exists. The implementation matches the request; unrelated cleanup and scope creep are removed.
+- [ ] Read the Jira ticket or source requirement closely and identify its requested behavior, affected data/contracts, acceptance criteria, and explicit exclusions.
+- [ ] Compare every changed file and material diff hunk to those ticket requirements. Confirm the implementation delivers the requested changes.
+- [ ] Identify and call out code, configuration, schema, metadata, tests, or cleanup that is extraneous to the ticket goal.
+- [ ] Inspect deleted code separately. Confirm each deletion is required by the requested change or is necessary to preserve correctness; flag deletions that are unrelated or insufficiently justified.
 
 ## Code quality
 
@@ -30,8 +40,8 @@ Before sharing a code request with the team, check every applicable item below. 
 
 ## Evidence
 
-- [ ] Focused unit tests cover changed logic and edge cases.
-- [ ] Lint, type checks, and relevant test suites pass.
+- [ ] Focused test coverage exists for changed logic and edge cases, when applicable.
+- [ ] Static checks, lint, type checks, and user-authorized test evidence are recorded.
 - [ ] Alpha/integration validation proves the DAG parses and affected jobs complete.
 - [ ] Output data is checked for expected rows, fields, versions, non-null values, and downstream compatibility.
 - [ ] Resource-sensitive changes are validated for representative clients, including relevant override/no-override cases.

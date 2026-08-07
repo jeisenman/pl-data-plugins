@@ -1,0 +1,1679 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-05T10:45:31Z",
+  "source_catalog": "../../../repository/taxonomy/data/tickets.json",
+  "inclusion_rule": "A ticket is included only when its Jira key appears in a merged pull request title or description in precisionlender/di-pipelines, precisionlender/di-scheduling, or precisionlender/di-pyjobs.",
+  "repositories": [
+    "precisionlender/di-pipelines",
+    "precisionlender/di-scheduling",
+    "precisionlender/di-pyjobs"
+  ],
+  "tickets": [
+    {
+      "ticket": {
+        "key": "DE-2051",
+        "url": "https://qtwo.atlassian.net/browse/DE-2051",
+        "summary": "Update field definition for Date Partition in Monthly Datasets",
+        "description": "The field definition for date partition is accurate for datasets that are not monthly since it reflects the date the data was ingested. For monthly datasets, it is actually the end date of the month. We will need to update these definitions in the metadata so that it can flow through to Snowflake and to ThoughtSpot. \n\nUpdate for Snowflake and in DataSetMetaData if it exists for the monthly datasets.\n\nNew definition:   \nThe closing date of the month for which the data has been aggregated",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+          "display_name": "Kausik Kannan"
+        },
+        "created_at": "2026-02-19T09:39:10.202-0600",
+        "updated_at": "2026-04-23T14:18:59.008-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 29609,
+            "name": "DP - Sprint 230",
+            "state": "closed",
+            "start_date": "2026-02-18T16:58:06.502Z",
+            "end_date": "2026-03-04T06:00:00.000Z",
+            "complete_date": "2026-03-04T16:16:52.207Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2782,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2782",
+          "name": "De 2051",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [x] considered batch vs Spark job\r\n- [x] new functionality is unit tested\r\n- [x] dataset version incremented, if appropriate\r\n- [x] dependencies on this job? -> engineering dataset\r\n- [x] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [x] integration testing validated\r\n- [x] job is \"rundate aware\", if appropriate\r\n- [x] update Databricks and/or Snowflake, if  appropriate\r\n- [x] Was this tested in Alpha Airflow\r\n- [x] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [x] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [x] job has been scheduled\r\n- [x] contx metadata has been updated\r\n- [x] alpha integration tests successful\r\n- [x] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [QDS-DE-2051](https://jira.q2ebanking.com/browse/DE-2051)\r\n\r\n[//]: # Changing Comment/Definition of DATE_PARTITION\r\nThis ticket involves changing the definition of the DATE_PARTITION column in Snowflake for the following tables, staging tables, and corresponding secure views. \r\n```[python]\r\n    - RELATIONSHIPS_MONTHLY\r\n    - CORE_DEPOSIT_ACCOUNTS_MONTHLY\r\n    - CORE_LOAN_ACCOUNTS_MONTHLY\r\n    - CORE_OTHER_ACCOUNTS_MONTHLY\r\n    - CORE_TREASURY_ACCOUNTS_MONTHLY\r\n```\r\nNotice that secure view pulls the column COMMENT automatically form the source table. \r\n\r\nMaking this change involved making a dag, ```DE_2051_date_partition_comment_change```, to update all single-tenant and multi-tenant tables and staging tables.\r\n\r\n# Testing\r\nHere are the logs of a [successful run](https://airflow.alpha01.precisionlender.com/dags/snowflake_evolution_de_2051/grid?dag_run_id=manual__2026-02-26T19%3A45%3A09%2B00%3A00&task_id=v1_0_20_de_2051&tab=logs).\r\n\r\nHere are the executed SQL queries:\r\n  ```sql\r\n  ALTER TABLE PL_DATA_STUDIO.DERIVED.RELATIONSHIPS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.DERIVED.CORE_DEPOSIT_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.DERIVED.CORE_LOAN_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.DERIVED.CORE_OTHER_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.DERIVED.CORE_TREASURY_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  PL_DATA_STUDIO.STAGING Schema\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.STAGING.DERIVED_RELATIONSHIPS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.STAGING.DERIVED_CORE_DEPOSIT_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.STAGING.DERIVED_CORE_LOAN_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.STAGING.DERIVED_CORE_OTHER_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.STAGING.DERIVED_CORE_TREASURY_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  PL_DATA_STUDIO.ST_FIRST_SIMILAR_DERIVED Schema\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.ST_FIRST_SIMILAR_DERIVED.RELATIONSHIPS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.ST_FIRST_SIMILAR_DERIVED.CORE_DEPOSIT_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.ST_FIRST_SIMILAR_DERIVED.CORE_LOAN_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.ST_FIRST_SIMILAR_DERIVED.CORE_OTHER_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.ST_FIRST_SIMILAR_DERIVED.CORE_TREASURY_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  PL_DATA_STUDIO.ST_FIRST_SIMILAR_STAGING Schema\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.ST_FIRST_SIMILAR_STAGING.DERIVED_RELATIONSHIPS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.ST_FIRST_SIMILAR_STAGING.DERIVED_CORE_DEPOSIT_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.ST_FIRST_SIMILAR_STAGING.DERIVED_CORE_LOAN_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.ST_FIRST_SIMILAR_STAGING.DERIVED_CORE_OTHER_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  ALTER TABLE PL_DATA_STUDIO.ST_FIRST_SIMILAR_STAGING.DERIVED_CORE_TREASURY_ACCOUNTS_MONTHLY\r\n  ALTER COLUMN DATE_PARTITION COMMENT 'The closing date of the month for which the data has been aggregated.';\r\n\r\n  Total: 20 tables updated across 4 schemas\r\n```\r\n\r\nLooking in one such table, we see our desired column comment for ```DATE_PARTITION```.\r\n<img width=\"937\" height=\"220\" alt=\"image\" src=\"https://github.com/user-attachments/assets/2135a015-7a5c-4ecc-b48f-cf196b2baafa\" />\r\n\r\nYou are welcome to verify for yourself if need be that the comment is updated correctly for other tables in [this link](https://app.snowflake.com/q2e/gtoduse1/#/data/databases/PL_DATA_STUDIO/schemas/DERIVED/table/CORE_DEPOSIT_ACCOUNTS_MONTHLY).\r\n",
+          "state": "closed",
+          "merged_at": "2026-03-02T17:48:03Z",
+          "created_at": "2026-02-26T19:48:01Z",
+          "updated_at": "2026-03-02T17:48:06Z",
+          "closed_at": "2026-03-02T17:48:03Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "4b6650e816035149d42416d5fd4021c6e02144c1",
+          "head_branch": "DE-2051",
+          "head_sha": "a7e66f849104c496a51144b08f7fd068cf8a4584",
+          "merge_commit_sha": "82104e1c291966ff5d034f67c801422a5de0c9c0",
+          "commits": 13,
+          "changed_files": 2,
+          "additions": 128,
+          "deletions": 0,
+          "match_evidence": [
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": []
+    },
+    {
+      "ticket": {
+        "key": "DE-2249",
+        "url": "https://qtwo.atlassian.net/browse/DE-2249",
+        "summary": "PL Production Support - Sprint 231",
+        "description": "Ticket represents the work to analyze production logs every day and to create bug and/or investigation tickets for any issues uncovered.\n\n[https://qtwo.atlassian.net/wiki/display/DI/Production+Support](https://qtwo.atlassian.net/wiki/display/DI/Production+Support)  \n[https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL](https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL)\n\n[https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA](https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA) \u2013 RCAs\n\n\u00a0\n\n**Template**\n\n\\----------------------------------------------------------------------------\n\n```java\nLogical Execution Date: YYYY-MM-DD\r\n\r\nSatisfaction Score (Good, Meh, Bad, Ugly): placeholder\r\n\r\nChecklist:\r\n* [ ] Reviewed Failures\r\n* [ ] Reran Transient Errors\r\n* [ ] Created Bug Tickets, if applicable\r\n* [ ] Notified Team of Completion\r\n* [ ] Logged Time to Ticket (factor in lost time due to context switching)\r\n\r\nOutstanding Issues:\r\n* QDS-####\r\n\r\nRelevant Observations:\r\n* placeholder\n```\n\n\\----------------------------------------------------------------------------\n\n**Prod Support Order:**\n\n* Jordan\n* Andrew\n* Michael\n* Arunima\n* \u00a0\n\n",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:29d927a6-0543-4851-8fda-4bf8ff357c49",
+          "display_name": "Andrew Capindo"
+        },
+        "created_at": "2026-03-04T10:28:51.981-0600",
+        "updated_at": "2026-04-23T14:18:52.022-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 29609,
+            "name": "DP - Sprint 230",
+            "state": "closed",
+            "start_date": "2026-02-18T16:58:06.502Z",
+            "end_date": "2026-03-04T06:00:00.000Z",
+            "complete_date": "2026-03-04T16:16:52.207Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 30636,
+            "name": "DP - Sprint 231",
+            "state": "closed",
+            "start_date": "2026-03-04T17:09:45.138Z",
+            "end_date": "2026-03-18T06:00:00.000Z",
+            "complete_date": "2026-03-18T15:10:14.732Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2786,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2786",
+          "name": "DE-2249: increase resources for us bank",
+          "description": "Bumping resources for US Bank. Using the `ClientSparkConfOverrides` class.",
+          "state": "closed",
+          "merged_at": "2026-03-05T16:45:09Z",
+          "created_at": "2026-03-05T16:08:11Z",
+          "updated_at": "2026-03-05T16:45:12Z",
+          "closed_at": "2026-03-05T16:45:09Z",
+          "author": {
+            "login": "plmnguyen",
+            "name": "plmnguyen"
+          },
+          "base_branch": "master",
+          "base_sha": "5215f09b4aea6fe7d748e995bd2db1c7ce84b8fb",
+          "head_branch": "DE-2249",
+          "head_sha": "95a627b64123cdf6deea85a63b5f123a8c5b87a1",
+          "merge_commit_sha": "e9eefc37602fcc1c322499305eb53059715054ab",
+          "commits": 1,
+          "changed_files": 2,
+          "additions": 80,
+          "deletions": 56,
+          "match_evidence": [
+            "title"
+          ]
+        }
+      ],
+      "local_branch_evidence": []
+    },
+    {
+      "ticket": {
+        "key": "DE-2368",
+        "url": "https://qtwo.atlassian.net/browse/DE-2368",
+        "summary": "Use Spark for heavy RA copy jobs",
+        "description": "Convert the heavy RA copy jobs (datasets that are generally large like Relationship FS, Loan FS Breakdown, Core Loan Accounts, etc.) to using the new Spark copy runner in <custom data-type=\"smartlink\" data-id=\"id-0\">https://qtwo.atlassian.net/browse/DE-2357</custom>.\n\n\u200c\n\nThat was done for just Rel FS and just for Truist DV (it was also a bit rushed to get them over the line). It would be good for this ticket to further test that runner that it syncs properly with DatasetMetadata, copies data over the same as it did with the pandas runner. \n\n\u200c\n\nSee how little resources we need (1 executor with minimal memory?) to be able to handle large files. For reference, Rel FS for 7d8 in alpha is \\~3.7gb and for Truist DV was \\~27gb. Truist DV was able to handle that find with the default spark configs, (3 executors with 16gb memory. Most likely overkill).\n\n\u200c\n\nI don\u2019t think we need to do this for the really small RA files, so we dont have to spin up so many concurrent Spark executors.\n\n\u200c\n\nIt may be worth either using Claude to go through and find clients + copy jobs that meet a certain threshold (for example taking more than 10 minutes?) \n\n\u200c\n\nGeneral Steps:\n\n1. Validate the primary Relationships FS for Truist DV (c3563e8a-3e29-45e9-9dad-9e6743126d78) data. See if the CSV output from DatePartition=20260226 (pre Spark) is of the same format as anything after DatePartition=20260312. You can just see if the same primary keys exist and if they have the same data, or if some fields have the same values or date fields are produced the same\n2. Look for RA copy job candidates to convert to spark\n3. Configure for those clients\n\n",
+        "issue_type": "Task",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:26b1b50e-1d68-4ef4-b94b-d09a722c3480",
+          "display_name": "Michael Nguyen"
+        },
+        "created_at": "2026-03-23T08:50:24.085-0500",
+        "updated_at": "2026-05-06T08:58:01.579-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 30637,
+            "name": "DP - Sprint 232",
+            "state": "closed",
+            "start_date": "2026-03-18T15:46:01.465Z",
+            "end_date": "2026-04-01T06:00:00.000Z",
+            "complete_date": "2026-04-01T15:07:55.330Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 30638,
+            "name": "DP - Sprint 233",
+            "state": "closed",
+            "start_date": "2026-04-01T16:13:36.998Z",
+            "end_date": "2026-04-15T06:00:00.000Z",
+            "complete_date": "2026-04-15T15:09:08.607Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 31439,
+            "name": "DP - Sprint 234",
+            "state": "closed",
+            "start_date": "2026-04-15T15:35:20.000Z",
+            "end_date": "2026-05-07T05:00:00.000Z",
+            "complete_date": "2026-05-07T15:06:25.735Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2827,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2827",
+          "name": "Truist DV & US Bank resources on Treasury Financial Statement Breakdown from 16g -> 40g",
+          "description": "Temporarily increments Truist DV & US Bank resources on Treasury Financial Statement Breakdown from 16g -> 40g. This will later be reduced to 16g when merging DE-2368.",
+          "state": "closed",
+          "merged_at": "2026-04-20T16:18:37Z",
+          "created_at": "2026-04-20T15:56:12Z",
+          "updated_at": "2026-04-20T16:18:37Z",
+          "closed_at": "2026-04-20T16:18:37Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "fec9f9603d993077d2980ddd5007a42f83301464",
+          "head_branch": "DE-2518",
+          "head_sha": "a6cbf452f82ec990f9e690f455757e5b08176842",
+          "merge_commit_sha": "f3f4347e1ff3392a3ea53ab7cc15c3896f6955e6",
+          "commits": 3,
+          "changed_files": 1,
+          "additions": 2,
+          "deletions": 1,
+          "match_evidence": [
+            "description"
+          ]
+        },
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2814,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2814",
+          "name": "DE-2368: Moving To Spark Ingestion Runner",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [x] considered batch vs Spark job\r\n- [x] new functionality is unit tested\r\n- [x] dataset version incremented, if appropriate\r\n- [x] dependencies on this job? -> engineering dataset\r\n- [x] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [x] integration testing validated\r\n- [x] job is \"rundate aware\", if appropriate\r\n- [x] update Databricks and/or Snowflake, if  appropriate\r\n- [x] Was this tested in Alpha Airflow\r\n- [x] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [x] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [x] job has been scheduled\r\n- [x] contx metadata has been updated\r\n- [x] alpha integration tests successful\r\n- [x] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2368](https://qtwo.atlassian.net/browse/DE-2368)\r\n\r\nThis ticket involved:\r\n1) finding which job-client combinations merited moving to Spark. \r\n\r\nIf a client exceeded 10 minutes for an ingestion job -- i.e., a job formatted as `get_` -- the client likely had 2+gb to move. This roughly makes it worthwhile to move to Spark as a heuristic. You may find all of the job-client combinations in this file within the archived OpenSpec `md` -- `openspec/changes/archive/2026-04-10-add-ra-ingestion-overrides-for-slow-multi-client-jobs/normalized-target-clients.md`. One more criteria: the job had to be compatible with the `SparkRaCsvIngestionRunner`. For that reason, `get_client_uploaded_files, get_core_loan_amortization_tables` did not qualify due their existing structure. \r\n\r\n2) Finding Desired Spark Config\r\n\r\nCurrently Spark has the following config:\r\n<img width=\"687\" height=\"300\" alt=\"image\" src=\"https://github.com/user-attachments/assets/09a812dd-a99f-41d7-8b15-c423e9c06cf8\" />\r\nIn testing, adding more compute or executers did not substantially lower execution time. Rather, the extra memory sat idle. This is because the Spark Ra Runner depends in `I/O` of the data lake. The read capacity is the main bottlekneck in our system.\r\n\r\n3) Per-Job `SparkRaCsvIngestionRunner`\r\nFind in `ds-jobs/src/datascience_jobs/jobs/primary_ingestion/ra`. I based new runners off of @plmnguyen work in `relationship_financial_statements.py`.\r\n\r\n4) Applying Configuration\r\n\r\nWithin `dags/precisionlender/dags/task_groups/main/ra_jobs.py`, I made a class for `DynamicRaIngestion`. These `get_` jobs are dynamic in that they can be `spark` or `batch`. Then `get_dynamic_ra_ingestion` takes in job and client to provide desired configs. If not spark client, their configurations do not change. If they are Spark, we apply the new runner and configuration as listed above. \r\n\r\n\r\n# Testing\r\n\r\nTake the override client `32743a57-2030-4fa5-aadd-756ade802493 ` and for a non-override client does not have spark jobs:\r\n<img width=\"442\" height=\"908\" alt=\"image\" src=\"https://github.com/user-attachments/assets/50d32165-19f2-461d-bb98-f8f2950c010c\" />\r\n<img width=\"441\" height=\"910\" alt=\"image\" src=\"https://github.com/user-attachments/assets/fd08d3d8-d438-4ce0-8f19-9fd8f9b81a15\" />\r\n\r\nAll jobs complete for `32743a57-2030-4fa5-aadd-756ade802493`.\r\n<img width=\"449\" height=\"922\" alt=\"image\" src=\"https://github.com/user-attachments/assets/f9ad6dfa-9b03-466d-9a0e-5423166e3bd0\" />\r\n\r\nIntegration testing: \r\nConsider the Spark Job for `32743a57-2030-4fa5-aadd-756ade802493`. We must validate that the code in master yields that same out as that resulting from DE-2368. I will show that the before-after CSV do not differ for one of the Spark Jobs with `core_commercial_loan_account` as the example.\r\n\r\n\r\nGenerated by Spark:\r\n<img width=\"595\" height=\"400\" alt=\"image\" src=\"https://github.com/user-attachments/assets/533b71c4-d3fd-4148-bd7a-1dadaa487db0\" />\r\n<img width=\"1144\" height=\"143\" alt=\"image\" src=\"https://github.com/user-attachments/assets/6ddbdfcb-88db-4267-ac8c-631674b6ef54\" />\r\n\r\nGenerated with Pandas:\r\n<img width=\"565\" height=\"648\" alt=\"image\" src=\"https://github.com/user-attachments/assets/69457cca-a79e-4a0f-b46f-67dcdb3f1f9e\" />\r\nIndeed they are the same before and after spark!\r\n\r\nAlso ran sanity check in Staging. For the client `5301628b-e85f-4ff9-b5b3-e8d13c5926a7`, there are two Spark Jobs, which is what we see in the following picture and corresponding [link](https://airflow.staging.precisionlender.com/dags/l3-main-5301628b-e85f-4ff9-b5b3-e8d13c5926a7/grid?search=l3-main-5301628b-e85f-4ff9-b5b3-e8d13c5926a7&dag_run_id=manual__2026-04-01T05%3A00%3A00%2B00%3A00&tab=graph&task_id=ra_group.get_core_loan_amortization_tables)\r\n<img width=\"917\" height=\"946\" alt=\"image\" src=\"https://github.com/user-attachments/assets/bf2c8fcb-00c6-4c0e-994e-7a630cf84301\" />\r\n",
+          "state": "closed",
+          "merged_at": "2026-05-05T18:18:04Z",
+          "created_at": "2026-03-30T17:12:14Z",
+          "updated_at": "2026-05-07T17:07:56Z",
+          "closed_at": "2026-05-05T18:18:04Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "a0972ae6c6b411a4f6247d1ac2ae81f6649f5d3a",
+          "head_branch": "DE-2368",
+          "head_sha": "d81e75adb65c8c1edfb1430edaca20eecf6fd7c8",
+          "merge_commit_sha": "588767299fe22082868fcfdd4dd0ce72c8baac48",
+          "commits": 105,
+          "changed_files": 28,
+          "additions": 3088,
+          "deletions": 77,
+          "match_evidence": [
+            "title",
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": [
+        {
+          "ticket_key": "DE-2368",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/DE-2368",
+          "commit_sha": "d81e75adb65c8c1edfb1430edaca20eecf6fd7c8",
+          "committed_at": "2026-05-04T16:18:32-04:00",
+          "subject": "removing ref to factory"
+        },
+        {
+          "ticket_key": "DE-2368",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/DE-2368-2",
+          "commit_sha": "0befadfc7a202b37b2eac4dc318b8e4edbaf08d9",
+          "committed_at": "2026-04-14T13:36:00-04:00",
+          "subject": "adjusting resource"
+        },
+        {
+          "ticket_key": "DE-2368",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/DE-2368-temp",
+          "commit_sha": "be83641ab766dbb50302156867297835c885163f",
+          "committed_at": "2026-04-17T09:40:49-04:00",
+          "subject": "removing 530 from unneeded daga"
+        },
+        {
+          "ticket_key": "DE-2368",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/revert-2814-DE-2368",
+          "commit_sha": "61f5bef9eda9ec716898958f256a46c1891ffd38",
+          "committed_at": "2026-05-05T14:23:26-04:00",
+          "subject": "Revert \"DE-2368: Moving To Spark Ingestion Runner\""
+        }
+      ]
+    },
+    {
+      "ticket": {
+        "key": "DE-2395",
+        "url": "https://qtwo.atlassian.net/browse/DE-2395",
+        "summary": "Pause data pipelines for CNB LA - DV client id",
+        "description": "CNB LA are working on updating their data in the DV environment and during the testing, they would like us to pause their pipelines so that we get the data they need after they are ready with the changes. \n\nDate to start pause: <custom data-type=\"date\" data-id=\"id-0\">3/26/2026</custom>\n\nDate to unpause: TBD\n\nClient id: 29ab3ebf-d41e-4617-a424-92b00c0d68a3",
+        "issue_type": "Task",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+          "display_name": "Kausik Kannan"
+        },
+        "created_at": "2026-03-25T16:29:06.481-0500",
+        "updated_at": "2026-04-23T14:18:41.655-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 30637,
+            "name": "DP - Sprint 232",
+            "state": "closed",
+            "start_date": "2026-03-18T15:46:01.465Z",
+            "end_date": "2026-04-01T06:00:00.000Z",
+            "complete_date": "2026-04-01T15:07:55.330Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-scheduling",
+          "number": 799,
+          "url": "https://github.com/precisionlender/di-scheduling/pull/799",
+          "name": "Deactivating CNB LA - DV",
+          "description": "Client ID to deactivate ```29ab3ebf-d41e-4617-a424-92b00c0d68a3```\r\n\r\nFrom ticket \r\n\r\nhttps://qtwo.atlassian.net/browse/DE-2395",
+          "state": "closed",
+          "merged_at": "2026-03-26T17:08:21Z",
+          "created_at": "2026-03-26T16:58:50Z",
+          "updated_at": "2026-03-26T17:08:21Z",
+          "closed_at": "2026-03-26T17:08:21Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "6180b7ad4012ba39f7b6f4b883dc4f8f1ac31990",
+          "head_branch": "DE-2395",
+          "head_sha": "bb5ce7e2e2b80e043ba8c9529d81b5f98dd392aa",
+          "merge_commit_sha": "4a1b674111f29bc56bb319bcae20c75dc73ff14a",
+          "commits": 2,
+          "changed_files": 1,
+          "additions": 1,
+          "deletions": 1,
+          "match_evidence": [
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": [
+        {
+          "ticket_key": "DE-2395",
+          "repository": "precisionlender/di-scheduling",
+          "ref": "origin/DE-2395",
+          "commit_sha": "bb5ce7e2e2b80e043ba8c9529d81b5f98dd392aa",
+          "committed_at": "2026-03-26T13:06:33-04:00",
+          "subject": "removed quotes"
+        }
+      ]
+    },
+    {
+      "ticket": {
+        "key": "DE-2507",
+        "url": "https://qtwo.atlassian.net/browse/DE-2507",
+        "summary": "PL Production Support - Sprint 234",
+        "description": "Ticket represents the work to analyze production logs every day and to create bug and/or investigation tickets for any issues uncovered.\n\n[https://qtwo.atlassian.net/wiki/display/DI/Production+Support](https://qtwo.atlassian.net/wiki/display/DI/Production+Support)  \n[https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL](https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL)\n\n[https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA](https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA) \u2013 RCAs\n\n\u00a0\n\n**Template**\n\n\\----------------------------------------------------------------------------\n\n```java\nLogical Execution Date: YYYY-MM-DD\r\n\r\nSatisfaction Score (Good, Meh, Bad, Ugly): placeholder\r\n\r\nChecklist:\r\n* [ ] Reviewed Failures\r\n* [ ] Reran Transient Errors\r\n* [ ] Created Bug Tickets, if applicable\r\n* [ ] Notified Team of Completion\r\n* [ ] Logged Time to Ticket (factor in lost time due to context switching)\r\n\r\nOutstanding Issues:\r\n* QDS-####\r\n\r\nRelevant Observations:\r\n* placeholder\n```\n\n\\----------------------------------------------------------------------------\n\n**Prod Support Order:**\n\n* Jordan\n* Andrew\n* Michael\n* Arunima\n* \u00a0\n\n",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "60e6049b287807006836dbb2",
+          "display_name": "Arunima Gulia"
+        },
+        "created_at": "2026-04-15T10:07:56.537-0500",
+        "updated_at": "2026-05-07T10:03:26.834-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 31439,
+            "name": "DP - Sprint 234",
+            "state": "closed",
+            "start_date": "2026-04-15T15:35:20.000Z",
+            "end_date": "2026-05-07T05:00:00.000Z",
+            "complete_date": "2026-05-07T15:06:25.735Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2825,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2825",
+          "name": "DE-2507: increase assumption_sets for c3563 to 16gb pod operator, inc\u2026",
+          "description": "addressing prod support issues:\r\nc3563e8a\t\tSolutions\r\n\tAssumption_sets\tPut them at 16GB \r\n\tLoan_financial_statement_breakdown\tPut them 56GB\r\n385c35bf\t\t\r\n\tget_treasury_financial_statement_breakdown\tMove to kubernetes pod operator, set to 16GB\r\n076939cf\t\t\r\n\tproduct_mapping\tBumping to 4 hour timeout",
+          "state": "closed",
+          "merged_at": "2026-04-17T16:49:56Z",
+          "created_at": "2026-04-17T16:41:59Z",
+          "updated_at": "2026-04-17T16:50:00Z",
+          "closed_at": "2026-04-17T16:49:56Z",
+          "author": {
+            "login": "gage-russell",
+            "name": "gage-russell"
+          },
+          "base_branch": "master",
+          "base_sha": "7320ae1118ab857c9a520d8360f2f89f5ecbe621",
+          "head_branch": "DE-2507-friday",
+          "head_sha": "6c28b51bc4be4905c0b7af9d3a4bbe804b631869",
+          "merge_commit_sha": "fec9f9603d993077d2980ddd5007a42f83301464",
+          "commits": 1,
+          "changed_files": 3,
+          "additions": 57,
+          "deletions": 22,
+          "match_evidence": [
+            "title"
+          ]
+        }
+      ],
+      "local_branch_evidence": [
+        {
+          "ticket_key": "DE-2507",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/DE-2507-timeout",
+          "commit_sha": "5f9d15efdb1a508231bb7b9301ad8ed6f6b12814",
+          "committed_at": "2026-04-20T13:49:03-04:00",
+          "subject": "extending timeouts"
+        }
+      ]
+    },
+    {
+      "ticket": {
+        "key": "DE-2533",
+        "url": "https://qtwo.atlassian.net/browse/DE-2533",
+        "summary": "Enable PL Data Studio share for additional Truist account",
+        "description": "Please configure the PL DAta STudio share for another Truist account - they had a dual account setup where 3rd party shares went to their staging environment and then they copied over to Prod - now they are going directly to Prod. \n\nFrom Truist - \n\n_As part of our ongoing data share enablement with Precision Lending, we would like to take the next step by enabling direct data share access for our Truist Enterprise Core Snowflake account._\n\n\u00a0\n\n_We are requesting your support to enable this access in the Non\u2011Production environment. This approach will allow us to consume Precision Lending (PL) data directly within our enterprise Snowflake platform, while continuing to maintain appropriate governance, security, and access controls._\n\n\u00a0\n\n_Below are the details for our Truist Enterprise Snowflake Platform (Core Account \u2013 DEV environment):_\n\n\u00a0\n\n_Snowflake Organization Name: TRUIST_\n\n* _Snowflake Account Name: ESP_DEV_\n* _Snowflake Data Sharing Account Identifier: TRUIST.ESP_DEV_\n* _Account Locator: VQB35101_\n* _Region: US EAST 1_\n* _Primary / DR Region: Primary_\n\n",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+          "display_name": "Kausik Kannan"
+        },
+        "created_at": "2026-04-21T10:23:54.500-0500",
+        "updated_at": "2026-05-04T15:13:27.257-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 31439,
+            "name": "DP - Sprint 234",
+            "state": "closed",
+            "start_date": "2026-04-15T15:35:20.000Z",
+            "end_date": "2026-05-07T05:00:00.000Z",
+            "complete_date": "2026-05-07T15:06:25.735Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2832,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2832",
+          "name": "Enable PL Data Studio share for additional Truist account",
+          "description": "From Ticket [DE-2533](https://qtwo.atlassian.net/browse/DE-2533)\r\n\r\nConfiguring the PL Data Studio share for another Truist account:\r\n\r\n\r\nSnowflake Organization Name: TRUIST\r\n\r\n- Snowflake Account Naw: ESP_DEV\r\n- Snowflake Data Sharing Account Identifier: TRUIST.ESP_DEV\r\n- Account Locator: VQB35101\r\n- Region: US EAST 1\r\n- Primary / DR Region: Primary\r\n\r\n",
+          "state": "closed",
+          "merged_at": "2026-04-22T20:36:07Z",
+          "created_at": "2026-04-22T19:01:25Z",
+          "updated_at": "2026-04-22T20:36:07Z",
+          "closed_at": "2026-04-22T20:36:07Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "0bd2704b63935c9c178f399c6f083ea7a086f94a",
+          "head_branch": "DE-2533",
+          "head_sha": "7f75f4c804f333e14a17d7783b3c5ee0a2852544",
+          "merge_commit_sha": "f6652d763faa4d1a4eee74b690b4ffeac4075b14",
+          "commits": 1,
+          "changed_files": 1,
+          "additions": 5,
+          "deletions": 0,
+          "match_evidence": [
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": [
+        {
+          "ticket_key": "DE-2533",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/DE-2533",
+          "commit_sha": "7f75f4c804f333e14a17d7783b3c5ee0a2852544",
+          "committed_at": "2026-04-22T15:00:14-04:00",
+          "subject": "adding prod account"
+        }
+      ]
+    },
+    {
+      "ticket": {
+        "key": "DE-2551",
+        "url": "https://qtwo.atlassian.net/browse/DE-2551",
+        "summary": "Create ThoughtSpot org for Citizens Bank",
+        "description": "Since Citizens is a data isolated client, there is no way to analyze their data in the Internal Production US org - so we need a separate Org in ThoughtSpot created for them.   \n  \nPlease create the new org and Kausik will take care of adding users etc. \n\nClient id: cb635fb3-df32-4dd0-9f4f-258959ef8d15",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+          "display_name": "Kausik Kannan"
+        },
+        "created_at": "2026-04-23T08:19:54.523-0500",
+        "updated_at": "2026-05-14T10:35:07.181-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 31440,
+            "name": "DP - Sprint 235",
+            "state": "closed",
+            "start_date": "2026-05-07T15:50:02.393Z",
+            "end_date": "2026-05-21T05:00:00.000Z",
+            "complete_date": "2026-05-21T15:10:33.984Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2851,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2851",
+          "name": "DE-2551: Adding Citizens to TS",
+          "description": "Adding Citizen's Bank to ThoughtSpot.\r\n\r\nClient id: cb635fb3-df32-4dd0-9f4f-258959ef8d15",
+          "state": "closed",
+          "merged_at": "2026-05-11T14:42:32Z",
+          "created_at": "2026-05-08T19:59:45Z",
+          "updated_at": "2026-05-11T14:42:33Z",
+          "closed_at": "2026-05-11T14:42:33Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "8ff71c2460a6e626539b55f3724f190ee2e2edc2",
+          "head_branch": "DE-2551",
+          "head_sha": "f757a3770102b19603267ab460b89cc3aac3ed98",
+          "merge_commit_sha": "2e1e8e1569fbb7af950e538150cb86d522537203",
+          "commits": 1,
+          "changed_files": 1,
+          "additions": 1,
+          "deletions": 0,
+          "match_evidence": [
+            "title"
+          ]
+        }
+      ],
+      "local_branch_evidence": [
+        {
+          "ticket_key": "DE-2551",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/DE-2551",
+          "commit_sha": "f757a3770102b19603267ab460b89cc3aac3ed98",
+          "committed_at": "2026-05-08T15:58:44-04:00",
+          "subject": "Adding citizens to TS"
+        }
+      ]
+    },
+    {
+      "ticket": {
+        "key": "DE-2638",
+        "url": "https://qtwo.atlassian.net/browse/DE-2638",
+        "summary": "Move Remaining KPO Jobs to Spark",
+        "description": "In <custom data-type=\"smartlink\" data-id=\"id-0\">https://qtwo.atlassian.net/browse/DE-2368</custom>, we moved heavy RA jobs to spark. This ticket will move remaining KPO-client jobs with 56G to Spark for the following jobs:\n\nCORE_DEPOSIT_ACCOUNTS_ARGS\n\nGET_RELATIONSHIP_FINANCIAL_STATEMENT_ARGS\n\nLOAN_FINANCIAL_STATEMENT_BREAKDOWN_ARGS\n\nOTHER_FINANCIAL_STATEMENT_BREAKDOWN_ARGS\n\nThis ticket will also remove references to `*_ARGS.`",
+        "issue_type": "Task",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "created_at": "2026-05-06T08:59:46.392-0500",
+        "updated_at": "2026-05-12T12:33:27.007-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 31439,
+            "name": "DP - Sprint 234",
+            "state": "closed",
+            "start_date": "2026-04-15T15:35:20.000Z",
+            "end_date": "2026-05-07T05:00:00.000Z",
+            "complete_date": "2026-05-07T15:06:25.735Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 31440,
+            "name": "DP - Sprint 235",
+            "state": "closed",
+            "start_date": "2026-05-07T15:50:02.393Z",
+            "end_date": "2026-05-21T05:00:00.000Z",
+            "complete_date": "2026-05-21T15:10:33.984Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2844,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2844",
+          "name": "De 2638",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [x] considered batch vs Spark job\r\n- [x] new functionality is unit tested\r\n- [x] dataset version incremented, if appropriate\r\n- [x] dependencies on this job? -> engineering dataset\r\n- [x] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [x] integration testing validated\r\n- [x] job is \"rundate aware\", if appropriate\r\n- [x] update Databricks and/or Snowflake, if  appropriate\r\n- [x] Was this tested in Alpha Airflow\r\n- [x] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [x] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2638](https://qtwo.atlassian.net/browse/DE-2638)\r\n\r\n[//]: # Description\r\n\r\nPreviously, we moved heavy ra jobs to Spark for the following jobs.\r\n\r\nGET_RELATIONSHIP_FINANCIAL_STATEMENT_SPARK_CONF_OVERRIDES,\r\nGET_LOAN_FINANCIAL_STATEMENT_BREAKDOWN_SPARK_CONF_OVERRIDES,\r\nGET_OTHER_FINANCIAL_STATEMENT_BREAKDOWN_SPARK_CONF_OVERRIDES,\r\nGET_CORE_DEPOSIT_ACCOUNTS_SPARK_CONF_OVERRIDES\r\n\r\nThis ticket moves over all clients that are 56g to use Spark. Also, client were previously on both the KPO and Spark override configs. For clients that are on both a KPO and Spark override, I have deleted that client from the KPO override. \r\n\r\n# Testing\r\n\r\nDAGs still parse. \r\n<img width=\"2122\" height=\"394\" alt=\"image\" src=\"https://github.com/user-attachments/assets/2309688c-5b1c-4929-9668-536123b16996\" />\r\n\r\n\r\nDear reviewer: for each KPO-Spark pair in this table...\r\n\r\n| RA job | Spark override config | KPO override config |\r\n| --- | --- | --- |\r\n| Relationship financial statement | `GET_RELATIONSHIP_FINANCIAL_STATEMENT_SPARK_CONF_OVERRIDES` | `GET_RELATIONSHIP_FINANCIAL_STATEMENT_ARGS` |\r\n| Loan financial statement breakdown | `GET_LOAN_FINANCIAL_STATEMENT_BREAKDOWN_SPARK_CONF_OVERRIDES` | `LOAN_FINANCIAL_STATEMENT_BREAKDOWN_ARGS` |\r\n| Other financial statement breakdown | `GET_OTHER_FINANCIAL_STATEMENT_BREAKDOWN_SPARK_CONF_OVERRIDES` | `OTHER_FINANCIAL_STATEMENT_BREAKDOWN_ARGS` |\r\n| Core deposit accounts | `GET_CORE_DEPOSIT_ACCOUNTS_SPARK_CONF_OVERRIDES` | `CORE_DEPOSIT_ACCOUNTS_ARGS` |\r\n\r\nPlease verify:\r\n- All clients marked as `56g` for these jobs were moved into the corresponding Spark override config.\r\n- No client ID exists in both the Spark override config and the matching KPO override config for the same job.\r\n- Clients that remain in the KPO override configs are only clients that should continue running through KPO resource overrides.",
+          "state": "closed",
+          "merged_at": "2026-05-11T19:05:44Z",
+          "created_at": "2026-05-07T16:41:38Z",
+          "updated_at": "2026-05-11T19:05:48Z",
+          "closed_at": "2026-05-11T19:05:44Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "8ff71c2460a6e626539b55f3724f190ee2e2edc2",
+          "head_branch": "DE-2638",
+          "head_sha": "674f55bcfc3ebeb68814ee90efa6fdb4e82b16ca",
+          "merge_commit_sha": "9b9c2adc7ed6856f20a290472115fa4a38cbf0d4",
+          "commits": 19,
+          "changed_files": 2,
+          "additions": 63,
+          "deletions": 149,
+          "match_evidence": [
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": []
+    },
+    {
+      "ticket": {
+        "key": "DE-2775",
+        "url": "https://qtwo.atlassian.net/browse/DE-2775",
+        "summary": "Treasury - Replace TreasuryProductsExpanded file with TreasuryAssumptions as the source for Treasury datasets",
+        "description": "The RA team are looking to remove the TreasuryProducts file. Identify all the dependencies and replace the source for those fields with TreasuryAssumptions.csv as the source. \n\n* \n\n![](blob:https://media.staging.atl-paas.net/?type=file&localId=95febf2eac68&id=f226ea22-7138-45a0-a0fa-14b49edb2d58&&collection=&height=761&occurrenceKey=null&width=1208&__contextId=null&__displayType=null&__external=false&__fileMimeType=null&__fileName=null&__fileSize=null&__mediaTraceId=null&url=null)\nAdd to Treasury Assumptions\n\n* AFP Code (need to find where it is)\n\n",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+          "display_name": "Kausik Kannan"
+        },
+        "created_at": "2026-05-26T13:36:16.850-0500",
+        "updated_at": "2026-07-22T15:23:18.685-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 32062,
+            "name": "DP - Sprint 237",
+            "state": "closed",
+            "start_date": "2026-06-11T20:07:44.787Z",
+            "end_date": "2026-06-25T20:07:30.000Z",
+            "complete_date": "2026-06-25T15:08:51.921Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 32065,
+            "name": "DP - Sprint 238",
+            "state": "closed",
+            "start_date": "2026-06-25T15:40:43.236Z",
+            "end_date": "2026-07-09T05:00:00.000Z",
+            "complete_date": "2026-07-09T15:09:00.950Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2898,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2898",
+          "name": "DE-2775: Replace TreasuryProductsExpanded file with TreasuryAssumptions",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [ ] update Databricks and/or Snowflake, if  appropriate\r\n- [ ] Was this tested in Alpha Airflow\r\n- [ ] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [ ] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2775](https://qtwo.atlassian.net/browse/DE-2775)\r\n\r\nThis ticket swaps `TreasuryProductsExpanded` for `TreasuryAssumptions` in primary and all downstream datasets, and we need to source `AFPCode`. In performing this ticket, I also generated data within the `pl-application`. \r\n\r\n# Testing\r\n\r\nTesting involved:\r\n\r\nA) Deploying to alpha\r\n<img width=\"1378\" height=\"1164\" alt=\"image\" src=\"https://github.com/user-attachments/assets/562377bf-e1a9-48bc-9d6f-9fe651061ec7\" />\r\n\r\nB) Running TreasuryAssumptions and checking that whole DAG runs:\r\n<img width=\"665\" height=\"166\" alt=\"image\" src=\"https://github.com/user-attachments/assets/1562e40f-34e4-4631-b934-660133d2bf56\" />\r\n\r\nAlso, no downstream jobs failed in the [DAG run](https://airflow.alpha01.precisionlender.com/dags/l3-main-32743a57-2030-4fa5-aadd-756ade802493/grid?dag_run_id=manual__2026-07-03T05%3A00%3A00%2B00%3A00&tab=details) with `startDate` of `2026-07-03`\r\n\r\nC) Downloading and Comparing\r\nPath of `TreasuryAssumptions` in `l3-historical: ClientId=32743a57-2030-4fa5-aadd-756ade802493/L3/v1.0/Primary/PL_RelationshipAwareness/Assumptions/TreasuryAssumptions/InstancePartition=32743a57-2030-4fa5-aadd-756ade802493/VersionPartition=v1.0/DatePartition=20260702/00000-79093c8c-d11e-4c06-bd3c-a002332adf6a.json`\r\n<img width=\"1188\" height=\"126\" alt=\"image\" src=\"https://github.com/user-attachments/assets/75e7af42-1e61-4a62-82b9-5b80702c9e93\" />\r\n\r\nWe also download the `TreasuryProducts` dataset.\r\n<img width=\"1196\" height=\"116\" alt=\"image\" src=\"https://github.com/user-attachments/assets/28982a4e-578e-4819-a40b-32ad48f795c4\" />\r\n\r\nRunning `vimdiff DE-2775/treasuryAssumptions.pretty.json DE-2775/treasuryProducts.pretty.json`, we have the following comparison:\r\n<img width=\"1382\" height=\"607\" alt=\"image\" src=\"https://github.com/user-attachments/assets/f4693b30-9f54-4231-b22e-74239ab5766f\" />\r\n\r\nD) Checking that `AFPCode` is non-null.\r\nWith the following command, I check that the `AFPCode` is not null:\r\n<img width=\"1337\" height=\"143\" alt=\"image\" src=\"https://github.com/user-attachments/assets/d0888fea-ab1e-4dc9-b41e-b28af2e0d9a6\" />",
+          "state": "closed",
+          "merged_at": "2026-07-07T17:13:48Z",
+          "created_at": "2026-06-25T19:01:24Z",
+          "updated_at": "2026-07-07T17:13:52Z",
+          "closed_at": "2026-07-07T17:13:48Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "f19abac868af02a15f7a4a8bd3a8e833686a59f8",
+          "head_branch": "DE-2775",
+          "head_sha": "f34a868eaac433f1c490ecc4c561ebaae7ae5648",
+          "merge_commit_sha": "e03fdab2d829939fdeb2201ed544b14d79581418",
+          "commits": 25,
+          "changed_files": 15,
+          "additions": 745,
+          "deletions": 45,
+          "match_evidence": [
+            "title",
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": []
+    },
+    {
+      "ticket": {
+        "key": "DE-2776",
+        "url": "https://qtwo.atlassian.net/browse/DE-2776",
+        "summary": "Update Primary Dataset Core Deposit Accounts",
+        "description": "Update core deposit accounts datasets with the new fields added for deposit accounts. \n\nField names: \n\n* RowValues\n* CoreBillableGroupAccountId\n\nThe following were planned to be added but are now deprecated:\n\n* DepositFTPLog\n* FTPOverCurrentPeriodLog\n* FTPOverLoanLifeLog\n* FTPOverRemainingLifeLog\n\n",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+          "display_name": "Kausik Kannan"
+        },
+        "created_at": "2026-05-26T13:38:04.387-0500",
+        "updated_at": "2026-07-06T13:28:01.637-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 32062,
+            "name": "DP - Sprint 237",
+            "state": "closed",
+            "start_date": "2026-06-11T20:07:44.787Z",
+            "end_date": "2026-06-25T20:07:30.000Z",
+            "complete_date": "2026-06-25T15:08:51.921Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 32065,
+            "name": "DP - Sprint 238",
+            "state": "closed",
+            "start_date": "2026-06-25T15:40:43.236Z",
+            "end_date": "2026-07-09T05:00:00.000Z",
+            "complete_date": "2026-07-09T15:09:00.950Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2892,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2892",
+          "name": "DE-2776 & DE-2777: Core Deposit Accounts & Downstream Datasets",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [ ] update Databricks and/or Snowflake, if  appropriate\r\n- [ ] Was this tested in Alpha Airflow\r\n- [ ] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [ ] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2777](https://qtwo.atlassian.net/browse/DE-2777)\r\n\r\nWe have the following new fields:\r\n- `RowValues`\r\n- `CoreBillableGroupAccountId`\r\n\r\nThese tickets previously involved the following columns:\r\n- `DepositFTPLog`\r\n- `CoreBillableGroupAccountId`\r\n\r\nThey are no longer relevant since RA does not use FTP:\r\n\r\n<img width=\"1308\" height=\"539\" alt=\"image\" src=\"https://github.com/user-attachments/assets/5283a794-7c9a-4819-a55f-ba1d5df2006d\" />\r\n\r\n\r\nWe add these to the following datasets:\r\n- `Primary CoreDepositAccounts`\r\n- `Derived CoreDepositAccounts`\r\n- `Monthly derived CoreDepositAccountsMonthly`\r\n- `Snowflake table: CORE_DEPOSIT_ACCOUNTS_MONTHLY`\r\n\r\n# Testing\r\n\r\nTesting involves deploying, testing in alpha, and tracking data from Primary, Derived, to Snowflake.\r\n\r\nI successfully deployed last `6/23`. \r\n<img width=\"1828\" height=\"208\" alt=\"image\" src=\"https://github.com/user-attachments/assets/b46a0650-2e8f-4e29-a285-c8b8008c01d7\" />\r\n\r\nLet us focus on `32743a57-2030-4fa5-aadd-756ade802493`. Our intended changes run successfully against `32743a57-2030-4fa5-aadd-756ade802493` as seen [here](https://airflow.alpha01.precisionlender.com/dags/l3-main-32743a57-2030-4fa5-aadd-756ade802493/grid?dag_run_id=manual__2026-06-18T05%3A00%3A00%2B00%3A00&task_id=relationship_deposit_anomalies.deposit_anomalies_to_andi_skill_storage). The failing jobs relate to Andi.\r\n\r\nWe see that primary wrote to `ClientId=32743a57-2030-4fa5-aadd-756ade802493/L3/v1.0/Primary/PL_RelationshipAwareness/Core/CoreDepositAccounts/InstancePartition=32743a57-2030-4fa5-aadd-756ade802493/VersionPartition=v2.3/DatePartition=20260618/`:\r\n<img width=\"1871\" height=\"270\" alt=\"image\" src=\"https://github.com/user-attachments/assets/312a6ad7-4288-4abb-90ba-c5544b6f6510\" />\r\nLooking at the primary datasets, we have the following:\r\n<img width=\"2939\" height=\"35\" alt=\"image\" src=\"https://github.com/user-attachments/assets/09fd035f-f712-4553-ba36-d66efef46c7d\" />\r\n<img width=\"584\" height=\"42\" alt=\"image\" src=\"https://github.com/user-attachments/assets/d5ccf47c-b108-4261-ad6d-74c3b3c5d190\" />\r\n\r\nAnd derived with incremented version: `ClientId=32743a57-2030-4fa5-aadd-756ade802493/L3/v1.0/Derived/PL_RelationshipAwareness/Core/CoreDepositAccounts/InstancePartition=32743a57-2030-4fa5-aadd-756ade802493/VersionPartition=v3.6/`:\r\n<img width=\"1797\" height=\"118\" alt=\"image\" src=\"https://github.com/user-attachments/assets/582b862c-3454-4da2-9722-7d849c624cf0\" />\r\n\r\n<img width=\"608\" height=\"68\" alt=\"image\" src=\"https://github.com/user-attachments/assets/3bbdcadf-0ba5-47ae-8ac9-ef93862e7c24\" />\r\n\r\nAnd Snowflake Evolution runs successfully:\r\n<img width=\"1427\" height=\"349\" alt=\"image\" src=\"https://github.com/user-attachments/assets/cec5286a-20af-4d57-8736-8a4fdff8f74d\" />\r\n\r\nWe need to run the following task group to stage the files:\r\n<img width=\"1403\" height=\"132\" alt=\"image\" src=\"https://github.com/user-attachments/assets/6988d7a1-2f43-45b3-9827-53817d9568db\" />\r\n\r\nAnd then `snowflake_ingestion` runs:\r\n<img width=\"1428\" height=\"1023\" alt=\"image\" src=\"https://github.com/user-attachments/assets/732a9726-0328-4588-b830-b9b42f7fac49\" />\r\nAnd succeeds:\r\n\r\n<img width=\"1429\" height=\"1001\" alt=\"image\" src=\"https://github.com/user-attachments/assets/0da02cdf-2021-4c04-bfb3-8e93f380e857\" />\r\n\r\nFinally, we have non-null values in Snowflake!!!\r\n<img width=\"2357\" height=\"741\" alt=\"image\" src=\"https://github.com/user-attachments/assets/56f44cee-c32c-4f7d-bfdf-3dde3aba597b\" />\r\n",
+          "state": "closed",
+          "merged_at": "2026-06-26T13:31:19Z",
+          "created_at": "2026-06-15T20:06:15Z",
+          "updated_at": "2026-06-26T13:31:25Z",
+          "closed_at": "2026-06-26T13:31:19Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "089a244487a1313f05a3c2abca3ff9624012e50c",
+          "head_branch": "DE-2777",
+          "head_sha": "18fdc6623ee896993712ead0676eff688e77a8a3",
+          "merge_commit_sha": "feb991181087153145896f9baeb35b9939ebd724",
+          "commits": 17,
+          "changed_files": 12,
+          "additions": 494,
+          "deletions": 6,
+          "match_evidence": [
+            "title"
+          ]
+        }
+      ],
+      "local_branch_evidence": []
+    },
+    {
+      "ticket": {
+        "key": "DE-2777",
+        "url": "https://qtwo.atlassian.net/browse/DE-2777",
+        "summary": "Update HQ, Derived and Monthly derived Core Deposit Accounts with new fields",
+        "description": "Update all the downstream datasets for Deposit accounts with the new fields. Also update Snowflake datasets and definitions\n\n* HQ Core Deposit Accounts\n* Core Deposit Accounts Derived\n* Core Deposit Accounts Monthly\n* DBX SQL updates\n* Snowflake updates\n\nField names: \n\n* RowValues\n* CoreBillableGroupAccountId\n\nThe following were planned to be added but are now deprecated:\n\n* DepositFTPLog\n* FTPOverCurrentPeriodLog\n* FTPOverLoanLifeLog\n* FTPOverRemainingLifeLog\n\n",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+          "display_name": "Kausik Kannan"
+        },
+        "created_at": "2026-05-26T13:55:14.921-0500",
+        "updated_at": "2026-07-07T14:41:37.393-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 32062,
+            "name": "DP - Sprint 237",
+            "state": "closed",
+            "start_date": "2026-06-11T20:07:44.787Z",
+            "end_date": "2026-06-25T20:07:30.000Z",
+            "complete_date": "2026-06-25T15:08:51.921Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 32065,
+            "name": "DP - Sprint 238",
+            "state": "closed",
+            "start_date": "2026-06-25T15:40:43.236Z",
+            "end_date": "2026-07-09T05:00:00.000Z",
+            "complete_date": "2026-07-09T15:09:00.950Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2892,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2892",
+          "name": "DE-2776 & DE-2777: Core Deposit Accounts & Downstream Datasets",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [ ] update Databricks and/or Snowflake, if  appropriate\r\n- [ ] Was this tested in Alpha Airflow\r\n- [ ] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [ ] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2777](https://qtwo.atlassian.net/browse/DE-2777)\r\n\r\nWe have the following new fields:\r\n- `RowValues`\r\n- `CoreBillableGroupAccountId`\r\n\r\nThese tickets previously involved the following columns:\r\n- `DepositFTPLog`\r\n- `CoreBillableGroupAccountId`\r\n\r\nThey are no longer relevant since RA does not use FTP:\r\n\r\n<img width=\"1308\" height=\"539\" alt=\"image\" src=\"https://github.com/user-attachments/assets/5283a794-7c9a-4819-a55f-ba1d5df2006d\" />\r\n\r\n\r\nWe add these to the following datasets:\r\n- `Primary CoreDepositAccounts`\r\n- `Derived CoreDepositAccounts`\r\n- `Monthly derived CoreDepositAccountsMonthly`\r\n- `Snowflake table: CORE_DEPOSIT_ACCOUNTS_MONTHLY`\r\n\r\n# Testing\r\n\r\nTesting involves deploying, testing in alpha, and tracking data from Primary, Derived, to Snowflake.\r\n\r\nI successfully deployed last `6/23`. \r\n<img width=\"1828\" height=\"208\" alt=\"image\" src=\"https://github.com/user-attachments/assets/b46a0650-2e8f-4e29-a285-c8b8008c01d7\" />\r\n\r\nLet us focus on `32743a57-2030-4fa5-aadd-756ade802493`. Our intended changes run successfully against `32743a57-2030-4fa5-aadd-756ade802493` as seen [here](https://airflow.alpha01.precisionlender.com/dags/l3-main-32743a57-2030-4fa5-aadd-756ade802493/grid?dag_run_id=manual__2026-06-18T05%3A00%3A00%2B00%3A00&task_id=relationship_deposit_anomalies.deposit_anomalies_to_andi_skill_storage). The failing jobs relate to Andi.\r\n\r\nWe see that primary wrote to `ClientId=32743a57-2030-4fa5-aadd-756ade802493/L3/v1.0/Primary/PL_RelationshipAwareness/Core/CoreDepositAccounts/InstancePartition=32743a57-2030-4fa5-aadd-756ade802493/VersionPartition=v2.3/DatePartition=20260618/`:\r\n<img width=\"1871\" height=\"270\" alt=\"image\" src=\"https://github.com/user-attachments/assets/312a6ad7-4288-4abb-90ba-c5544b6f6510\" />\r\nLooking at the primary datasets, we have the following:\r\n<img width=\"2939\" height=\"35\" alt=\"image\" src=\"https://github.com/user-attachments/assets/09fd035f-f712-4553-ba36-d66efef46c7d\" />\r\n<img width=\"584\" height=\"42\" alt=\"image\" src=\"https://github.com/user-attachments/assets/d5ccf47c-b108-4261-ad6d-74c3b3c5d190\" />\r\n\r\nAnd derived with incremented version: `ClientId=32743a57-2030-4fa5-aadd-756ade802493/L3/v1.0/Derived/PL_RelationshipAwareness/Core/CoreDepositAccounts/InstancePartition=32743a57-2030-4fa5-aadd-756ade802493/VersionPartition=v3.6/`:\r\n<img width=\"1797\" height=\"118\" alt=\"image\" src=\"https://github.com/user-attachments/assets/582b862c-3454-4da2-9722-7d849c624cf0\" />\r\n\r\n<img width=\"608\" height=\"68\" alt=\"image\" src=\"https://github.com/user-attachments/assets/3bbdcadf-0ba5-47ae-8ac9-ef93862e7c24\" />\r\n\r\nAnd Snowflake Evolution runs successfully:\r\n<img width=\"1427\" height=\"349\" alt=\"image\" src=\"https://github.com/user-attachments/assets/cec5286a-20af-4d57-8736-8a4fdff8f74d\" />\r\n\r\nWe need to run the following task group to stage the files:\r\n<img width=\"1403\" height=\"132\" alt=\"image\" src=\"https://github.com/user-attachments/assets/6988d7a1-2f43-45b3-9827-53817d9568db\" />\r\n\r\nAnd then `snowflake_ingestion` runs:\r\n<img width=\"1428\" height=\"1023\" alt=\"image\" src=\"https://github.com/user-attachments/assets/732a9726-0328-4588-b830-b9b42f7fac49\" />\r\nAnd succeeds:\r\n\r\n<img width=\"1429\" height=\"1001\" alt=\"image\" src=\"https://github.com/user-attachments/assets/0da02cdf-2021-4c04-bfb3-8e93f380e857\" />\r\n\r\nFinally, we have non-null values in Snowflake!!!\r\n<img width=\"2357\" height=\"741\" alt=\"image\" src=\"https://github.com/user-attachments/assets/56f44cee-c32c-4f7d-bfdf-3dde3aba597b\" />\r\n",
+          "state": "closed",
+          "merged_at": "2026-06-26T13:31:19Z",
+          "created_at": "2026-06-15T20:06:15Z",
+          "updated_at": "2026-06-26T13:31:25Z",
+          "closed_at": "2026-06-26T13:31:19Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "089a244487a1313f05a3c2abca3ff9624012e50c",
+          "head_branch": "DE-2777",
+          "head_sha": "18fdc6623ee896993712ead0676eff688e77a8a3",
+          "merge_commit_sha": "feb991181087153145896f9baeb35b9939ebd724",
+          "commits": 17,
+          "changed_files": 12,
+          "additions": 494,
+          "deletions": 6,
+          "match_evidence": [
+            "title",
+            "description"
+          ]
+        },
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2891,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2891",
+          "name": "DE-2834: Doubled LoanAmounts ",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [ ] update Databricks and/or Snowflake, if  appropriate\r\n- [x] Was this tested in Alpha Airflow\r\n- [ ] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [x] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2834](https://qtwo.atlassian.net/browse/DE-2834)\r\n\r\nIn rare cases, Opportunities with conversion loans show doubled LoanAmount. This happened because the job pulled from `Scenario.commercialLoanAccounts`. For a conversion loan, you could have:\r\n\r\n```[python]\r\nScenario.commercialLoanAccounts = [\r\n  { shortId: \"ABC\", amount: 2,400,000 },  # original/current loan\r\n  { shortId: \"XYZ\", amount: 2,400,000 }   # conversion loan copy/version\r\n]\r\n```\r\n\r\nThat is, the loan is copied from one account to another and double counted. Using `allLoansFinancialStatement.loanAmount` does not double count.\r\n\r\n# Testing\r\n\r\nIn testing, we are comparing the data generated on June 10th, 2026 to the data generated from DE-2834.\r\n\r\n<img width=\"1151\" height=\"62\" alt=\"image\" src=\"https://github.com/user-attachments/assets/96dedb5f-3057-492e-8df5-8898f8217019\" />\r\n\r\nI downloaded the json data from `/ClientId=99b9412b-70fd-4221-8431-d1b3934889ec/L3/v1.0/Derived/PL_Application/Opportunities/PipelineScenariosOpportunitiesSnapshot/InstancePartition=99b9412b-70fd-4221-8431-d1b3934889ec/VersionPartition=v2.3/WriteTimePartition=20260609-050000/`.\r\n\r\nUpon running the job again, we see that data was overwritten.\r\n<img width=\"1608\" height=\"126\" alt=\"image\" src=\"https://github.com/user-attachments/assets/c11d9cac-9829-465c-a670-57e2d2c143e5\" />\r\n\r\nThen, I download the new file to compare: `file1.json -> from master, file2.json -> generated from DE-2834`. \r\n\r\nRunning `vimdiff -d file1.json file2.json` we actually see no rows are different:\r\n<img width=\"1522\" height=\"69\" alt=\"image\" src=\"https://github.com/user-attachments/assets/1e08e672-52f3-4d84-a0aa-64bd5d172689\" />\r\n\r\nIntegration Testing:\r\nIntegration testing involved running two identical with one difference: each notebook runs code from a different branch. I used `DE-2834 (this branch), DE-2777`.\r\n\r\n[DE-2834 notebook](https://adb-3510128597187204.4.azuredatabricks.net/editor/notebooks/2471318514406963?o=3510128597187204)\r\n[DE-2777 Notebook](https://adb-3510128597187204.4.azuredatabricks.net/editor/notebooks/2471318514406963?o=3510128597187204)\r\n\r\nIn the integration test, I inject a duplicate loan for `Scenario.commercialLoanAccounts` for one row. Running each job resulted in our desired behavior -- we have one row that is summed twice:\r\n<img width=\"2806\" height=\"727\" alt=\"image\" src=\"https://github.com/user-attachments/assets/160491b9-6b37-4db7-a09c-dd4ada3a472a\" />\r\n",
+          "state": "closed",
+          "merged_at": "2026-06-29T15:01:13Z",
+          "created_at": "2026-06-15T17:49:40Z",
+          "updated_at": "2026-06-29T15:01:13Z",
+          "closed_at": "2026-06-29T15:01:13Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "feb991181087153145896f9baeb35b9939ebd724",
+          "head_branch": "DE-2834",
+          "head_sha": "524f73b0177913c3d52f656441fc5693a28f059c",
+          "merge_commit_sha": "65b153d9de171431224d04b4ffcf2ed992eb7d9d",
+          "commits": 30,
+          "changed_files": 11,
+          "additions": 222,
+          "deletions": 36,
+          "match_evidence": [
+            "description"
+          ]
+        },
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2907,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2907",
+          "name": "Rollback/de 2777 de 2834",
+          "description": "# Description\r\n\r\nTicket: [DE-2777](https://qtwo.atlassian.net/browse/DE-2777), [DE-2834](https://qtwo.atlassian.net/browse/DE-2834)\r\n\r\nThis PR rolls back the two recently merged changes from `master`:\r\n\r\n- PR #2891 / `DE-2834`: Doubled LoanAmounts\r\n- PR #2892 / `DE-2777`: Core Deposit Accounts & Downstream Datasets\r\n\r\nThe rollback was done with explicit revert commits:\r\n\r\n- `65b153d9d` reverted for DE-2834\r\n- `feb991181` reverted for DE-2777\r\n\r\nBackup branches were created before preparing the forward PRs:\r\n\r\n- `backup/DE-2834-before-rollback-20260629`\r\n- `backup/DE-2777-before-rollback-20260629`\r\n\r\n# Follow-up Plan\r\n\r\nAfter this rollback merges, the changes will be reintroduced in separate forward PRs:\r\n\r\n1. DE-2834 forward PR\r\n2. DE-2777 forward PR\r\n\r\nThis keeps the rollback isolated and lets the two changes be reviewed and merged independently going forward.\r\n\r\n# Testing\r\n\r\nNo code behavior was manually re-tested for this rollback.\r\n\r\nValidation performed:\r\n\r\n- Confirmed both target merge commits were identified\r\n- Reverted DE-2834 first\r\n- Reverted DE-2777 second\r\n- Confirmed the rollback branch contains only the two revert commits\r\n- Confirmed GitHub reports this PR as mergeable",
+          "state": "closed",
+          "merged_at": "2026-06-29T18:55:07Z",
+          "created_at": "2026-06-29T18:43:49Z",
+          "updated_at": "2026-06-29T18:55:07Z",
+          "closed_at": "2026-06-29T18:55:07Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "65b153d9de171431224d04b4ffcf2ed992eb7d9d",
+          "head_branch": "rollback/DE-2777-DE-2834",
+          "head_sha": "b6dd151317168e66f6294ebb4448f33b32d4ea76",
+          "merge_commit_sha": "25eee922ec9412d903c8fe0418542f4e8a143a9b",
+          "commits": 2,
+          "changed_files": 23,
+          "additions": 42,
+          "deletions": 716,
+          "match_evidence": [
+            "description"
+          ]
+        },
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2908,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2908",
+          "name": "DE-2834: Doubled LoanAmounts",
+          "description": "## Summary\n\nReapplies the DE-2834 changes as a clean forward PR after the rollback branch.\n\nThis branch was rebuilt from `rollback/DE-2777-DE-2834` by replaying merge commit `65b153d9d` with `git cherry-pick -m 1`, so the review diff is limited to the DE-2834 LoanAmount conversion changes.\n\n## Stack\n\n1. Merge rollback PR first: `rollback/DE-2777-DE-2834` into `master`\n2. Merge this PR next\n3. Then merge the DE-2777 forward PR\n\n## Validation\n\n- Compared `rollback/DE-2777-DE-2834...DE-2834-forward`\n- Diff is 1 commit / 11 files, matching the DE-2834 merge diff",
+          "state": "closed",
+          "merged_at": "2026-07-01T17:50:44Z",
+          "created_at": "2026-06-29T18:45:06Z",
+          "updated_at": "2026-07-01T17:50:44Z",
+          "closed_at": "2026-07-01T17:50:44Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "25eee922ec9412d903c8fe0418542f4e8a143a9b",
+          "head_branch": "DE-2834-forward",
+          "head_sha": "a0c12784e5036ca872a9c6df7408d3068b9211a3",
+          "merge_commit_sha": "c130f01edcaa258cc543bb2d91c5ebb4abed2dd6",
+          "commits": 1,
+          "changed_files": 11,
+          "additions": 222,
+          "deletions": 36,
+          "match_evidence": [
+            "description"
+          ]
+        },
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2913,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2913",
+          "name": "DE-2777: add core deposit account downstream fields",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [ ] update Databricks and/or Snowflake, if  appropriate\r\n- [ ] Was this tested in Alpha Airflow\r\n- [ ] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [ ] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2834](https://qtwo.atlassian.net/browse/DE-2834)\r\n\r\nThe source version from branch DE-2777 is:\r\n18fdc6623ee896993712ead0676eff688e77a8a3\r\n\r\nThis restores the `v1_0_22_de_2777` Snowflake evolution and the downstream Core Deposit Account field propagation for HQ, Derived, and Monthly Derived datasets.\r\n\r\nThe restored change updates:\r\n- Core Deposit Account datamart output\r\n- High Quality Core Deposit Accounts\r\n- RA dataset metadata for primary and derived Core Deposit Accounts\r\n- Snowflake evolution DAG/job wiring\r\n- Archived OpenSpec docs for the DE-2777 change\r\n\r\n# Testing\r\n\r\nThis branch version was previously tested in this [PR](https://github.com/precisionlender/di-pipelines/pull/2892).\r\n\r\nTesting will just involve re-running the main graph downstream from `ra_group.get_core_deposit_accounts`.\r\n\r\nMain graph succeeded and wrote non-null data:\r\n\r\n<img width=\"1991\" height=\"917\" alt=\"image\" src=\"https://github.com/user-attachments/assets/1b76894b-98d7-492f-a9b8-ff4ebe7a6231\" />\r\n",
+          "state": "closed",
+          "merged_at": "2026-07-06T18:27:11Z",
+          "created_at": "2026-07-02T17:44:49Z",
+          "updated_at": "2026-07-06T18:27:11Z",
+          "closed_at": "2026-07-06T18:27:11Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "f19abac868af02a15f7a4a8bd3a8e833686a59f8",
+          "head_branch": "DE-2777-forward",
+          "head_sha": "e47c8ba7cc38f9e1f64eae60360acb6bdc96eefa",
+          "merge_commit_sha": "e6dd347533911c34d6b4b9e536b9336149188758",
+          "commits": 2,
+          "changed_files": 12,
+          "additions": 526,
+          "deletions": 9,
+          "match_evidence": [
+            "title",
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": [
+        {
+          "ticket_key": "DE-2777",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/DE-2777-forward",
+          "commit_sha": "e47c8ba7cc38f9e1f64eae60360acb6bdc96eefa",
+          "committed_at": "2026-07-06T09:53:51-04:00",
+          "subject": "adding backfill to plan"
+        },
+        {
+          "ticket_key": "DE-2777",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/backup/DE-2777-before-rollback-20260629",
+          "commit_sha": "18fdc6623ee896993712ead0676eff688e77a8a3",
+          "committed_at": "2026-06-25T09:54:20-04:00",
+          "subject": "address arunima comments"
+        },
+        {
+          "ticket_key": "DE-2777",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/rollback/DE-2777-DE-2834",
+          "commit_sha": "b6dd151317168e66f6294ebb4448f33b32d4ea76",
+          "committed_at": "2026-06-29T14:42:04-04:00",
+          "subject": "Revert \"Merge pull request #2892 from precisionlender/DE-2777\""
+        }
+      ]
+    },
+    {
+      "ticket": {
+        "key": "DE-2778",
+        "url": "https://qtwo.atlassian.net/browse/DE-2778",
+        "summary": "Update Primary Core Treasury Accounts with new fields on the RA source file - dbstagingCoreTreasuryAccounts",
+        "description": "There are a few new fields on the Treasury source files from RA - need to add them to our primary datasets\n\nNew fields required\n\n* CoreBillableGroupAccountId\n\n",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+          "display_name": "Kausik Kannan"
+        },
+        "created_at": "2026-05-26T14:05:04.665-0500",
+        "updated_at": "2026-07-13T12:47:06.402-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 32065,
+            "name": "DP - Sprint 238",
+            "state": "closed",
+            "start_date": "2026-06-25T15:40:43.236Z",
+            "end_date": "2026-07-09T05:00:00.000Z",
+            "complete_date": "2026-07-09T15:09:00.950Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2910,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2910",
+          "name": "DE-2778: Adding Field to CoreTreasuryAccounts",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [ ] update Databricks and/or Snowflake, if  appropriate\r\n- [x] Was this tested in Alpha Airflow\r\n- [x] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [x] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2778](https://qtwo.atlassian.net/browse/DE-22778)\r\n\r\nAdds CoreBillableGroupAccountId from the RA dbStagingCoreTreasuryAccounts source file to the PL_RelationshipAwareness/Core/CoreTreasuryAccounts primary dataset.\r\n\r\n# Testing\r\n\r\nTesting involved running and deploying to alpha, then seeing that the field `CoreBillableGroupAccountId` appears.\r\n\r\nOn re-run the job succeeds writing to version partition for `1.2`:\r\n<img width=\"3365\" height=\"1014\" alt=\"image\" src=\"https://github.com/user-attachments/assets/5bb87db8-eff4-48cc-9756-270357aa91c6\" />\r\n\r\nThe new field appears!\r\n<img width=\"1944\" height=\"803\" alt=\"image\" src=\"https://github.com/user-attachments/assets/efb31d79-437f-4d24-be4c-7a7f42dc63f5\" />\r\n\r\n",
+          "state": "closed",
+          "merged_at": "2026-06-30T15:58:01Z",
+          "created_at": "2026-06-29T20:23:39Z",
+          "updated_at": "2026-06-30T15:58:35Z",
+          "closed_at": "2026-06-30T15:58:01Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "25eee922ec9412d903c8fe0418542f4e8a143a9b",
+          "head_branch": "DE-2778",
+          "head_sha": "4a20acc78315861cd2115f4b5ab3210a6d914ac4",
+          "merge_commit_sha": "873d5a448b80fa1678597ee39e0e6dcfe76e9b67",
+          "commits": 1,
+          "changed_files": 3,
+          "additions": 14,
+          "deletions": 4,
+          "match_evidence": [
+            "title",
+            "description"
+          ]
+        },
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2911,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2911",
+          "name": "DE-2779: Update Core Treasury Derived and Monthly",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [x] update Databricks and/or Snowflake, if  appropriate\r\n- [x] Was this tested in Alpha Airflow\r\n- [x] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [x] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [x] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2779](https://qtwo.atlassian.net/browse/DE-2779)\r\n\r\nThis ticket has a sibbling [DBX PR here](https://github.com/precisionlender/di-schema-definitions/pull/134)\r\n\r\nThis ticket is a follow on to [DE-2778](https://qtwo.atlassian.net/browse/DE-2778). Previously, we added `CoreBillableGroupAccountId` to the primary dataset for `core_deposit_accounts`. This ticket involves bringing `CoreBillableGroupAccountId` to downstream datasets including:\r\n\r\n- Derived HQ Core Treasury Accounts\r\n- Core Treasury Accounts Monthly\r\n- DBX SQL updates\r\n- Snowflake updates\r\n\r\n\r\n\r\n# Testing\r\n\r\nTesting involved first running a dry run and not-dry run. \r\n<img width=\"1041\" height=\"439\" alt=\"image\" src=\"https://github.com/user-attachments/assets/fa9d8e9c-bb70-4228-8808-0676e1928a22\" />\r\n\r\nThe it involved running for client `99b9412b-70fd-4221-8431-d1b3934889ec` to see that we properly pass though `CoreBillableGroupAccountId`.\r\n\r\n<img width=\"1855\" height=\"258\" alt=\"image\" src=\"https://github.com/user-attachments/assets/61c9273e-e90e-495a-9bbb-5e0dd0713837\" />\r\n\r\nThen we run `monthly_core_treasury_accounts`.\r\n<img width=\"1006\" height=\"125\" alt=\"image\" src=\"https://github.com/user-attachments/assets/afad5af6-67e9-44dc-8f5d-ad3e921e1cc0\" />\r\n\r\nThe run `snowflake_ingestion`:\r\n<img width=\"1137\" height=\"26\" alt=\"image\" src=\"https://github.com/user-attachments/assets/e5d66bec-b920-431e-8f01-3d87591db0b4\" />\r\n\r\nNon null data!\r\n<img width=\"1561\" height=\"853\" alt=\"image\" src=\"https://github.com/user-attachments/assets/e88c9353-458a-4ea5-bd2f-5b585063e022\" />\r\n",
+          "state": "closed",
+          "merged_at": "2026-07-09T16:26:01Z",
+          "created_at": "2026-07-01T13:10:26Z",
+          "updated_at": "2026-07-09T16:32:48Z",
+          "closed_at": "2026-07-09T16:26:01Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "e03fdab2d829939fdeb2201ed544b14d79581418",
+          "head_branch": "DE-2779",
+          "head_sha": "d22d7cd379f40455e49c77b1f795fb94076bcac4",
+          "merge_commit_sha": "0834272b88a7d25654f3b030f7f6cef26b45370f",
+          "commits": 11,
+          "changed_files": 10,
+          "additions": 426,
+          "deletions": 2,
+          "match_evidence": [
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": []
+    },
+    {
+      "ticket": {
+        "key": "DE-2779",
+        "url": "https://qtwo.atlassian.net/browse/DE-2779",
+        "summary": "Update Core Treasury HQ, derived and monthly derived datasets",
+        "description": "Flow down new fields added to Treasury primary datasets to HQ, derived and monthly derived datasets. Also update Snowflake datasets and definitions\n\n* Derived HQ Core Treasury Accounts\n* Core Treasury Accounts Monthly\n* DBX SQL updates\n* Snowflake updates\n\nNew fields \n\n* CoreBillableGroupAccountId\n\n",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+          "display_name": "Kausik Kannan"
+        },
+        "created_at": "2026-05-26T14:26:13.564-0500",
+        "updated_at": "2026-07-13T08:46:55.912-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 32065,
+            "name": "DP - Sprint 238",
+            "state": "closed",
+            "start_date": "2026-06-25T15:40:43.236Z",
+            "end_date": "2026-07-09T05:00:00.000Z",
+            "complete_date": "2026-07-09T15:09:00.950Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 32365,
+            "name": "DP - Sprint 239",
+            "state": "closed",
+            "start_date": "2026-07-09T05:00:10.925Z",
+            "end_date": "2026-07-23T05:00:00.000Z",
+            "complete_date": "2026-07-23T15:08:14.295Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2911,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2911",
+          "name": "DE-2779: Update Core Treasury Derived and Monthly",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [x] update Databricks and/or Snowflake, if  appropriate\r\n- [x] Was this tested in Alpha Airflow\r\n- [x] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [x] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [x] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2779](https://qtwo.atlassian.net/browse/DE-2779)\r\n\r\nThis ticket has a sibbling [DBX PR here](https://github.com/precisionlender/di-schema-definitions/pull/134)\r\n\r\nThis ticket is a follow on to [DE-2778](https://qtwo.atlassian.net/browse/DE-2778). Previously, we added `CoreBillableGroupAccountId` to the primary dataset for `core_deposit_accounts`. This ticket involves bringing `CoreBillableGroupAccountId` to downstream datasets including:\r\n\r\n- Derived HQ Core Treasury Accounts\r\n- Core Treasury Accounts Monthly\r\n- DBX SQL updates\r\n- Snowflake updates\r\n\r\n\r\n\r\n# Testing\r\n\r\nTesting involved first running a dry run and not-dry run. \r\n<img width=\"1041\" height=\"439\" alt=\"image\" src=\"https://github.com/user-attachments/assets/fa9d8e9c-bb70-4228-8808-0676e1928a22\" />\r\n\r\nThe it involved running for client `99b9412b-70fd-4221-8431-d1b3934889ec` to see that we properly pass though `CoreBillableGroupAccountId`.\r\n\r\n<img width=\"1855\" height=\"258\" alt=\"image\" src=\"https://github.com/user-attachments/assets/61c9273e-e90e-495a-9bbb-5e0dd0713837\" />\r\n\r\nThen we run `monthly_core_treasury_accounts`.\r\n<img width=\"1006\" height=\"125\" alt=\"image\" src=\"https://github.com/user-attachments/assets/afad5af6-67e9-44dc-8f5d-ad3e921e1cc0\" />\r\n\r\nThe run `snowflake_ingestion`:\r\n<img width=\"1137\" height=\"26\" alt=\"image\" src=\"https://github.com/user-attachments/assets/e5d66bec-b920-431e-8f01-3d87591db0b4\" />\r\n\r\nNon null data!\r\n<img width=\"1561\" height=\"853\" alt=\"image\" src=\"https://github.com/user-attachments/assets/e88c9353-458a-4ea5-bd2f-5b585063e022\" />\r\n",
+          "state": "closed",
+          "merged_at": "2026-07-09T16:26:01Z",
+          "created_at": "2026-07-01T13:10:26Z",
+          "updated_at": "2026-07-09T16:32:48Z",
+          "closed_at": "2026-07-09T16:26:01Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "e03fdab2d829939fdeb2201ed544b14d79581418",
+          "head_branch": "DE-2779",
+          "head_sha": "d22d7cd379f40455e49c77b1f795fb94076bcac4",
+          "merge_commit_sha": "0834272b88a7d25654f3b030f7f6cef26b45370f",
+          "commits": 11,
+          "changed_files": 10,
+          "additions": 426,
+          "deletions": 2,
+          "match_evidence": [
+            "title",
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": []
+    },
+    {
+      "ticket": {
+        "key": "DE-2827",
+        "url": "https://qtwo.atlassian.net/browse/DE-2827",
+        "summary": "Standardize Spark Configurations",
+        "description": "Currently, configurations for Spark Configurations are strewn throughout the codebase. In this ticket, we will standardize and test commonly-used spark configurations within `resource_allocations`.\n\n\u200c\n\nThis ticket may also involve changing Celery Configuration.",
+        "issue_type": "Task",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "created_at": "2026-06-08T09:26:58.893-0500",
+        "updated_at": "2026-07-01T13:07:09.701-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 31441,
+            "name": "DP - Sprint 236",
+            "state": "closed",
+            "start_date": "2026-05-21T16:08:19.544Z",
+            "end_date": "2026-06-11T05:00:00.000Z",
+            "complete_date": "2026-06-11T15:11:16.214Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 32062,
+            "name": "DP - Sprint 237",
+            "state": "closed",
+            "start_date": "2026-06-11T20:07:44.787Z",
+            "end_date": "2026-06-25T20:07:30.000Z",
+            "complete_date": "2026-06-25T15:08:51.921Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 32065,
+            "name": "DP - Sprint 238",
+            "state": "closed",
+            "start_date": "2026-06-25T15:40:43.236Z",
+            "end_date": "2026-07-09T05:00:00.000Z",
+            "complete_date": "2026-07-09T15:09:00.950Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2888,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2888",
+          "name": "Moving Spark Configurations to Resource Allocations",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [ ] update Databricks and/or Snowflake, if  appropriate\r\n- [x] Was this tested in Alpha Airflow\r\n- [ ] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [ ] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2827](https://qtwo.atlassian.net/browse/DE-2827)\r\n\r\nBefore this ticket, there were many duplicate Spark driver and executor configurations. This ticket centralizes driver and executors with 5 or more identical configurations. \r\n\r\n# Testing\r\nTesting involved deploying to Alpha and running di-pipelines for`32743a57-2030-4fa5-aadd-756ade802493` which included and ra run for `2026-06-09`.\r\n\r\nhttps://airflow.alpha01.precisionlender.com/dags/l3-main-32743a57-2030-4fa5-aadd-756ade802493/grid?tab=graph&dag_run_id=manual__2026-06-09T05%3A00%3A00%2B00%3A00&task_id=ra_group\r\n\r\nDAG runs worked apart from Andi failures which are to be expected.",
+          "state": "closed",
+          "merged_at": "2026-07-01T18:03:22Z",
+          "created_at": "2026-06-10T15:34:18Z",
+          "updated_at": "2026-07-01T18:03:22Z",
+          "closed_at": "2026-07-01T18:03:22Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "ef4814d55b46a6ba4af3e92f9916f13c50ebcdb5",
+          "head_branch": "DE-2827",
+          "head_sha": "646eff8c4f5458ead2f5c176a396268e96c48114",
+          "merge_commit_sha": "f19abac868af02a15f7a4a8bd3a8e833686a59f8",
+          "commits": 17,
+          "changed_files": 37,
+          "additions": 551,
+          "deletions": 258,
+          "match_evidence": [
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": [
+        {
+          "ticket_key": "DE-2827",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/DE-2827",
+          "commit_sha": "646eff8c4f5458ead2f5c176a396268e96c48114",
+          "committed_at": "2026-06-25T09:45:16-04:00",
+          "subject": "archiving openspec"
+        }
+      ]
+    },
+    {
+      "ticket": {
+        "key": "DE-2834",
+        "url": "https://qtwo.atlassian.net/browse/DE-2834",
+        "summary": "LoanAmount doubled for opportunities with conversion loans - using wrong source field",
+        "description": "\u00a0Opportunities with conversion loans show doubled LoanAmount values (e.g., $4.8MM instead of $2.4MM). **We are currently using the wrong field.** We extract and sum commercialLoanAccounts\\[\\].amount, but we should be using\n\n\u00a0 allLoansFinancialStatement.loanAmount instead.\n\n\u200c\n\n\u00a0 **Current** **(Wrong)** **Field:**\n\n\u00a0 commercialLoanAccounts\\[\\].amount - extracted from each individual loan account and summed together. This includes both the original loan and its conversion loan, causing duplication.\n\n\u200c\n\n\u00a0 **Correct** **Field:**\n\n\u00a0 allLoansFinancialStatement.loanAmount - pre-aggregated at the scenario level by PrecisionLender. This field already contains the correct total and does not double-count conversion loans.\n\n\u200c\n\n\u00a0 **Files** **to** **Change:**\n\n\u200c\n\n1. ds-jobs/src/datascience_jobs/jobs/data/opportunities/pipeline_scenarios_opportunities_history_v1.py\n\n* Add allLoansFinancialStatement.loanAmount to SCENARIO_COLS\n\n* Remove amount extraction from COMM_LOAN_COLS and MC_COLS\n\n2. ds-jobs/src/datascience_jobs/jobs/data/opportunities/opportunities_helpers.py\n\n* Remove LoanAmount/LoanAmountMC aggregation logic from aggregate_account_array_columns()\n\n* This function currently sums the array of individual loan amounts. Since allLoansFinancialStatement.loanAmount is already a single pre-aggregated value (not an array), the aggregation logic is no longer needed and would fail if left in\n\n\u00a0 place.\n\n\u200c\n\n\u00a0 **Acceptance Criteria:**\n\n* \\[ \\] LoanAmount uses allLoansFinancialStatement.loanAmount instead of summed individual accounts\n\n* \\[ \\] Opportunities with conversion loans show correct (non-doubled) amounts\n\n* \\[ \\] Unit tests updated\n\n",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "60e6049b287807006836dbb2",
+          "display_name": "Arunima Gulia"
+        },
+        "created_at": "2026-06-08T15:51:49.167-0500",
+        "updated_at": "2026-07-07T15:27:48.703-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 31441,
+            "name": "DP - Sprint 236",
+            "state": "closed",
+            "start_date": "2026-05-21T16:08:19.544Z",
+            "end_date": "2026-06-11T05:00:00.000Z",
+            "complete_date": "2026-06-11T15:11:16.214Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 32062,
+            "name": "DP - Sprint 237",
+            "state": "closed",
+            "start_date": "2026-06-11T20:07:44.787Z",
+            "end_date": "2026-06-25T20:07:30.000Z",
+            "complete_date": "2026-06-25T15:08:51.921Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 32065,
+            "name": "DP - Sprint 238",
+            "state": "closed",
+            "start_date": "2026-06-25T15:40:43.236Z",
+            "end_date": "2026-07-09T05:00:00.000Z",
+            "complete_date": "2026-07-09T15:09:00.950Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2891,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2891",
+          "name": "DE-2834: Doubled LoanAmounts ",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [ ] update Databricks and/or Snowflake, if  appropriate\r\n- [x] Was this tested in Alpha Airflow\r\n- [ ] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [x] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2834](https://qtwo.atlassian.net/browse/DE-2834)\r\n\r\nIn rare cases, Opportunities with conversion loans show doubled LoanAmount. This happened because the job pulled from `Scenario.commercialLoanAccounts`. For a conversion loan, you could have:\r\n\r\n```[python]\r\nScenario.commercialLoanAccounts = [\r\n  { shortId: \"ABC\", amount: 2,400,000 },  # original/current loan\r\n  { shortId: \"XYZ\", amount: 2,400,000 }   # conversion loan copy/version\r\n]\r\n```\r\n\r\nThat is, the loan is copied from one account to another and double counted. Using `allLoansFinancialStatement.loanAmount` does not double count.\r\n\r\n# Testing\r\n\r\nIn testing, we are comparing the data generated on June 10th, 2026 to the data generated from DE-2834.\r\n\r\n<img width=\"1151\" height=\"62\" alt=\"image\" src=\"https://github.com/user-attachments/assets/96dedb5f-3057-492e-8df5-8898f8217019\" />\r\n\r\nI downloaded the json data from `/ClientId=99b9412b-70fd-4221-8431-d1b3934889ec/L3/v1.0/Derived/PL_Application/Opportunities/PipelineScenariosOpportunitiesSnapshot/InstancePartition=99b9412b-70fd-4221-8431-d1b3934889ec/VersionPartition=v2.3/WriteTimePartition=20260609-050000/`.\r\n\r\nUpon running the job again, we see that data was overwritten.\r\n<img width=\"1608\" height=\"126\" alt=\"image\" src=\"https://github.com/user-attachments/assets/c11d9cac-9829-465c-a670-57e2d2c143e5\" />\r\n\r\nThen, I download the new file to compare: `file1.json -> from master, file2.json -> generated from DE-2834`. \r\n\r\nRunning `vimdiff -d file1.json file2.json` we actually see no rows are different:\r\n<img width=\"1522\" height=\"69\" alt=\"image\" src=\"https://github.com/user-attachments/assets/1e08e672-52f3-4d84-a0aa-64bd5d172689\" />\r\n\r\nIntegration Testing:\r\nIntegration testing involved running two identical with one difference: each notebook runs code from a different branch. I used `DE-2834 (this branch), DE-2777`.\r\n\r\n[DE-2834 notebook](https://adb-3510128597187204.4.azuredatabricks.net/editor/notebooks/2471318514406963?o=3510128597187204)\r\n[DE-2777 Notebook](https://adb-3510128597187204.4.azuredatabricks.net/editor/notebooks/2471318514406963?o=3510128597187204)\r\n\r\nIn the integration test, I inject a duplicate loan for `Scenario.commercialLoanAccounts` for one row. Running each job resulted in our desired behavior -- we have one row that is summed twice:\r\n<img width=\"2806\" height=\"727\" alt=\"image\" src=\"https://github.com/user-attachments/assets/160491b9-6b37-4db7-a09c-dd4ada3a472a\" />\r\n",
+          "state": "closed",
+          "merged_at": "2026-06-29T15:01:13Z",
+          "created_at": "2026-06-15T17:49:40Z",
+          "updated_at": "2026-06-29T15:01:13Z",
+          "closed_at": "2026-06-29T15:01:13Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "feb991181087153145896f9baeb35b9939ebd724",
+          "head_branch": "DE-2834",
+          "head_sha": "524f73b0177913c3d52f656441fc5693a28f059c",
+          "merge_commit_sha": "65b153d9de171431224d04b4ffcf2ed992eb7d9d",
+          "commits": 30,
+          "changed_files": 11,
+          "additions": 222,
+          "deletions": 36,
+          "match_evidence": [
+            "title",
+            "description"
+          ]
+        },
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2907,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2907",
+          "name": "Rollback/de 2777 de 2834",
+          "description": "# Description\r\n\r\nTicket: [DE-2777](https://qtwo.atlassian.net/browse/DE-2777), [DE-2834](https://qtwo.atlassian.net/browse/DE-2834)\r\n\r\nThis PR rolls back the two recently merged changes from `master`:\r\n\r\n- PR #2891 / `DE-2834`: Doubled LoanAmounts\r\n- PR #2892 / `DE-2777`: Core Deposit Accounts & Downstream Datasets\r\n\r\nThe rollback was done with explicit revert commits:\r\n\r\n- `65b153d9d` reverted for DE-2834\r\n- `feb991181` reverted for DE-2777\r\n\r\nBackup branches were created before preparing the forward PRs:\r\n\r\n- `backup/DE-2834-before-rollback-20260629`\r\n- `backup/DE-2777-before-rollback-20260629`\r\n\r\n# Follow-up Plan\r\n\r\nAfter this rollback merges, the changes will be reintroduced in separate forward PRs:\r\n\r\n1. DE-2834 forward PR\r\n2. DE-2777 forward PR\r\n\r\nThis keeps the rollback isolated and lets the two changes be reviewed and merged independently going forward.\r\n\r\n# Testing\r\n\r\nNo code behavior was manually re-tested for this rollback.\r\n\r\nValidation performed:\r\n\r\n- Confirmed both target merge commits were identified\r\n- Reverted DE-2834 first\r\n- Reverted DE-2777 second\r\n- Confirmed the rollback branch contains only the two revert commits\r\n- Confirmed GitHub reports this PR as mergeable",
+          "state": "closed",
+          "merged_at": "2026-06-29T18:55:07Z",
+          "created_at": "2026-06-29T18:43:49Z",
+          "updated_at": "2026-06-29T18:55:07Z",
+          "closed_at": "2026-06-29T18:55:07Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "65b153d9de171431224d04b4ffcf2ed992eb7d9d",
+          "head_branch": "rollback/DE-2777-DE-2834",
+          "head_sha": "b6dd151317168e66f6294ebb4448f33b32d4ea76",
+          "merge_commit_sha": "25eee922ec9412d903c8fe0418542f4e8a143a9b",
+          "commits": 2,
+          "changed_files": 23,
+          "additions": 42,
+          "deletions": 716,
+          "match_evidence": [
+            "description"
+          ]
+        },
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2908,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2908",
+          "name": "DE-2834: Doubled LoanAmounts",
+          "description": "## Summary\n\nReapplies the DE-2834 changes as a clean forward PR after the rollback branch.\n\nThis branch was rebuilt from `rollback/DE-2777-DE-2834` by replaying merge commit `65b153d9d` with `git cherry-pick -m 1`, so the review diff is limited to the DE-2834 LoanAmount conversion changes.\n\n## Stack\n\n1. Merge rollback PR first: `rollback/DE-2777-DE-2834` into `master`\n2. Merge this PR next\n3. Then merge the DE-2777 forward PR\n\n## Validation\n\n- Compared `rollback/DE-2777-DE-2834...DE-2834-forward`\n- Diff is 1 commit / 11 files, matching the DE-2834 merge diff",
+          "state": "closed",
+          "merged_at": "2026-07-01T17:50:44Z",
+          "created_at": "2026-06-29T18:45:06Z",
+          "updated_at": "2026-07-01T17:50:44Z",
+          "closed_at": "2026-07-01T17:50:44Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "25eee922ec9412d903c8fe0418542f4e8a143a9b",
+          "head_branch": "DE-2834-forward",
+          "head_sha": "a0c12784e5036ca872a9c6df7408d3068b9211a3",
+          "merge_commit_sha": "c130f01edcaa258cc543bb2d91c5ebb4abed2dd6",
+          "commits": 1,
+          "changed_files": 11,
+          "additions": 222,
+          "deletions": 36,
+          "match_evidence": [
+            "title",
+            "description"
+          ]
+        },
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2913,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2913",
+          "name": "DE-2777: add core deposit account downstream fields",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [ ] update Databricks and/or Snowflake, if  appropriate\r\n- [ ] Was this tested in Alpha Airflow\r\n- [ ] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [ ] was data populating as expected and not just null\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2834](https://qtwo.atlassian.net/browse/DE-2834)\r\n\r\nThe source version from branch DE-2777 is:\r\n18fdc6623ee896993712ead0676eff688e77a8a3\r\n\r\nThis restores the `v1_0_22_de_2777` Snowflake evolution and the downstream Core Deposit Account field propagation for HQ, Derived, and Monthly Derived datasets.\r\n\r\nThe restored change updates:\r\n- Core Deposit Account datamart output\r\n- High Quality Core Deposit Accounts\r\n- RA dataset metadata for primary and derived Core Deposit Accounts\r\n- Snowflake evolution DAG/job wiring\r\n- Archived OpenSpec docs for the DE-2777 change\r\n\r\n# Testing\r\n\r\nThis branch version was previously tested in this [PR](https://github.com/precisionlender/di-pipelines/pull/2892).\r\n\r\nTesting will just involve re-running the main graph downstream from `ra_group.get_core_deposit_accounts`.\r\n\r\nMain graph succeeded and wrote non-null data:\r\n\r\n<img width=\"1991\" height=\"917\" alt=\"image\" src=\"https://github.com/user-attachments/assets/1b76894b-98d7-492f-a9b8-ff4ebe7a6231\" />\r\n",
+          "state": "closed",
+          "merged_at": "2026-07-06T18:27:11Z",
+          "created_at": "2026-07-02T17:44:49Z",
+          "updated_at": "2026-07-06T18:27:11Z",
+          "closed_at": "2026-07-06T18:27:11Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "f19abac868af02a15f7a4a8bd3a8e833686a59f8",
+          "head_branch": "DE-2777-forward",
+          "head_sha": "e47c8ba7cc38f9e1f64eae60360acb6bdc96eefa",
+          "merge_commit_sha": "e6dd347533911c34d6b4b9e536b9336149188758",
+          "commits": 2,
+          "changed_files": 12,
+          "additions": 526,
+          "deletions": 9,
+          "match_evidence": [
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": [
+        {
+          "ticket_key": "DE-2834",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/DE-2834",
+          "commit_sha": "524f73b0177913c3d52f656441fc5693a28f059c",
+          "committed_at": "2026-06-26T09:40:03-04:00",
+          "subject": "Merge branch 'master' into DE-2834"
+        },
+        {
+          "ticket_key": "DE-2834",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/DE-2834-forward",
+          "commit_sha": "a0c12784e5036ca872a9c6df7408d3068b9211a3",
+          "committed_at": "2026-06-29T15:02:51-04:00",
+          "subject": "Merge pull request #2891 from precisionlender/DE-2834"
+        },
+        {
+          "ticket_key": "DE-2834",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/backup/DE-2834-before-rollback-20260629",
+          "commit_sha": "524f73b0177913c3d52f656441fc5693a28f059c",
+          "committed_at": "2026-06-26T09:40:03-04:00",
+          "subject": "Merge branch 'master' into DE-2834"
+        },
+        {
+          "ticket_key": "DE-2834",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/rollback/DE-2777-DE-2834",
+          "commit_sha": "b6dd151317168e66f6294ebb4448f33b32d4ea76",
+          "committed_at": "2026-06-29T14:42:04-04:00",
+          "subject": "Revert \"Merge pull request #2892 from precisionlender/DE-2777\""
+        }
+      ]
+    },
+    {
+      "ticket": {
+        "key": "DE-2923",
+        "url": "https://qtwo.atlassian.net/browse/DE-2923",
+        "summary": "Data Studio Snowflake Enablement - PL Data Studio provisioning for BankUnited - LA, PROD and DV",
+        "description": "BankUnited will need Data Studio added to the following environments. Need this to be Snowflake Data Studio.\n\n**Data Team work items:**\u00a0\n\n* Validate data is already in Snowflake, if not, create ticket to pull the data into Snowflake\n* Add client to data share for PL_dataStudio\n\n\u00a0\n\n**Client Info:**\u00a0\n\n| \u00a0 | **Production** | **DV** |\n| --- | --- | --- |\n| **PL Client ID** | 4cc7cdba-c8e7-41d7-8c5d-4b85355a543c |  f8ebcaa4-3f60-4f6e-8fa5-5b16c23032cb |\n| **URL** | [https://bankunited.precisionlender.com](https://cnb.precisionlender.com/) | [https://bankunited-validation.precisionlender.com/](https://bankunited-validation.precisionlender.com/) |\n| \u00a0**SF Account** | [BankUnited N.A. \\| Account \\| Salesforce](https://q2.lightning.force.com/lightning/r/Account/0018000000b8TKtAAM/view)  | \u00a0[BankUnited - PL Data Validation \\| Account \\| Salesforce](https://q2.lightning.force.com/lightning/r/Account/001UR00000eOrNVYA0/view)  |\n\nClient go-live is October 2026 and we plan to connect Data Studio during implementation when available.\n\n**Snowflake Information:**\u00a0\n\n* Account Name: PROD\n* Org Name: BANKUNITED\n* Locator: **ETB79623**\n* Region: AWS_US_EAST_1\u00a0\n* Account Identifier: **BANKUNITED-PROD**\n\nSnowflake Hosting: AWS",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:257de4b5-f918-41fc-ad9c-abd5b1d721ad",
+          "display_name": "Darshna Gowin"
+        },
+        "created_at": "2026-06-23T15:46:46.732-0500",
+        "updated_at": "2026-07-15T10:36:55.319-0500",
+        "sprints": [
+          {
+            "board": "data-platform",
+            "id": 32065,
+            "name": "DP - Sprint 238",
+            "state": "closed",
+            "start_date": "2026-06-25T15:40:43.236Z",
+            "end_date": "2026-07-09T05:00:00.000Z",
+            "complete_date": "2026-07-09T15:09:00.950Z"
+          },
+          {
+            "board": "data-platform",
+            "id": 32365,
+            "name": "DP - Sprint 239",
+            "state": "closed",
+            "start_date": "2026-07-09T05:00:10.925Z",
+            "end_date": "2026-07-23T05:00:00.000Z",
+            "complete_date": "2026-07-23T15:08:14.295Z"
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2920,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2920",
+          "name": "DE-2923: adding dv and prod",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [ ] update Databricks and/or Snowflake, if  appropriate\r\n- [ ] Was this tested in Alpha Airflow\r\n- [ ] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [ ] was data populating as expected and not just null\r\n- [ ] OpenSpec plan has been archived\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nTicket: [DE-2923](https://qtwo.atlassian.net/browse/DE-2923)\r\nBankUnited will need Data Studio added to the following environments. \r\n\r\n\r\nBoth Bank United and DV are in in Snowflake\r\n<img width=\"1038\" height=\"228\" alt=\"image\" src=\"https://github.com/user-attachments/assets/a7e9ab2a-7144-4e41-b80f-b9e4981783cf\" />\r\n\r\n<img width=\"1029\" height=\"325\" alt=\"image\" src=\"https://github.com/user-attachments/assets/ec999614-b59f-4736-88f5-8fa12b0c8445\" />\r\n\r\nWe must add the following accounts to Data Studio with this information:\u00a0\r\n- Account Name: PROD\r\n- Org Name: BANKUNITED\r\n- Locator: ETB79623\r\n- Region: AWS_US_EAST_1\u00a0\r\n- Account Identifier: BANKUNITED-PROD\r\n",
+          "state": "closed",
+          "merged_at": "2026-07-14T18:03:13Z",
+          "created_at": "2026-07-13T18:11:35Z",
+          "updated_at": "2026-07-14T18:03:48Z",
+          "closed_at": "2026-07-14T18:03:13Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "c5582c19b23312eb290538d571a9d3d4366d1e1f",
+          "head_branch": "DE-2923",
+          "head_sha": "0bd7e870541da4e59ad04986f3f1eeead71c6e33",
+          "merge_commit_sha": "3b51ea640f1635c7e806569b296028de092e35ec",
+          "commits": 1,
+          "changed_files": 2,
+          "additions": 12,
+          "deletions": 0,
+          "match_evidence": [
+            "title",
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": []
+    },
+    {
+      "ticket": {
+        "key": "DE-3028",
+        "url": "https://qtwo.atlassian.net/browse/DE-3028",
+        "summary": "Add WSFS Bank to Nightly Data Feeds",
+        "description": "I\u2019ve recently provisioned WSFS Bank on US01 and I\u2019d like to ensure they are added to the nightly data feeds pipeline.  \n\nClient ID:  81914376-95ac-4531-8cf4-72ab1190d41f\n\nClient Name:  Wilmington Savings Fund Society, FSB aka WSFS Bank\n\nStack:  US01",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:e6c13054-33b6-4ec1-a79a-2cdb9d62faf1",
+          "display_name": "Laura English"
+        },
+        "created_at": "2026-07-14T14:26:40.489-0500",
+        "updated_at": "2026-07-30T15:45:24.105-0500",
+        "sprints": [
+          {
+            "board": "pl-data",
+            "id": 34191,
+            "name": "PL Data - Sprint 240",
+            "state": "active",
+            "start_date": "2026-07-23T14:27:01.695Z",
+            "end_date": "2026-08-06T14:27:00.000Z",
+            "complete_date": null
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-scheduling",
+          "number": 815,
+          "url": "https://github.com/precisionlender/di-scheduling/pull/815",
+          "name": "DE-3028: add WSFS Bank to nightly data feeds",
+          "description": "[DE-3028](https://qtwo.atlassian.net/jira/software/c/projects/DE/boards/5705?assignee=712020%3A646f8ce2-209c-4122-b079-8f1e3d3f3bdd&selectedIssue=DE-3028)\r\n\r\nWSFS Bank is provisioned on US01 and they'd like to ensure they are added to the nightly data feeds pipeline.  \r\n\r\nClient ID:  81914376-95ac-4531-8cf4-72ab1190d41f\r\n\r\nClient Name:  Wilmington Savings Fund Society, FSB aka WSFS Bank\r\n\r\nStack:  US01",
+          "state": "closed",
+          "merged_at": "2026-07-29T19:34:37Z",
+          "created_at": "2026-07-24T18:21:53Z",
+          "updated_at": "2026-07-29T19:36:41Z",
+          "closed_at": "2026-07-29T19:34:37Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "adb846bdef029bf13f4a6b68fdce0f773b384118",
+          "head_branch": "DE-3028",
+          "head_sha": "39031ff3c9011feb8eb6657d22962d216fab65dc",
+          "merge_commit_sha": "5a2f145b40933a779a9dfcc8f6bb5dade5104a84",
+          "commits": 9,
+          "changed_files": 2,
+          "additions": 36,
+          "deletions": 0,
+          "match_evidence": [
+            "title",
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": [
+        {
+          "ticket_key": "DE-3028",
+          "repository": "precisionlender/di-scheduling",
+          "ref": "DE-3028",
+          "commit_sha": "17efd7fe717b7eb16073a4264ea41179bd52c690",
+          "committed_at": "2026-07-30T16:52:16-04:00",
+          "subject": "Merge pull request #816 from precisionlender/DE-3028-2"
+        },
+        {
+          "ticket_key": "DE-3028",
+          "repository": "precisionlender/di-scheduling",
+          "ref": "origin/DE-3028-2",
+          "commit_sha": "03d2e2ffe1ed1d0a623428c34080ff97d4ef3e7e",
+          "committed_at": "2026-07-30T16:26:20-04:00",
+          "subject": "de-activating client"
+        }
+      ]
+    },
+    {
+      "ticket": {
+        "key": "DE-3080",
+        "url": "https://qtwo.atlassian.net/browse/DE-3080",
+        "summary": "Data Studio Reader account enablement for PlainsCapital",
+        "description": "PlainsCapital bank has a new reader account created and needs their data to be shared to that account in Snowflake. \n\n**Data Team work items:**\u00a0\n\n* Add client to data share for PL_dataStudio\n* Please refer to the SFT ticket for details on the reader account\n\n\u00a0\n\n**Client Info:**\u00a0\n\n| \u00a0 | **Production** |\n| --- | --- |\n| **PL Client ID** | e9c94bf2-a135-47cb-b70b-43a8384559bd |\n",
+        "issue_type": "Story",
+        "status": "Closed",
+        "assignee": {
+          "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+          "display_name": "Jordan Eisenman"
+        },
+        "reporter": {
+          "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+          "display_name": "Kausik Kannan"
+        },
+        "created_at": "2026-07-24T12:36:14.530-0500",
+        "updated_at": "2026-07-27T15:39:32.331-0500",
+        "sprints": [
+          {
+            "board": "pl-data",
+            "id": 34191,
+            "name": "PL Data - Sprint 240",
+            "state": "active",
+            "start_date": "2026-07-23T14:27:01.695Z",
+            "end_date": "2026-08-06T14:27:00.000Z",
+            "complete_date": null
+          }
+        ]
+      },
+      "merged_pull_requests": [
+        {
+          "repository": "precisionlender/di-pipelines",
+          "number": 2932,
+          "url": "https://github.com/precisionlender/di-pipelines/pull/2932",
+          "name": "DE-3080",
+          "description": "# Checklist for Author and Reviewers\r\n\r\n- [ ] considered batch vs Spark job\r\n- [ ] new functionality is unit tested\r\n- [ ] dataset version incremented, if appropriate\r\n- [ ] dependencies on this job? -> engineering dataset\r\n- [ ] paths constructed [using ActivityContextPath](https://confluence.q2ebanking.com/display/DI/Handling+Paths+in+Task+Code)\r\n- [ ] integration testing validated\r\n- [ ] job is \"rundate aware\", if appropriate\r\n- [ ] update Databricks and/or Snowflake, if  appropriate\r\n- [ ] Was this tested in Alpha Airflow\r\n- [ ] If version was incremented were copy jobs incremented as well in DAG code? (Please attach screen shots of copy job logs)\r\n- [ ] was data populating as expected and not just null\r\n- [ ] OpenSpec plan has been archived\r\n\r\nFor additional details, see [Job Checklists and Processes](https://confluence.q2ebanking.com/display/DI/Job+Checklists+and+Processes)\r\n\r\n# Follow-on Checklist\r\n\r\n- [ ] job has been scheduled\r\n- [ ] contx metadata has been updated\r\n- [ ] alpha integration tests successful\r\n- [ ] [dataset metadata changelog](./ds-jobs/src/datascience_jobs/jobs/data/README.md) has been updated\r\n\r\n# Description\r\n\r\nEnables the Data Studio Snowflake share for PlainsCapital Bank.\r\n\r\n- Production client ID: `e9c94bf2-a135-47cb-b70b-43a8384559bd`\r\n- Snowflake reader account locator: `RAC79369`\r\n- Reader account creation and production deployment confirmed via [SFT-592](https://qtwo.atlassian.net/browse/SFT-592)\r\n- Jira ticket: [DE-3080](https://qtwo.atlassian.net/browse/DE-3080)\r\n\r\nThe reader-account locator was verified in the [Reader Account Usage Grafana dashboard](https://q2software.grafana.net/d/vvq9wln/reader-account-usage?orgId=1&from=now-6h&to=now&timezone=browser&var-account_name=PLAINS_CAPITAL_BANK&var-usage_month=1782864000000).\r\n<img width=\"752\" height=\"748\" alt=\"image\" src=\"https://github.com/user-attachments/assets/3ef6a925-b8ba-49ad-be77-1911e1cfc68d\" />\r\n\r\n",
+          "state": "closed",
+          "merged_at": "2026-07-27T17:56:07Z",
+          "created_at": "2026-07-24T18:17:39Z",
+          "updated_at": "2026-07-27T17:56:08Z",
+          "closed_at": "2026-07-27T17:56:07Z",
+          "author": {
+            "login": "jeisenman",
+            "name": "jeisenman"
+          },
+          "base_branch": "master",
+          "base_sha": "075c11ff2646043dcbb500ba0ceb9a633faafcab",
+          "head_branch": "DE-3080",
+          "head_sha": "cfd8dd37619a7d1e1ffa7242ec9cb394a13812bb",
+          "merge_commit_sha": "bed8bd2fe91474e44c2fcfda4c45433908cb9963",
+          "commits": 3,
+          "changed_files": 1,
+          "additions": 5,
+          "deletions": 0,
+          "match_evidence": [
+            "title",
+            "description"
+          ]
+        }
+      ],
+      "local_branch_evidence": [
+        {
+          "ticket_key": "DE-3080",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "DE-3080",
+          "commit_sha": "cfd8dd37619a7d1e1ffa7242ec9cb394a13812bb",
+          "committed_at": "2026-07-27T11:02:35-04:00",
+          "subject": "DE-3080: enable PlainsCapital Data Studio reader account"
+        },
+        {
+          "ticket_key": "DE-3080",
+          "repository": "precisionlender/di-pipelines",
+          "ref": "origin/DE-3080",
+          "commit_sha": "cfd8dd37619a7d1e1ffa7242ec9cb394a13812bb",
+          "committed_at": "2026-07-27T11:02:35-04:00",
+          "subject": "DE-3080: enable PlainsCapital Data Studio reader account"
+        }
+      ]
+    }
+  ]
+}

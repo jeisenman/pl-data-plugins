@@ -1,0 +1,4 @@
+interface:
+  display_name: "Size Copy KPO"
+  short_description: "Right-size failing copy job KPO overrides"
+  default_prompt: "Use $size-copy-kpo to size a failing copy job and prepare its client KPO override for review."

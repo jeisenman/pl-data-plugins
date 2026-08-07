@@ -10,6 +10,10 @@ type: engineering-rule
 
 # Data Studio Adding Reader Account
 
+## Local Test-Suite Policy
+
+When working in `di-pipelines`, `di-scheduling`, or `di-pyjobs`, do not run local unit, integration, or full test suites. Use static inspection, targeted non-test checks, and remote or Alpha evidence instead. Run a local test suite only when the user explicitly requests it.
+
 ## Scope
 
 - The authoritative scope is the frontmatter scope field.
@@ -29,7 +33,7 @@ DataStudioSnowflakeClientDetail(
     is_active=True,
 ),
 ```
-4. Create PR with description format
+4. Hand off to `github:yeet` for the entire publish step: refresh clean worktrees, check lint and branch-only unreachable/dead code, stage the scoped change, commit the ticket branch, push it, and create a draft PR with this description. Do not push or create the PR directly from this skill.
 ```[txt]
 Ticket: [DE-####](https://qtwo.atlassian.net/browse/DE-####)
 

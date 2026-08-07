@@ -5,6 +5,10 @@ description: Enable provisioned PrecisionLender clients in the nightly data-feed
 
 # Nightly Data Feeds Enablement
 
+## Local Test-Suite Policy
+
+When working in `di-pipelines`, `di-scheduling`, or `di-pyjobs`, do not run local unit, integration, or full test suites. Use static inspection, targeted non-test checks, and remote or Alpha evidence instead. Run a local test suite only when the user explicitly requests it.
+
 ## Verify the request
 
 1. Obtain the Jira ticket key, client ID, target stack, and confirmation that the client is already provisioned.
@@ -30,7 +34,7 @@ in the provisioning metadata; otherwise use `null`.
 ## Validate and publish
 
 1. Verify the diff adds exactly one intended application-partition entry and does not change unrelated metadata.
-2. Commit with the Jira ticket key, push that same Jira-key branch, and record the deployment follow-up. Do not create a feature-named branch when a ticket key is available.
+2. Hand off to `github:yeet` to refresh clean worktrees, verify no newly introduced unreachable/dead branch code, stage the intended metadata entry, commit with the Jira ticket key, push that same Jira-key branch, and open a draft PR. Do not create a feature-named branch when a ticket key is available, and do not push directly from this skill.
 
 Leave PR description:
 [DE-###](https://qtwo.atlassian.net/jira/software/c/projects/DE/boards/5705?assignee=712020%3A646f8ce2-209c-4122-b079-8f1e3d3f3bdd&selectedIssue=DE-####)

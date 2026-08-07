@@ -1,0 +1,2239 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-05T10:36:29Z",
+  "tickets": [
+    {
+      "key": "DE-1601",
+      "url": "https://qtwo.atlassian.net/browse/DE-1601",
+      "summary": "Recommender Trait: Inline DS Utils",
+      "description": "<custom data-type=\"smartlink\" data-id=\"id-0\">https://gitlab.com/q2e/development/data_sciences/package-utils</custom> \n\ndeliverables:\n\n* inline the function calls to DataScience utils in create smart recommender and write smart recommender\n* deprecate/remove the package_utils (above)\n* testing\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "5f4fca9cd3796e0046b0cee8",
+        "display_name": "Alexander Catanzaro"
+      },
+      "created_at": "2026-02-04T13:51:55.745-0600",
+      "updated_at": "2026-04-23T14:19:02.351-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29609,
+          "name": "DP - Sprint 230",
+          "state": "closed",
+          "start_date": "2026-02-18T16:58:06.502Z",
+          "end_date": "2026-03-04T06:00:00.000Z",
+          "complete_date": "2026-03-04T16:16:52.207Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-1604",
+      "url": "https://qtwo.atlassian.net/browse/DE-1604",
+      "summary": "Enable \"tc_debits_scoring_job\" ",
+      "description": "When <custom data-type=\"smartlink\" data-id=\"id-0\">https://qtwo.atlassian.net/browse/QDS-8840</custom> is complete, navigate to the `ds_core.py` DAG definition and uncomment the code related to the `tc_debits_scoring_job` (line 66 -110)",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "5f4fca9cd3796e0046b0cee8",
+        "display_name": "Alexander Catanzaro"
+      },
+      "created_at": "2026-02-04T10:18:33.576-0600",
+      "updated_at": "2026-04-23T14:19:02.232-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29609,
+          "name": "DP - Sprint 230",
+          "state": "closed",
+          "start_date": "2026-02-18T16:58:06.502Z",
+          "end_date": "2026-03-04T06:00:00.000Z",
+          "complete_date": "2026-03-04T16:16:52.207Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-1706",
+      "url": "https://qtwo.atlassian.net/browse/DE-1706",
+      "summary": "Create Airflow DAG / task which runs fiction container",
+      "description": "**This ticket is only for the underlined boldened bullets.**\n\nThe Console has specific data needs for testing. We should refine whatever pieces of fiction are necessary to make it able to be packaged up for their direct use.\n\n- [ ] Create Dockerfile\n- [ ] should expose cli (entry point should be fiction cli)\n\n\n- [ ] Setup CI pipeline to build and push docker image\n- [ ] Add ability / option to write results directly to snowflake (currently only supports files)\n- [ ] **Create Airflow DAG / task which runs fiction container**\n- [x] **logons**\n- [ ] **GTs**\n- [ ] **Security**\n- [ ] **CPFM**\n\n\n\n",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "600ef009e3a14d0071c76541",
+        "display_name": "Gage Russell"
+      },
+      "created_at": "2025-12-09T11:34:19.419-0600",
+      "updated_at": "2026-04-23T14:19:01.148-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29251,
+          "name": "DP - Sprint 227",
+          "state": "closed",
+          "start_date": "2026-01-07T17:20:53.733Z",
+          "end_date": "2026-01-21T17:20:41.000Z",
+          "complete_date": "2026-01-21T16:08:47.188Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 29607,
+          "name": "DP - Sprint 228",
+          "state": "closed",
+          "start_date": "2026-01-21T17:01:37.529Z",
+          "end_date": "2026-02-04T17:01:20.000Z",
+          "complete_date": "2026-02-04T21:10:26.508Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 29608,
+          "name": "DP - Sprint 229",
+          "state": "closed",
+          "start_date": "2026-02-04T21:56:39.305Z",
+          "end_date": "2026-02-18T21:56:18.000Z",
+          "complete_date": "2026-02-18T16:05:32.685Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 29609,
+          "name": "DP - Sprint 230",
+          "state": "closed",
+          "start_date": "2026-02-18T16:58:06.502Z",
+          "end_date": "2026-03-04T06:00:00.000Z",
+          "complete_date": "2026-03-04T16:16:52.207Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2051",
+      "url": "https://qtwo.atlassian.net/browse/DE-2051",
+      "summary": "Update field definition for Date Partition in Monthly Datasets",
+      "description": "The field definition for date partition is accurate for datasets that are not monthly since it reflects the date the data was ingested. For monthly datasets, it is actually the end date of the month. We will need to update these definitions in the metadata so that it can flow through to Snowflake and to ThoughtSpot. \n\nUpdate for Snowflake and in DataSetMetaData if it exists for the monthly datasets.\n\nNew definition:   \nThe closing date of the month for which the data has been aggregated",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-02-19T09:39:10.202-0600",
+      "updated_at": "2026-04-23T14:18:59.008-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29609,
+          "name": "DP - Sprint 230",
+          "state": "closed",
+          "start_date": "2026-02-18T16:58:06.502Z",
+          "end_date": "2026-03-04T06:00:00.000Z",
+          "complete_date": "2026-03-04T16:16:52.207Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2078",
+      "url": "https://qtwo.atlassian.net/browse/DE-2078",
+      "summary": "Add additional views to PL Data Studio share for clients",
+      "description": "We have some additional views in the Data Studio share now available which our clients will find useful. Pls add the below views to ALL clients who get the Data Studio Shares.   \n  \n\\- Andi_Engagement_Events\n\n* Pipeline Opportunity History (after <custom data-type=\"smartlink\" data-id=\"id-0\">https://qtwo.atlassian.net/browse/QDS-8718</custom> is done)\n* Pipeline Opportunity Snapshot\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-02-03T09:23:30.098-0600",
+      "updated_at": "2026-04-23T14:18:58.897-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29609,
+          "name": "DP - Sprint 230",
+          "state": "closed",
+          "start_date": "2026-02-18T16:58:06.502Z",
+          "end_date": "2026-03-04T06:00:00.000Z",
+          "complete_date": "2026-03-04T16:16:52.207Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 30636,
+          "name": "DP - Sprint 231",
+          "state": "closed",
+          "start_date": "2026-03-04T17:09:45.138Z",
+          "end_date": "2026-03-18T06:00:00.000Z",
+          "complete_date": "2026-03-18T15:10:14.732Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2082",
+      "url": "https://qtwo.atlassian.net/browse/DE-2082",
+      "summary": "Handle stale/expired Snowpipe channels gracefully",
+      "description": "```markdown\n**Note:** Much of this code has already been scaffolded out at https://github.com/precisionlender/di-eventstreams\n\nSnowpipe channels can become stale if the continuation token expires or if another client takes over the channel. Implement detection and recovery.\n\n**Acceptance Criteria:**\n- Detect SnowpipeChannelStaleException on append\n- Drop and recreate channel automatically\n- Reset offset tracking\n- No data loss (re-buffer and retry)\n- Log warning for observability\n- Metrics for channel recreation events\n```",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "600ef009e3a14d0071c76541",
+        "display_name": "Gage Russell"
+      },
+      "created_at": "2026-01-07T08:45:46.190-0600",
+      "updated_at": "2026-05-11T10:46:56.027-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31440,
+          "name": "DP - Sprint 235",
+          "state": "closed",
+          "start_date": "2026-05-07T15:50:02.393Z",
+          "end_date": "2026-05-21T05:00:00.000Z",
+          "complete_date": "2026-05-21T15:10:33.984Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2083",
+      "url": "https://qtwo.atlassian.net/browse/DE-2083",
+      "summary": "Support multiple consumer instances with partition assignment",
+      "description": "```markdown\n**Note:** Much of this code has already been scaffolded out at https://github.com/precisionlender/di-eventstreams\n\nWhen running multiple replicas, each should process a subset of partitions. Coordinate to avoid duplicate processing and ensure all partitions are covered.\n\n**Acceptance Criteria:**\n- Research EventBus SDK partition assignment\n- Channel naming includes partition ID to avoid conflicts\n- No duplicate events across instances\n- Load balanced across replicas\n```",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "600ef009e3a14d0071c76541",
+        "display_name": "Gage Russell"
+      },
+      "created_at": "2026-01-07T08:45:19.205-0600",
+      "updated_at": "2026-04-27T20:56:01.827-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31439,
+          "name": "DP - Sprint 234",
+          "state": "closed",
+          "start_date": "2026-04-15T15:35:20.000Z",
+          "end_date": "2026-05-07T05:00:00.000Z",
+          "complete_date": "2026-05-07T15:06:25.735Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2084",
+      "url": "https://qtwo.atlassian.net/browse/DE-2084",
+      "summary": "Implement health check endpoints for Kubernetes",
+      "description": "```markdown\n**Note:** Much of this code has already been scaffolded out at https://github.com/precisionlender/di-eventstreams\n\nAdd health check endpoints for Kubernetes liveness and readiness probes. Liveness indicates the app is running, readiness indicates it can accept traffic.\n\n**Acceptance Criteria:**\n- /health/live endpoint for liveness probe\n- /health/ready endpoint for readiness probe\n- Readiness checks EventBus connection status\n- Readiness checks Snowflake connection (token valid)\n- Helm chart configured with probes\n```",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "600ef009e3a14d0071c76541",
+        "display_name": "Gage Russell"
+      },
+      "created_at": "2026-01-07T08:41:19.480-0600",
+      "updated_at": "2026-05-07T08:47:36.911-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31439,
+          "name": "DP - Sprint 234",
+          "state": "closed",
+          "start_date": "2026-04-15T15:35:20.000Z",
+          "end_date": "2026-05-07T05:00:00.000Z",
+          "complete_date": "2026-05-07T15:06:25.735Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2104",
+      "url": "https://qtwo.atlassian.net/browse/DE-2104",
+      "summary": "Build .NET client library for Snowpipe Streaming REST API",
+      "description": "```markdown\nMuch of this code has already been scaffolded out at https://github.com/precisionlender/di-eventstreams\n\nBuild a reusable .NET client library for Snowflake's Snowpipe Streaming REST API. No official .NET SDK exists, so this must be built from scratch based on API documentation.\n\nThe library should include:\n- **Auth/** - JWT generation using RSA key-pair, scoped token exchange with caching and auto-refresh\n- **Http/** - REST client for all 6 Snowpipe Streaming API endpoints:\n  - GetHostname - Resolve account to streaming endpoint\n  - ExchangeToken - Exchange JWT for scoped token\n  - OpenChannel - Create streaming channel for a table\n  - AppendRows - Write NDJSON rows to channel\n  - GetChannelStatus - Check channel health and offset\n  - DropChannel - Close channel\n- **Streaming/** - High-level client with buffering, auto-flush, and lazy channel opening\n- **Models/** - DTOs for API requests/responses and generic row model\n- **Configuration/** - Options pattern for DI\n\n**Acceptance Criteria:**\n- JWT generation with RSA key-pair authentication\n- Token exchange and caching with auto-refresh before expiry\n- All 6 Snowpipe Streaming REST endpoints implemented\n- High-level streaming client with configurable batch size and flush interval\n- Lazy channel opening (open on first flush, not at startup)\n- Service collection extensions (AddSnowpipeStreaming())\n- NDJSON serialization with snake_case naming\n- Handle edge cases (Infinity/NaN values in JSON)\n```",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "600ef009e3a14d0071c76541",
+        "display_name": "Gage Russell"
+      },
+      "created_at": "2026-01-07T08:37:03.680-0600",
+      "updated_at": "2026-04-23T14:18:57.514-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 30636,
+          "name": "DP - Sprint 231",
+          "state": "closed",
+          "start_date": "2026-03-04T17:09:45.138Z",
+          "end_date": "2026-03-18T06:00:00.000Z",
+          "complete_date": "2026-03-18T15:10:14.732Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 30637,
+          "name": "DP - Sprint 232",
+          "state": "closed",
+          "start_date": "2026-03-18T15:46:01.465Z",
+          "end_date": "2026-04-01T06:00:00.000Z",
+          "complete_date": "2026-04-01T15:07:55.330Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2108",
+      "url": "https://qtwo.atlassian.net/browse/DE-2108",
+      "summary": "Create comprehensive test suite for the application",
+      "description": "**Focus mainly on getting high coverage set of unit tests!**\n\nCreate a separate ticket for integration tests on DataInsights.EventStreams.Consumer (should not block production deployment)\n\nCreate a separate ticket for getting integration tests running in Azure DevOps (should not block production deployment)\n\n```markdown\n**Note:** Much of this code has already been scaffolded out at https://github.com/precisionlender/di-eventstreams\n\nCreate unit and integration tests for the consumer application and Snowflake client library. Unit tests validate handler logic with mocked dependencies, integration tests validate end-to-end flows against real services.\n\n**Acceptance Criteria:**\n- Test configuration via appsettings.Test.json (gitignored)\n- Unit tests for event handlers with mocked ISnowpipeStreamingClient\n- Unit tests for payload deserialization and tenant ID extraction\n- Integration tests for Snowflake client (JWT, token exchange, channel lifecycle, row appending)\n- Test batch flushing behavior\n- Tests pass against real Snowflake test environment\n- CI pipeline runs tests on PR\n```",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "600ef009e3a14d0071c76541",
+        "display_name": "Gage Russell"
+      },
+      "created_at": "2026-01-07T08:38:07.504-0600",
+      "updated_at": "2026-04-23T14:18:57.108-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 30638,
+          "name": "DP - Sprint 233",
+          "state": "closed",
+          "start_date": "2026-04-01T16:13:36.998Z",
+          "end_date": "2026-04-15T06:00:00.000Z",
+          "complete_date": "2026-04-15T15:09:08.607Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 31439,
+          "name": "DP - Sprint 234",
+          "state": "closed",
+          "start_date": "2026-04-15T15:35:20.000Z",
+          "end_date": "2026-05-07T05:00:00.000Z",
+          "complete_date": "2026-05-07T15:06:25.735Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2110",
+      "url": "https://qtwo.atlassian.net/browse/DE-2110",
+      "summary": "Flush in-flight batches on application shutdown",
+      "description": "```markdown\n**Note:** Much of this code has already been scaffolded out at https://github.com/precisionlender/di-eventstreams\n\nWhen the application receives a shutdown signal (SIGTERM from Kubernetes), ensure all buffered rows are flushed to Snowflake before exiting. Without this, buffered rows could be lost on shutdown.\n\n**Acceptance Criteria:**\n- Register IHostApplicationLifetime.ApplicationStopping callback\n- Call FlushAsync() on all SnowpipeStreamingClient instances\n- Set reasonable timeout (e.g., 30 seconds) for flush completion\n- Log warning if flush times out\n- Test with dotnet run + Ctrl+C\n```",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "600ef009e3a14d0071c76541",
+        "display_name": "Gage Russell"
+      },
+      "created_at": "2026-01-07T08:38:38.384-0600",
+      "updated_at": "2026-04-23T14:18:57.636-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 30638,
+          "name": "DP - Sprint 233",
+          "state": "closed",
+          "start_date": "2026-04-01T16:13:36.998Z",
+          "end_date": "2026-04-15T06:00:00.000Z",
+          "complete_date": "2026-04-15T15:09:08.607Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2166",
+      "url": "https://qtwo.atlassian.net/browse/DE-2166",
+      "summary": "PipelineScenariosOpportunitiesHistory Backfill to Internal",
+      "description": "Forgot to update the dataset_version from PipelineScenarioOpportunitiesHistory in DAG code from 2.2 to 2.3 Causing it to not copy from l3-historical to internal datamart and client datamart.\u00a0\n\nThis will require us to rerun the Copy jobs for all clients again from 10/10 to 10/17. The backfill will only consist of running the copy jobs and dispatch jobs.  \nBAML was backfilled manually for those dates so they do not need to be included.\n\nVersion 2.3 was deployed on 10/09/25 for l3-historical\n\nVersion 2.3 fix to internal and client datamart was deployed on 10/17/25\n\nThis was brought to our attention by this question in data-insights: [https://precisionlender.slack.com/archives/C34PL5HCY/p1760707529535349](https://precisionlender.slack.com/archives/C34PL5HCY/p1760707529535349)",
+      "issue_type": "Bug",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:29d927a6-0543-4851-8fda-4bf8ff357c49",
+        "display_name": "Andrew Capindo"
+      },
+      "created_at": "2025-10-24T13:11:21.255-0500",
+      "updated_at": "2026-04-23T14:18:57.490-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29251,
+          "name": "DP - Sprint 227",
+          "state": "closed",
+          "start_date": "2026-01-07T17:20:53.733Z",
+          "end_date": "2026-01-21T17:20:41.000Z",
+          "complete_date": "2026-01-21T16:08:47.188Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 29607,
+          "name": "DP - Sprint 228",
+          "state": "closed",
+          "start_date": "2026-01-21T17:01:37.529Z",
+          "end_date": "2026-02-04T17:01:20.000Z",
+          "complete_date": "2026-02-04T21:10:26.508Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 29608,
+          "name": "DP - Sprint 229",
+          "state": "closed",
+          "start_date": "2026-02-04T21:56:39.305Z",
+          "end_date": "2026-02-18T21:56:18.000Z",
+          "complete_date": "2026-02-18T16:05:32.685Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 29609,
+          "name": "DP - Sprint 230",
+          "state": "closed",
+          "start_date": "2026-02-18T16:58:06.502Z",
+          "end_date": "2026-03-04T06:00:00.000Z",
+          "complete_date": "2026-03-04T16:16:52.207Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2220",
+      "url": "https://qtwo.atlassian.net/browse/DE-2220",
+      "summary": "dbt Warehouse Overrides Using Wrong Config Value",
+      "description": "The dbt models in ds_airflow that attempt to override the warehouse size are using the wrong configuration value `warehouse` should actually be `snowflake_warehouse`\n\nUndoubtedly this occurred from a mistake early on in the project cycle which found itself propagated due to lack of visibility into query history to ascertain warehouse usage.\n\nDocumentation: <custom data-type=\"smartlink\" data-id=\"id-0\">https://docs.getdbt.com/reference/resource-configs/snowflake-configs#configuring-virtual-warehouses</custom>   \n  \nHere are the files that need changing:\n\n```\nconsole/models/audit/logons.sql\ndata_science/models/traits/has_payroll.sql\ndata_science/models/traits/simple/cpfm_multitrait/pfm_category_total_current_balance.sql\ndata_science/models/traits/simple/cpfm_multitrait/pfm_boolean.sql\ndata_science/models/traits/simple/product_trait/product_recency.sql\ndata_science/models/traits/simple/product_trait/product_boolean_current.sql\nfraud_tech/models/http_headers_wide.sql\ndata_science/models/traits/simple/product_trait/product_count.sql\nfraud_tech/models/http_headers_long.sql\ndata_science/models/traits/commercial_business_user_classification/commercial_business_classification.py\ndata_science/models/traits/simple/average_monthly_logins.sql\ndata_science/models/traits/user_deposit_activity/deposit_traits.py\ndata_science/models/traits/has_autopay_trait/has_autopay.sql\ndata_science/models/traits/bill_pay_usage/billpay_usage.py\ndata_science/models/traits/annual_income_trait/annual_deposited_income.py\ndata_science/models/traits/user_deposit_activity/deposit_unexpected_activity.sql\ndata_science/models/traits/share_of_wallet/share_of_wallet.py\ndata_science/models/traits/micro_business_user_classification/microbusiness.py\ndata_science/models/traits/small_business_user_classfication/small_business_classification.py\ndata_science/models/derived/hosted_transactions_90_day_summary.sql\n```",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "5f4fca9cd3796e0046b0cee8",
+        "display_name": "Alexander Catanzaro"
+      },
+      "created_at": "2026-02-26T09:37:02.768-0600",
+      "updated_at": "2026-04-23T14:18:54.130-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29609,
+          "name": "DP - Sprint 230",
+          "state": "closed",
+          "start_date": "2026-02-18T16:58:06.502Z",
+          "end_date": "2026-03-04T06:00:00.000Z",
+          "complete_date": "2026-03-04T16:16:52.207Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2225",
+      "url": "https://qtwo.atlassian.net/browse/DE-2225",
+      "summary": "PL: Update YAML Config files for PL Repos",
+      "description": "We need to add more nodes to our YAML files:\n\n```\n\u00b7\u00a0\u00a0 ComponentName: \"UUX\" # Customer-friendly and meaningful name (used in Beacon and other tooling)\n```\n\n```\n\u00b7\u00a0\u00a0 CodeRepositoryURL: \"https://github.com/example/repo\" # Fully qualified .git repository URL\n```\n\n```\n\u00b7\u00a0\u00a0 BuildPipelineURLs:\u00a0\u00a0- \"https://gitlab.com/q2e/templates/terraform-multi-environment-multi-region-pipeline\"\u00a0\u00a0- \"https://ci.example.com/builds/pipeline-2\"\u00a0- \"https://ci.example.com/builds/pipeline-3\"\n```\n\n```\n\u00b7\u00a0\u00a0 CriticalService: true # or false\n```\n\n```\n\u00b7\u00a0\u00a0 MoneyMovement: false # or true\n```\n\n```\n\u00b7\u00a0\u00a0 CodeDistributed: false # true if code is delivered to end-user devices (mobile app, JS, HTML, CSS)\n```\n\n```\n\u00b7\u00a0\u00a0 EnvironmentID: # https://app.wiz.io/inventory/subscriptions\u00a0- \"423549216380 - prod\" # Store as string; include environment type (prod, stage, etc.)\u00a0\u00a0- # Add additional environments as needed\n```\n\nThe following Repos need to have these nodes added:\n\ndi-pipelines: <a href=\"<custom data-type=\"smartlink\" data-id=\"id-0\">https://github.com/precisionlender/di-pipelines</custom> \" rel=\"noreferrer noopener\" title=\"<custom data-type=\"smartlink\" data-id=\"id-1\">https://github.com/precisionlender/di-pipelines</custom> \" target=\"\\_blank\"><[https://github.com/precisionlender/di-pipelines%3C/a%3E%3E](https://github.com/precisionlender/di-pipelines%3C/a%3E%3E)   \ndi-scheudling: <a href=\"<custom data-type=\"smartlink\" data-id=\"id-2\">https://github.com/precisionlender/di-scheduling</custom> \" rel=\"noreferrer noopener\" title=\"<custom data-type=\"smartlink\" data-id=\"id-3\">https://github.com/precisionlender/di-scheduling</custom> \" target=\"\\_blank\"><[https://github.com/precisionlender/di-scheduling%3C/a%3E%3E](https://github.com/precisionlender/di-scheduling%3C/a%3E%3E)   \ndi-schema-defititions: <a href=\"<custom data-type=\"smartlink\" data-id=\"id-4\">https://github.com/precisionlender/di-schema-definitions</custom> \" rel=\"noreferrer noopener\" title=\"<custom data-type=\"smartlink\" data-id=\"id-5\">https://github.com/precisionlender/di-schema-definitions</custom> \" target=\"\\_blank\"><[https://github.com/precisionlender/di-schema-definitions%3C/a%3E%3E](https://github.com/precisionlender/di-schema-definitions%3C/a%3E%3E)   \ndi-pyjobs: <a href=\"<custom data-type=\"smartlink\" data-id=\"id-6\">https://github.com/precisionlender/di-pyjobs</custom> \" rel=\"noreferrer noopener\" title=\"<custom data-type=\"smartlink\" data-id=\"id-7\">https://github.com/precisionlender/di-pyjobs</custom> \" target=\"\\_blank\"><[https://github.com/precisionlender/di-pyjobs%3C/a%3E%3E](https://github.com/precisionlender/di-pyjobs%3C/a%3E%3E)   \ndi-model-server: <a href=\"<custom data-type=\"smartlink\" data-id=\"id-8\">https://github.com/precisionlender/di-model-server</custom> \" rel=\"noreferrer noopener\" title=\"<custom data-type=\"smartlink\" data-id=\"id-9\">https://github.com/precisionlender/di-model-server</custom> \" target=\"\\_blank\"><[https://github.com/precisionlender/di-model-server%3C/a%3E%3E](https://github.com/precisionlender/di-model-server%3C/a%3E%3E)   \ndi-pyadapters: <a href=\"<custom data-type=\"smartlink\" data-id=\"id-10\">https://github.com/precisionlender/di-pyadapters</custom> \" rel=\"noreferrer noopener\" title=\"<custom data-type=\"smartlink\" data-id=\"id-11\">https://github.com/precisionlender/di-pyadapters</custom> \" target=\"\\_blank\"><[https://github.com/precisionlender/di-pyadapters%3C/a%3E%3E](https://github.com/precisionlender/di-pyadapters%3C/a%3E%3E)   \ndi-adhoc-codeshare: <a href=\"<custom data-type=\"smartlink\" data-id=\"id-12\">https://github.com/precisionlender/di-adhoc-codeshare</custom> \" rel=\"noreferrer noopener\" title=\"<custom data-type=\"smartlink\" data-id=\"id-13\">https://github.com/precisionlender/di-adhoc-codeshare</custom> \" target=\"\\_blank\"><[https://github.com/precisionlender/di-adhoc-codeshare%3C/a%3E%3E](https://github.com/precisionlender/di-adhoc-codeshare%3C/a%3E%3E)   \ndi-l3-cli: <a href=\"<custom data-type=\"smartlink\" data-id=\"id-14\">https://github.com/precisionlender/di-l3-cli</custom> \" rel=\"noreferrer noopener\" title=\"<custom data-type=\"smartlink\" data-id=\"id-15\">https://github.com/precisionlender/di-l3-cli</custom> \" target=\"\\_blank\"><[https://github.com/precisionlender/di-l3-cli%3C/a%3E%3E](https://github.com/precisionlender/di-l3-cli%3C/a%3E%3E)   \ndi-eventstreams: <a href=\"<custom data-type=\"smartlink\" data-id=\"id-16\">https://github.com/precisionlender/di-eventstreams</custom> \" rel=\"noreferrer noopener\" title=\"<custom data-type=\"smartlink\" data-id=\"id-17\">https://github.com/precisionlender/di-eventstreams</custom> \" target=\"\\_blank\"><[https://github.com/precisionlender/di-eventstreams%3C/a%3E%3E](https://github.com/precisionlender/di-eventstreams%3C/a%3E%3E) ",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "60d0dbbb8f2cc100699a5cbf",
+        "display_name": "Regina Franklin"
+      },
+      "created_at": "2026-02-27T10:07:25.511-0600",
+      "updated_at": "2026-04-23T14:18:53.713-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 30636,
+          "name": "DP - Sprint 231",
+          "state": "closed",
+          "start_date": "2026-03-04T17:09:45.138Z",
+          "end_date": "2026-03-18T06:00:00.000Z",
+          "complete_date": "2026-03-18T15:10:14.732Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2239",
+      "url": "https://qtwo.atlassian.net/browse/DE-2239",
+      "summary": "DB Production Support",
+      "description": "Follow the instructions from this page:  \n<custom data-type=\"smartlink\" data-id=\"id-0\">https://qtwo.atlassian.net/wiki/spaces/DI/pages/303202457/Data+Platform+Production+Support</custom> ",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "5f4fca9cd3796e0046b0cee8",
+        "display_name": "Alexander Catanzaro"
+      },
+      "created_at": "2026-03-03T10:40:27.024-0600",
+      "updated_at": "2026-04-23T14:18:53.821-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 30636,
+          "name": "DP - Sprint 231",
+          "state": "closed",
+          "start_date": "2026-03-04T17:09:45.138Z",
+          "end_date": "2026-03-18T06:00:00.000Z",
+          "complete_date": "2026-03-18T15:10:14.732Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2249",
+      "url": "https://qtwo.atlassian.net/browse/DE-2249",
+      "summary": "PL Production Support - Sprint 231",
+      "description": "Ticket represents the work to analyze production logs every day and to create bug and/or investigation tickets for any issues uncovered.\n\n[https://qtwo.atlassian.net/wiki/display/DI/Production+Support](https://qtwo.atlassian.net/wiki/display/DI/Production+Support)  \n[https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL](https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL)\n\n[https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA](https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA) \u2013 RCAs\n\n\u00a0\n\n**Template**\n\n\\----------------------------------------------------------------------------\n\n```java\nLogical Execution Date: YYYY-MM-DD\r\n\r\nSatisfaction Score (Good, Meh, Bad, Ugly): placeholder\r\n\r\nChecklist:\r\n* [ ] Reviewed Failures\r\n* [ ] Reran Transient Errors\r\n* [ ] Created Bug Tickets, if applicable\r\n* [ ] Notified Team of Completion\r\n* [ ] Logged Time to Ticket (factor in lost time due to context switching)\r\n\r\nOutstanding Issues:\r\n* QDS-####\r\n\r\nRelevant Observations:\r\n* placeholder\n```\n\n\\----------------------------------------------------------------------------\n\n**Prod Support Order:**\n\n* Jordan\n* Andrew\n* Michael\n* Arunima\n* \u00a0\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:29d927a6-0543-4851-8fda-4bf8ff357c49",
+        "display_name": "Andrew Capindo"
+      },
+      "created_at": "2026-03-04T10:28:51.981-0600",
+      "updated_at": "2026-04-23T14:18:52.022-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29609,
+          "name": "DP - Sprint 230",
+          "state": "closed",
+          "start_date": "2026-02-18T16:58:06.502Z",
+          "end_date": "2026-03-04T06:00:00.000Z",
+          "complete_date": "2026-03-04T16:16:52.207Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 30636,
+          "name": "DP - Sprint 231",
+          "state": "closed",
+          "start_date": "2026-03-04T17:09:45.138Z",
+          "end_date": "2026-03-18T06:00:00.000Z",
+          "complete_date": "2026-03-18T15:10:14.732Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2315",
+      "url": "https://qtwo.atlassian.net/browse/DE-2315",
+      "summary": "OOM Failure on relationship_owner_match_audit",
+      "description": "### relationship_owner_match_audit",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-03-16T16:39:20.528-0500",
+      "updated_at": "2026-04-23T14:18:48.421-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 30638,
+          "name": "DP - Sprint 233",
+          "state": "closed",
+          "start_date": "2026-04-01T16:13:36.998Z",
+          "end_date": "2026-04-15T06:00:00.000Z",
+          "complete_date": "2026-04-15T15:09:08.607Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2316",
+      "url": "https://qtwo.atlassian.net/browse/DE-2316",
+      "summary": "AirflowTaskTimeout get_relationship_financial_statement Failure",
+      "description": "[https://airflow-us01.precisionlender.com/dags/l3-main-c3563e8a-3e29-45e9-9dad-9e6743126d78/grid?search=l3-main-c3563e8a-3e29-45e9-9dad-9e6743126d78&dag_run_id=manual__2026-03-10T05%3A00%3A00%2B00%3A00&task_id=ra_group.get_relationship_financial_statement&tab=logs](https://airflow-us01.precisionlender.com/dags/l3-main-c3563e8a-3e29-45e9-9dad-9e6743126d78/grid?search=l3-main-c3563e8a-3e29-45e9-9dad-9e6743126d78&dag_run_id=manual__2026-03-10T05%3A00%3A00%2B00%3A00&task_id=ra_group.get_relationship_financial_statement&tab=logs)",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-03-16T17:01:39.541-0500",
+      "updated_at": "2026-04-23T14:18:48.362-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 30636,
+          "name": "DP - Sprint 231",
+          "state": "closed",
+          "start_date": "2026-03-04T17:09:45.138Z",
+          "end_date": "2026-03-18T06:00:00.000Z",
+          "complete_date": "2026-03-18T15:10:14.732Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2320",
+      "url": "https://qtwo.atlassian.net/browse/DE-2320",
+      "summary": "Add Nusenda Credit Union (US01) to Nightly Data Feeds",
+      "description": "I recently provisioned Nusenda Credit Union on US01. I'd like to ensure they are added to the nightly data feeds pipeline.\u00a0\n\n* Client ID = 717c66c3-8a00-4f10-984b-2c726e1664b1\n\n    * Client Name = Nusenda Credit Union\n    * Stack = US01\n    \n\n",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "60f0c047f314ff006a74c55b",
+        "display_name": "Rhonney Greene"
+      },
+      "created_at": "2026-03-16T17:52:03.313-0500",
+      "updated_at": "2026-04-23T14:18:47.140-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31439,
+          "name": "DP - Sprint 234",
+          "state": "closed",
+          "start_date": "2026-04-15T15:35:20.000Z",
+          "end_date": "2026-05-07T05:00:00.000Z",
+          "complete_date": "2026-05-07T15:06:25.735Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2321",
+      "url": "https://qtwo.atlassian.net/browse/DE-2321",
+      "summary": "Add Cornhusker Bank (US01) to Nightly Data Feeds",
+      "description": "I recently provisioned Cornhusker Bank on US01. I'd like to ensure they are added to the nightly data feeds pipeline\n\n\u00a0Client ID (Production) = 1c83e1d0-caf4-4d81-8c51-bc7f7e12014d\n\n* Client Name = Cornhusker Bank\n* Stack = US01\n\n",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "60f0c047f314ff006a74c55b",
+        "display_name": "Rhonney Greene"
+      },
+      "created_at": "2026-03-16T19:15:21.602-0500",
+      "updated_at": "2026-04-23T14:18:47.028-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31439,
+          "name": "DP - Sprint 234",
+          "state": "closed",
+          "start_date": "2026-04-15T15:35:20.000Z",
+          "end_date": "2026-05-07T05:00:00.000Z",
+          "complete_date": "2026-05-07T15:06:25.735Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2368",
+      "url": "https://qtwo.atlassian.net/browse/DE-2368",
+      "summary": "Use Spark for heavy RA copy jobs",
+      "description": "Convert the heavy RA copy jobs (datasets that are generally large like Relationship FS, Loan FS Breakdown, Core Loan Accounts, etc.) to using the new Spark copy runner in <custom data-type=\"smartlink\" data-id=\"id-0\">https://qtwo.atlassian.net/browse/DE-2357</custom>.\n\n\u200c\n\nThat was done for just Rel FS and just for Truist DV (it was also a bit rushed to get them over the line). It would be good for this ticket to further test that runner that it syncs properly with DatasetMetadata, copies data over the same as it did with the pandas runner. \n\n\u200c\n\nSee how little resources we need (1 executor with minimal memory?) to be able to handle large files. For reference, Rel FS for 7d8 in alpha is \\~3.7gb and for Truist DV was \\~27gb. Truist DV was able to handle that find with the default spark configs, (3 executors with 16gb memory. Most likely overkill).\n\n\u200c\n\nI don\u2019t think we need to do this for the really small RA files, so we dont have to spin up so many concurrent Spark executors.\n\n\u200c\n\nIt may be worth either using Claude to go through and find clients + copy jobs that meet a certain threshold (for example taking more than 10 minutes?) \n\n\u200c\n\nGeneral Steps:\n\n1. Validate the primary Relationships FS for Truist DV (c3563e8a-3e29-45e9-9dad-9e6743126d78) data. See if the CSV output from DatePartition=20260226 (pre Spark) is of the same format as anything after DatePartition=20260312. You can just see if the same primary keys exist and if they have the same data, or if some fields have the same values or date fields are produced the same\n2. Look for RA copy job candidates to convert to spark\n3. Configure for those clients\n\n",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:26b1b50e-1d68-4ef4-b94b-d09a722c3480",
+        "display_name": "Michael Nguyen"
+      },
+      "created_at": "2026-03-23T08:50:24.085-0500",
+      "updated_at": "2026-05-06T08:58:01.579-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 30637,
+          "name": "DP - Sprint 232",
+          "state": "closed",
+          "start_date": "2026-03-18T15:46:01.465Z",
+          "end_date": "2026-04-01T06:00:00.000Z",
+          "complete_date": "2026-04-01T15:07:55.330Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 30638,
+          "name": "DP - Sprint 233",
+          "state": "closed",
+          "start_date": "2026-04-01T16:13:36.998Z",
+          "end_date": "2026-04-15T06:00:00.000Z",
+          "complete_date": "2026-04-15T15:09:08.607Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 31439,
+          "name": "DP - Sprint 234",
+          "state": "closed",
+          "start_date": "2026-04-15T15:35:20.000Z",
+          "end_date": "2026-05-07T05:00:00.000Z",
+          "complete_date": "2026-05-07T15:06:25.735Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2395",
+      "url": "https://qtwo.atlassian.net/browse/DE-2395",
+      "summary": "Pause data pipelines for CNB LA - DV client id",
+      "description": "CNB LA are working on updating their data in the DV environment and during the testing, they would like us to pause their pipelines so that we get the data they need after they are ready with the changes. \n\nDate to start pause: <custom data-type=\"date\" data-id=\"id-0\">3/26/2026</custom>\n\nDate to unpause: TBD\n\nClient id: 29ab3ebf-d41e-4617-a424-92b00c0d68a3",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-03-25T16:29:06.481-0500",
+      "updated_at": "2026-04-23T14:18:41.655-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 30637,
+          "name": "DP - Sprint 232",
+          "state": "closed",
+          "start_date": "2026-03-18T15:46:01.465Z",
+          "end_date": "2026-04-01T06:00:00.000Z",
+          "complete_date": "2026-04-01T15:07:55.330Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2401",
+      "url": "https://qtwo.atlassian.net/browse/DE-2401",
+      "summary": "Delete all old data for CNB LA - DV client id",
+      "description": "CNB LA are working on updating their data in the DV environment and during the testing, they would like us to pause their pipelines so that we get the data they need after they are ready with the changes. \n\nWe can delete all the old RA data for the DV environment in both ADLS and Snowflake. Please validate this is the DV environment <custom data-type=\"emoji\" data-id=\"id-0\">:slight_smile:</custom> \n\nClient id: 29ab3ebf-d41e-4617-a424-92b00c0d68a3\n\n\u200c\n\nQuery:\n\nDI_Scheduling_CL | where pipeline_name_s contains \"delete_client_data\" | where Message contains \"DRY RUN:\"\n\n[OMS](https://portal.azure.com/#view/Microsoft_OperationsManagementSuite_Workspace/Logs.ReactView/resourceId/%2Fsubscriptions%2F71aa0ec0-8411-43a2-9908-ddd2add764eb%2Fresourcegroups%2Fpl-rg-us-common%2Fproviders%2Fmicrosoft.operationalinsights%2Fworkspaces%2Fpl-oms-us-primary/source/LogsBlade.AnalyticsShareLinkToQuery/q/H4sIAAAAAAAAA22RW2sCMRCF3%252FdXTH1ZF1y8tG9lC2JLEYSCFV9DTGbX1LhZJlmt0B%252FfifUKfZucOfnOTNLvg8ZStjZAkFRhgL2ptdsLz0fWHHQO6AOSlodOYrkf1ii0DAgFHD2u5FZXVq471Fn2nLxOxadao26tqSsxmSX9%252FhntG1SmNOo%252BI8KSH9ivkRAWZovvWCOxqOGlgAge6exiuMm8pYiQQVFchouh%252BK1sqxFWUm1KY62%252FMM6KKK2shI4XS2n93y0iRx4cgUIK0tSwlNYw07j6SrCuEhZ3aIUHtnTTyXy6mE7Gs7QH6dt8%252FjFPs8j4cqs4X2g9Gx%252BOzuhYjmfDwWB4Kkd35ehUPl5VLp%252FSLE6nHBGqEF9Bba7j8HhSlFIFRwdRyy3GtALSxuaxderkrc%252B1aUyD%252FDWYN4QNOZ1zTETvjG%252BlhdLRVobAf8d0RxoJVod%252FA6RXvbuHOAp3G7PCFGu2JgAvPPgFgDgOPm4CAAA%253D)",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-03-26T11:39:01.089-0500",
+      "updated_at": "2026-04-23T14:18:41.458-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 30637,
+          "name": "DP - Sprint 232",
+          "state": "closed",
+          "start_date": "2026-03-18T15:46:01.465Z",
+          "end_date": "2026-04-01T06:00:00.000Z",
+          "complete_date": "2026-04-01T15:07:55.330Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2451",
+      "url": "https://qtwo.atlassian.net/browse/DE-2451",
+      "summary": "Spike - How to setup alerting",
+      "description": "Discuss with PL org how monitoring and alerting is setup on their other dotnet applications running in AKS. Determine how we should have monitoring / alerting setup accordingly and create implementation tickets.",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "600ef009e3a14d0071c76541",
+        "display_name": "Gage Russell"
+      },
+      "created_at": "2026-04-01T13:27:14.610-0500",
+      "updated_at": "2026-05-15T10:43:49.407-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31440,
+          "name": "DP - Sprint 235",
+          "state": "closed",
+          "start_date": "2026-05-07T15:50:02.393Z",
+          "end_date": "2026-05-21T05:00:00.000Z",
+          "complete_date": "2026-05-21T15:10:33.984Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2466",
+      "url": "https://qtwo.atlassian.net/browse/DE-2466",
+      "summary": "PL Data Studio Share - Add Opportunities datasets",
+      "description": "Please add the below tables to all clients on the PL DAta Studio share\n\n\u200c\n\n* Andi Engagement event\n* Pipeline scenarios opportunity history\n* Pipeline scenarios opportunity snapshot.\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-04-03T10:55:24.882-0500",
+      "updated_at": "2026-04-23T14:18:37.215-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 30638,
+          "name": "DP - Sprint 233",
+          "state": "closed",
+          "start_date": "2026-04-01T16:13:36.998Z",
+          "end_date": "2026-04-15T06:00:00.000Z",
+          "complete_date": "2026-04-15T15:09:08.607Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2507",
+      "url": "https://qtwo.atlassian.net/browse/DE-2507",
+      "summary": "PL Production Support - Sprint 234",
+      "description": "Ticket represents the work to analyze production logs every day and to create bug and/or investigation tickets for any issues uncovered.\n\n[https://qtwo.atlassian.net/wiki/display/DI/Production+Support](https://qtwo.atlassian.net/wiki/display/DI/Production+Support)  \n[https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL](https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL)\n\n[https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA](https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA) \u2013 RCAs\n\n\u00a0\n\n**Template**\n\n\\----------------------------------------------------------------------------\n\n```java\nLogical Execution Date: YYYY-MM-DD\r\n\r\nSatisfaction Score (Good, Meh, Bad, Ugly): placeholder\r\n\r\nChecklist:\r\n* [ ] Reviewed Failures\r\n* [ ] Reran Transient Errors\r\n* [ ] Created Bug Tickets, if applicable\r\n* [ ] Notified Team of Completion\r\n* [ ] Logged Time to Ticket (factor in lost time due to context switching)\r\n\r\nOutstanding Issues:\r\n* QDS-####\r\n\r\nRelevant Observations:\r\n* placeholder\n```\n\n\\----------------------------------------------------------------------------\n\n**Prod Support Order:**\n\n* Jordan\n* Andrew\n* Michael\n* Arunima\n* \u00a0\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "60e6049b287807006836dbb2",
+        "display_name": "Arunima Gulia"
+      },
+      "created_at": "2026-04-15T10:07:56.537-0500",
+      "updated_at": "2026-05-07T10:03:26.834-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31439,
+          "name": "DP - Sprint 234",
+          "state": "closed",
+          "start_date": "2026-04-15T15:35:20.000Z",
+          "end_date": "2026-05-07T05:00:00.000Z",
+          "complete_date": "2026-05-07T15:06:25.735Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2518",
+      "url": "https://qtwo.atlassian.net/browse/DE-2518",
+      "summary": "Get Treasury Financial Statement Breakdown",
+      "description": "Fix failing job:\n\n[https://airflow-us01.precisionlender.com/dags/l3-main-385c35bf-29c4-48a7-9527-a91963b7af69/grid?execution_date=2026-04-14+05%3A00%3A00%2B00%3A00&dag_run_id=manual__2026-04-14T05%3A00%3A00%2B00%3A00&task_id=ra_group.get_treasury_financial_statement_breakdown&tab=logs](https://airflow-us01.precisionlender.com/dags/l3-main-385c35bf-29c4-48a7-9527-a91963b7af69/grid?execution_date=2026-04-14+05%3A00%3A00%2B00%3A00&dag_run_id=manual__2026-04-14T05%3A00%3A00%2B00%3A00&task_id=ra_group.get_treasury_financial_statement_breakdown&tab=logs)",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-04-16T12:20:40.948-0500",
+      "updated_at": "2026-04-23T14:18:34.981-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31439,
+          "name": "DP - Sprint 234",
+          "state": "closed",
+          "start_date": "2026-04-15T15:35:20.000Z",
+          "end_date": "2026-05-07T05:00:00.000Z",
+          "complete_date": "2026-05-07T15:06:25.735Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2529",
+      "url": "https://qtwo.atlassian.net/browse/DE-2529",
+      "summary": "Resume data pipelines for CNB LA - DV client id",
+      "description": "CNB LA are working on updating their data in the DV environment and now that they are done with the testing, they would like us to resume their pipelines \n\nDate to resume: <custom data-type=\"date\" data-id=\"id-0\">4/21/2026</custom>\n\nClient id: 29ab3ebf-d41e-4617-a424-92b00c0d68a3",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-04-21T09:06:56.302-0500",
+      "updated_at": "2026-04-23T14:18:34.183-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31439,
+          "name": "DP - Sprint 234",
+          "state": "closed",
+          "start_date": "2026-04-15T15:35:20.000Z",
+          "end_date": "2026-05-07T05:00:00.000Z",
+          "complete_date": "2026-05-07T15:06:25.735Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2533",
+      "url": "https://qtwo.atlassian.net/browse/DE-2533",
+      "summary": "Enable PL Data Studio share for additional Truist account",
+      "description": "Please configure the PL DAta STudio share for another Truist account - they had a dual account setup where 3rd party shares went to their staging environment and then they copied over to Prod - now they are going directly to Prod. \n\nFrom Truist - \n\n_As part of our ongoing data share enablement with Precision Lending, we would like to take the next step by enabling direct data share access for our Truist Enterprise Core Snowflake account._\n\n\u00a0\n\n_We are requesting your support to enable this access in the Non\u2011Production environment. This approach will allow us to consume Precision Lending (PL) data directly within our enterprise Snowflake platform, while continuing to maintain appropriate governance, security, and access controls._\n\n\u00a0\n\n_Below are the details for our Truist Enterprise Snowflake Platform (Core Account \u2013 DEV environment):_\n\n\u00a0\n\n_Snowflake Organization Name: TRUIST_\n\n* _Snowflake Account Name: ESP_DEV_\n* _Snowflake Data Sharing Account Identifier: TRUIST.ESP_DEV_\n* _Account Locator: VQB35101_\n* _Region: US EAST 1_\n* _Primary / DR Region: Primary_\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-04-21T10:23:54.500-0500",
+      "updated_at": "2026-05-04T15:13:27.257-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31439,
+          "name": "DP - Sprint 234",
+          "state": "closed",
+          "start_date": "2026-04-15T15:35:20.000Z",
+          "end_date": "2026-05-07T05:00:00.000Z",
+          "complete_date": "2026-05-07T15:06:25.735Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2551",
+      "url": "https://qtwo.atlassian.net/browse/DE-2551",
+      "summary": "Create ThoughtSpot org for Citizens Bank",
+      "description": "Since Citizens is a data isolated client, there is no way to analyze their data in the Internal Production US org - so we need a separate Org in ThoughtSpot created for them.   \n  \nPlease create the new org and Kausik will take care of adding users etc. \n\nClient id: cb635fb3-df32-4dd0-9f4f-258959ef8d15",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-04-23T08:19:54.523-0500",
+      "updated_at": "2026-05-14T10:35:07.181-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31440,
+          "name": "DP - Sprint 235",
+          "state": "closed",
+          "start_date": "2026-05-07T15:50:02.393Z",
+          "end_date": "2026-05-21T05:00:00.000Z",
+          "complete_date": "2026-05-21T15:10:33.984Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2638",
+      "url": "https://qtwo.atlassian.net/browse/DE-2638",
+      "summary": "Move Remaining KPO Jobs to Spark",
+      "description": "In <custom data-type=\"smartlink\" data-id=\"id-0\">https://qtwo.atlassian.net/browse/DE-2368</custom>, we moved heavy RA jobs to spark. This ticket will move remaining KPO-client jobs with 56G to Spark for the following jobs:\n\nCORE_DEPOSIT_ACCOUNTS_ARGS\n\nGET_RELATIONSHIP_FINANCIAL_STATEMENT_ARGS\n\nLOAN_FINANCIAL_STATEMENT_BREAKDOWN_ARGS\n\nOTHER_FINANCIAL_STATEMENT_BREAKDOWN_ARGS\n\nThis ticket will also remove references to `*_ARGS.`",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-05-06T08:59:46.392-0500",
+      "updated_at": "2026-05-12T12:33:27.007-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31439,
+          "name": "DP - Sprint 234",
+          "state": "closed",
+          "start_date": "2026-04-15T15:35:20.000Z",
+          "end_date": "2026-05-07T05:00:00.000Z",
+          "complete_date": "2026-05-07T15:06:25.735Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 31440,
+          "name": "DP - Sprint 235",
+          "state": "closed",
+          "start_date": "2026-05-07T15:50:02.393Z",
+          "end_date": "2026-05-21T05:00:00.000Z",
+          "complete_date": "2026-05-21T15:10:33.984Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2640",
+      "url": "https://qtwo.atlassian.net/browse/DE-2640",
+      "summary": "Update Relationship Summary Job to only Download latest date ",
+      "description": "**Context**\n\n  \nThe `relationship_signals_summary` job is currently configured to read `RelationshipSignalsTimeSeries` with `DatesToDownload.ALL_DATES`, but the job logic only uses the most recent run-date data to produce the final summary output.\n\nThis creates unnecessary read volume and compute overhead because we download historical partitions that are discarded during transformation.\n\nTarget job:  \n`ds-jobs/src/datascience_jobs/jobs/data/relationship/relationship_signals_summary.py`\n\nCurrent behavior:\n\n* Source metadata uses `DatesToDownload.ALL_DATES`\n* Job logic filters down to the latest run-date / latest relationship-level records\n\nDesired behavior:\n\n* Update the job to read only the latest required source data instead of full history\n* Preserve the current functional output and schema\n* Confirm the change does not affect downstream consumers or expected run-date behavior\n\n**Proposed change**\n\n* Change source metadata for `RelationshipSignalsTimeSeries` from `DatesToDownload.ALL_DATES` to the appropriate latest-only mode, likely `DatesToDownload.LATEST_DATE`\n* Validate that any downstream calculations still work correctly with latest-only input\n* Remove or update the existing TODO comment once the change is complete\n\n**Acceptance Criteria**\n\n* `relationship_signals_summary` no longer reads full historical `RelationshipSignalsTimeSeries` data\n* Output schema and business logic remain unchanged\n* Job produces the same expected latest summary results as before\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "60e6049b287807006836dbb2",
+        "display_name": "Arunima Gulia"
+      },
+      "created_at": "2026-05-06T13:48:37.017-0500",
+      "updated_at": "2026-05-20T13:36:00.224-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31440,
+          "name": "DP - Sprint 235",
+          "state": "closed",
+          "start_date": "2026-05-07T15:50:02.393Z",
+          "end_date": "2026-05-21T05:00:00.000Z",
+          "complete_date": "2026-05-21T15:10:33.984Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2675",
+      "url": "https://qtwo.atlassian.net/browse/DE-2675",
+      "summary": "Turn off and archive pipeline_scenarios_opportunities_v1",
+      "description": "Removed/comment out the DAG job code for pipeline_scenarios_opportunities_v1 please comment the Jira ticket number and reason for being commented out.\n\nMake sure to test that downstream jobs are not effected by the change.\n\nConfirm that no clients actually need v1.",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:29d927a6-0543-4851-8fda-4bf8ff357c49",
+        "display_name": "Andrew Capindo"
+      },
+      "created_at": "2026-05-08T14:40:54.992-0500",
+      "updated_at": "2026-06-10T14:41:26.429-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31441,
+          "name": "DP - Sprint 236",
+          "state": "closed",
+          "start_date": "2026-05-21T16:08:19.544Z",
+          "end_date": "2026-06-11T05:00:00.000Z",
+          "complete_date": "2026-06-11T15:11:16.214Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2713",
+      "url": "https://qtwo.atlassian.net/browse/DE-2713",
+      "summary": "PL Data Studio Datasets Research",
+      "description": "Update confluence:\n\n<custom data-type=\"smartlink\" data-id=\"id-0\">https://qtwo.atlassian.net/wiki/spaces/DI/pages/16842984/Data+Studio+PL+-+Primary+Data+Sets</custom> ",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-05-18T14:43:20.397-0500",
+      "updated_at": "2026-05-21T08:40:30.431-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31440,
+          "name": "DP - Sprint 235",
+          "state": "closed",
+          "start_date": "2026-05-07T15:50:02.393Z",
+          "end_date": "2026-05-21T05:00:00.000Z",
+          "complete_date": "2026-05-21T15:10:33.984Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2736",
+      "url": "https://qtwo.atlassian.net/browse/DE-2736",
+      "summary": "Node Packing",
+      "description": "Document node packing in Kubernetes",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "600ef009e3a14d0071c76541",
+        "display_name": "Gage Russell"
+      },
+      "created_at": "2026-05-20T10:49:31.598-0500",
+      "updated_at": "2026-06-10T12:22:34.147-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31441,
+          "name": "DP - Sprint 236",
+          "state": "closed",
+          "start_date": "2026-05-21T16:08:19.544Z",
+          "end_date": "2026-06-11T05:00:00.000Z",
+          "complete_date": "2026-06-11T15:11:16.214Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2775",
+      "url": "https://qtwo.atlassian.net/browse/DE-2775",
+      "summary": "Treasury - Replace TreasuryProductsExpanded file with TreasuryAssumptions as the source for Treasury datasets",
+      "description": "The RA team are looking to remove the TreasuryProducts file. Identify all the dependencies and replace the source for those fields with TreasuryAssumptions.csv as the source. \n\n* \n\n![](blob:https://media.staging.atl-paas.net/?type=file&localId=95febf2eac68&id=f226ea22-7138-45a0-a0fa-14b49edb2d58&&collection=&height=761&occurrenceKey=null&width=1208&__contextId=null&__displayType=null&__external=false&__fileMimeType=null&__fileName=null&__fileSize=null&__mediaTraceId=null&url=null)\nAdd to Treasury Assumptions\n\n* AFP Code (need to find where it is)\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-05-26T13:36:16.850-0500",
+      "updated_at": "2026-07-22T15:23:18.685-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32062,
+          "name": "DP - Sprint 237",
+          "state": "closed",
+          "start_date": "2026-06-11T20:07:44.787Z",
+          "end_date": "2026-06-25T20:07:30.000Z",
+          "complete_date": "2026-06-25T15:08:51.921Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 32065,
+          "name": "DP - Sprint 238",
+          "state": "closed",
+          "start_date": "2026-06-25T15:40:43.236Z",
+          "end_date": "2026-07-09T05:00:00.000Z",
+          "complete_date": "2026-07-09T15:09:00.950Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2776",
+      "url": "https://qtwo.atlassian.net/browse/DE-2776",
+      "summary": "Update Primary Dataset Core Deposit Accounts",
+      "description": "Update core deposit accounts datasets with the new fields added for deposit accounts. \n\nField names: \n\n* RowValues\n* CoreBillableGroupAccountId\n\nThe following were planned to be added but are now deprecated:\n\n* DepositFTPLog\n* FTPOverCurrentPeriodLog\n* FTPOverLoanLifeLog\n* FTPOverRemainingLifeLog\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-05-26T13:38:04.387-0500",
+      "updated_at": "2026-07-06T13:28:01.637-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32062,
+          "name": "DP - Sprint 237",
+          "state": "closed",
+          "start_date": "2026-06-11T20:07:44.787Z",
+          "end_date": "2026-06-25T20:07:30.000Z",
+          "complete_date": "2026-06-25T15:08:51.921Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 32065,
+          "name": "DP - Sprint 238",
+          "state": "closed",
+          "start_date": "2026-06-25T15:40:43.236Z",
+          "end_date": "2026-07-09T05:00:00.000Z",
+          "complete_date": "2026-07-09T15:09:00.950Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2777",
+      "url": "https://qtwo.atlassian.net/browse/DE-2777",
+      "summary": "Update HQ, Derived and Monthly derived Core Deposit Accounts with new fields",
+      "description": "Update all the downstream datasets for Deposit accounts with the new fields. Also update Snowflake datasets and definitions\n\n* HQ Core Deposit Accounts\n* Core Deposit Accounts Derived\n* Core Deposit Accounts Monthly\n* DBX SQL updates\n* Snowflake updates\n\nField names: \n\n* RowValues\n* CoreBillableGroupAccountId\n\nThe following were planned to be added but are now deprecated:\n\n* DepositFTPLog\n* FTPOverCurrentPeriodLog\n* FTPOverLoanLifeLog\n* FTPOverRemainingLifeLog\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-05-26T13:55:14.921-0500",
+      "updated_at": "2026-07-07T14:41:37.393-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32062,
+          "name": "DP - Sprint 237",
+          "state": "closed",
+          "start_date": "2026-06-11T20:07:44.787Z",
+          "end_date": "2026-06-25T20:07:30.000Z",
+          "complete_date": "2026-06-25T15:08:51.921Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 32065,
+          "name": "DP - Sprint 238",
+          "state": "closed",
+          "start_date": "2026-06-25T15:40:43.236Z",
+          "end_date": "2026-07-09T05:00:00.000Z",
+          "complete_date": "2026-07-09T15:09:00.950Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2778",
+      "url": "https://qtwo.atlassian.net/browse/DE-2778",
+      "summary": "Update Primary Core Treasury Accounts with new fields on the RA source file - dbstagingCoreTreasuryAccounts",
+      "description": "There are a few new fields on the Treasury source files from RA - need to add them to our primary datasets\n\nNew fields required\n\n* CoreBillableGroupAccountId\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-05-26T14:05:04.665-0500",
+      "updated_at": "2026-07-13T12:47:06.402-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32065,
+          "name": "DP - Sprint 238",
+          "state": "closed",
+          "start_date": "2026-06-25T15:40:43.236Z",
+          "end_date": "2026-07-09T05:00:00.000Z",
+          "complete_date": "2026-07-09T15:09:00.950Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2779",
+      "url": "https://qtwo.atlassian.net/browse/DE-2779",
+      "summary": "Update Core Treasury HQ, derived and monthly derived datasets",
+      "description": "Flow down new fields added to Treasury primary datasets to HQ, derived and monthly derived datasets. Also update Snowflake datasets and definitions\n\n* Derived HQ Core Treasury Accounts\n* Core Treasury Accounts Monthly\n* DBX SQL updates\n* Snowflake updates\n\nNew fields \n\n* CoreBillableGroupAccountId\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-05-26T14:26:13.564-0500",
+      "updated_at": "2026-07-13T08:46:55.912-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32065,
+          "name": "DP - Sprint 238",
+          "state": "closed",
+          "start_date": "2026-06-25T15:40:43.236Z",
+          "end_date": "2026-07-09T05:00:00.000Z",
+          "complete_date": "2026-07-09T15:09:00.950Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 32365,
+          "name": "DP - Sprint 239",
+          "state": "closed",
+          "start_date": "2026-07-09T05:00:10.925Z",
+          "end_date": "2026-07-23T05:00:00.000Z",
+          "complete_date": "2026-07-23T15:08:14.295Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2809",
+      "url": "https://qtwo.atlassian.net/browse/DE-2809",
+      "summary": "Node Scaling Observability, Scaling, & Impact",
+      "description": "Currently, our Node pools scale down very conservatively. We scale down 2 pods per minute within a window of `1200` seconds. \n\n![](blob:https://media.staging.atl-paas.net/?type=file&localId=null&id=2c2e6eba-dfea-4b72-b209-52a371dcdbbf&&collection=&height=256&occurrenceKey=null&width=727&__contextId=null&__displayType=null&__external=false&__fileMimeType=null&__fileName=null&__fileSize=null&__mediaTraceId=null&url=null)\nUpon job completion in the morning, this leaves many nodes under-utilized. For many nodes, the `%mem, %cpu < 50%`. \n\n![](blob:https://media.staging.atl-paas.net/?type=file&localId=null&id=1b1e0a47-cd14-43b3-a50a-6fd968d6a223&&collection=&height=401&occurrenceKey=null&width=1024&__contextId=null&__displayType=null&__external=false&__fileMimeType=null&__fileName=null&__fileSize=null&__mediaTraceId=null&url=null)\nPreviously, the scaling policy was too aggressive and cause issues speeding up and slowing down pods. Ticket completion will involve:\n\n1. Creating success metric for \u201cgood\u201d scaling policy\n2. Creating tracking policy and data analysis for success metric\n3. Tuning cluster accordingly\n4. Write documentation & project cost savings estimate. Extend this confluence page: <custom data-type=\"smartlink\" data-id=\"id-0\">https://qtwo.atlassian.net/wiki/spaces/DI/pages/1021411340/Pod+Sizing+Node+Packing</custom> \n\nThere is no \u201cperfect\u201d solution. We do want/need to improve.",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-05-29T10:53:54.335-0500",
+      "updated_at": "2026-06-08T12:02:21.199-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31441,
+          "name": "DP - Sprint 236",
+          "state": "closed",
+          "start_date": "2026-05-21T16:08:19.544Z",
+          "end_date": "2026-06-11T05:00:00.000Z",
+          "complete_date": "2026-06-11T15:11:16.214Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2810",
+      "url": "https://qtwo.atlassian.net/browse/DE-2810",
+      "summary": "Create report for Data Library Usage",
+      "description": "Create a report that lists for all Data Library Reports and Visualizations how many FI\u2019s are using them and how many impressions/downloads there are.",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "61ae22e2f2415000725afae8",
+        "display_name": "Holger Trinks"
+      },
+      "created_at": "2026-05-29T13:45:01.784-0500",
+      "updated_at": "2026-06-08T12:05:42.430-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31441,
+          "name": "DP - Sprint 236",
+          "state": "closed",
+          "start_date": "2026-05-21T16:08:19.544Z",
+          "end_date": "2026-06-11T05:00:00.000Z",
+          "complete_date": "2026-06-11T15:11:16.214Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2813",
+      "url": "https://qtwo.atlassian.net/browse/DE-2813",
+      "summary": "Review & Update PL Docs",
+      "description": "Review the PL Data Architecture Diagrams and docs for completeness and update as needed.\n\n[Data Architecture PrecisionLender - Data Insights - Confluence](https://qtwo.atlassian.net/wiki/spaces/DI/pages/16843448/Data+Architecture+PrecisionLender)",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-06-03T10:24:51.040-0500",
+      "updated_at": "2026-06-10T14:41:30.248-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31441,
+          "name": "DP - Sprint 236",
+          "state": "closed",
+          "start_date": "2026-05-21T16:08:19.544Z",
+          "end_date": "2026-06-11T05:00:00.000Z",
+          "complete_date": "2026-06-11T15:11:16.214Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2827",
+      "url": "https://qtwo.atlassian.net/browse/DE-2827",
+      "summary": "Standardize Spark Configurations",
+      "description": "Currently, configurations for Spark Configurations are strewn throughout the codebase. In this ticket, we will standardize and test commonly-used spark configurations within `resource_allocations`.\n\n\u200c\n\nThis ticket may also involve changing Celery Configuration.",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-06-08T09:26:58.893-0500",
+      "updated_at": "2026-07-01T13:07:09.701-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31441,
+          "name": "DP - Sprint 236",
+          "state": "closed",
+          "start_date": "2026-05-21T16:08:19.544Z",
+          "end_date": "2026-06-11T05:00:00.000Z",
+          "complete_date": "2026-06-11T15:11:16.214Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 32062,
+          "name": "DP - Sprint 237",
+          "state": "closed",
+          "start_date": "2026-06-11T20:07:44.787Z",
+          "end_date": "2026-06-25T20:07:30.000Z",
+          "complete_date": "2026-06-25T15:08:51.921Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 32065,
+          "name": "DP - Sprint 238",
+          "state": "closed",
+          "start_date": "2026-06-25T15:40:43.236Z",
+          "end_date": "2026-07-09T05:00:00.000Z",
+          "complete_date": "2026-07-09T15:09:00.950Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2834",
+      "url": "https://qtwo.atlassian.net/browse/DE-2834",
+      "summary": "LoanAmount doubled for opportunities with conversion loans - using wrong source field",
+      "description": "\u00a0Opportunities with conversion loans show doubled LoanAmount values (e.g., $4.8MM instead of $2.4MM). **We are currently using the wrong field.** We extract and sum commercialLoanAccounts\\[\\].amount, but we should be using\n\n\u00a0 allLoansFinancialStatement.loanAmount instead.\n\n\u200c\n\n\u00a0 **Current** **(Wrong)** **Field:**\n\n\u00a0 commercialLoanAccounts\\[\\].amount - extracted from each individual loan account and summed together. This includes both the original loan and its conversion loan, causing duplication.\n\n\u200c\n\n\u00a0 **Correct** **Field:**\n\n\u00a0 allLoansFinancialStatement.loanAmount - pre-aggregated at the scenario level by PrecisionLender. This field already contains the correct total and does not double-count conversion loans.\n\n\u200c\n\n\u00a0 **Files** **to** **Change:**\n\n\u200c\n\n1. ds-jobs/src/datascience_jobs/jobs/data/opportunities/pipeline_scenarios_opportunities_history_v1.py\n\n* Add allLoansFinancialStatement.loanAmount to SCENARIO_COLS\n\n* Remove amount extraction from COMM_LOAN_COLS and MC_COLS\n\n2. ds-jobs/src/datascience_jobs/jobs/data/opportunities/opportunities_helpers.py\n\n* Remove LoanAmount/LoanAmountMC aggregation logic from aggregate_account_array_columns()\n\n* This function currently sums the array of individual loan amounts. Since allLoansFinancialStatement.loanAmount is already a single pre-aggregated value (not an array), the aggregation logic is no longer needed and would fail if left in\n\n\u00a0 place.\n\n\u200c\n\n\u00a0 **Acceptance Criteria:**\n\n* \\[ \\] LoanAmount uses allLoansFinancialStatement.loanAmount instead of summed individual accounts\n\n* \\[ \\] Opportunities with conversion loans show correct (non-doubled) amounts\n\n* \\[ \\] Unit tests updated\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "60e6049b287807006836dbb2",
+        "display_name": "Arunima Gulia"
+      },
+      "created_at": "2026-06-08T15:51:49.167-0500",
+      "updated_at": "2026-07-07T15:27:48.703-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 31441,
+          "name": "DP - Sprint 236",
+          "state": "closed",
+          "start_date": "2026-05-21T16:08:19.544Z",
+          "end_date": "2026-06-11T05:00:00.000Z",
+          "complete_date": "2026-06-11T15:11:16.214Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 32062,
+          "name": "DP - Sprint 237",
+          "state": "closed",
+          "start_date": "2026-06-11T20:07:44.787Z",
+          "end_date": "2026-06-25T20:07:30.000Z",
+          "complete_date": "2026-06-25T15:08:51.921Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 32065,
+          "name": "DP - Sprint 238",
+          "state": "closed",
+          "start_date": "2026-06-25T15:40:43.236Z",
+          "end_date": "2026-07-09T05:00:00.000Z",
+          "complete_date": "2026-07-09T15:09:00.950Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2846",
+      "url": "https://qtwo.atlassian.net/browse/DE-2846",
+      "summary": "Opportunity Datasets - add draw information to the Opportunity datasets",
+      "description": "Enhancement to the Opportunity snapshot - there is Draw information available in the Opp event which we need to add to our data pipelines. \n\nAdd a new dataset linked to these for the draws. Make the draws a separate table / file like we do for the Horizon Projections History and Snapshot\n\n2 new datasets\n\n1. AccountLevelOpportunityDrawScheduleHistory\n2. AccountLevelOpportunityDrawScheduleSnapshot\n\nEach `draw` has it\u2019s own row. Draws happen on a monthly cadence.\n\n\u200c\n\n![](blob:https://media.staging.atl-paas.net/?type=file&localId=df04279ed9a6&id=f5408ad9-0f48-44b2-a4a2-db6204477db1&&collection=&height=215&occurrenceKey=null&width=596&__contextId=null&__displayType=null&__external=false&__fileMimeType=null&__fileName=null&__fileSize=null&__mediaTraceId=null&url=null)\nExample: \n\n![](blob:https://media.staging.atl-paas.net/?type=file&localId=dda8068c04ba&id=fd0c958c-d634-4190-955f-ae5357cc6cb9&&collection=&height=751&occurrenceKey=null&width=1888&__contextId=null&__displayType=null&__external=false&__fileMimeType=null&__fileName=null&__fileSize=null&__mediaTraceId=null&url=null)\n",
+      "issue_type": "Story",
+      "status": "Dev Complete",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-06-09T15:52:20.780-0500",
+      "updated_at": "2026-07-29T14:52:31.396-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32065,
+          "name": "DP - Sprint 238",
+          "state": "closed",
+          "start_date": "2026-06-25T15:40:43.236Z",
+          "end_date": "2026-07-09T05:00:00.000Z",
+          "complete_date": "2026-07-09T15:09:00.950Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 32365,
+          "name": "DP - Sprint 239",
+          "state": "closed",
+          "start_date": "2026-07-09T05:00:10.925Z",
+          "end_date": "2026-07-23T05:00:00.000Z",
+          "complete_date": "2026-07-23T15:08:14.295Z"
+        },
+        {
+          "board": "pl-data",
+          "id": 34191,
+          "name": "PL Data - Sprint 240",
+          "state": "active",
+          "start_date": "2026-07-23T14:27:01.695Z",
+          "end_date": "2026-08-06T14:27:00.000Z",
+          "complete_date": null
+        }
+      ]
+    },
+    {
+      "key": "DE-2858",
+      "url": "https://qtwo.atlassian.net/browse/DE-2858",
+      "summary": "PL Production Support - Sprint 237",
+      "description": "Ticket represents the work to analyze production logs every day and to create bug and/or investigation tickets for any issues uncovered.\n\n[https://qtwo.atlassian.net/wiki/display/DI/Production+Support](https://qtwo.atlassian.net/wiki/display/DI/Production+Support)  \n[https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL](https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL)\n\n[https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA](https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA) \u2013 RCAs\n\n\u00a0\n\n**Template**\n\n\\----------------------------------------------------------------------------\n\n```java\nLogical Execution Date: YYYY-MM-DD\r\n\r\nSatisfaction Score (Good, Meh, Bad, Ugly): placeholder\r\n\r\nChecklist:\r\n* [ ] Reviewed Failures\r\n* [ ] Reran Transient Errors\r\n* [ ] Created Bug Tickets, if applicable\r\n* [ ] Notified Team of Completion\r\n* [ ] Logged Time to Ticket (factor in lost time due to context switching)\r\n\r\nOutstanding Issues:\r\n* QDS-####\r\n\r\nRelevant Observations:\r\n* placeholder\n```\n\n\\----------------------------------------------------------------------------\n\n**Prod Support Order:**\n\n* Jordan\n* Andrew\n* Michael\n* Arunima\n* \u00a0\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "60e6049b287807006836dbb2",
+        "display_name": "Arunima Gulia"
+      },
+      "created_at": "2026-06-11T10:07:06.567-0500",
+      "updated_at": "2026-06-25T10:08:41.928-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32062,
+          "name": "DP - Sprint 237",
+          "state": "closed",
+          "start_date": "2026-06-11T20:07:44.787Z",
+          "end_date": "2026-06-25T20:07:30.000Z",
+          "complete_date": "2026-06-25T15:08:51.921Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2883",
+      "url": "https://qtwo.atlassian.net/browse/DE-2883",
+      "summary": "Wells Fargo monthly_relationships_copy_client",
+      "description": "Error in:\n\n\u200c\n\n[https://airflow-us01.precisionlender.com/dags/l3-main-076939cf-4a4a-4fa4-a5e6-44a4c8d33bb2/grid?execution_date=2026-06-14+05%3A00%3A00%2B00%3A00&task_id=monthly_relationships.monthly_relationships_copy_client&tab=details&dag_run_id=manual__2026-06-14T05%3A00%3A00%2B00%3A00](https://airflow-us01.precisionlender.com/dags/l3-main-076939cf-4a4a-4fa4-a5e6-44a4c8d33bb2/grid?execution_date=2026-06-14+05%3A00%3A00%2B00%3A00&task_id=monthly_relationships.monthly_relationships_copy_client&tab=details&dag_run_id=manual__2026-06-14T05%3A00%3A00%2B00%3A00)",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-06-15T10:01:05.167-0500",
+      "updated_at": "2026-06-23T16:02:41.872-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32062,
+          "name": "DP - Sprint 237",
+          "state": "closed",
+          "start_date": "2026-06-11T20:07:44.787Z",
+          "end_date": "2026-06-25T20:07:30.000Z",
+          "complete_date": "2026-06-25T15:08:51.921Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2912",
+      "url": "https://qtwo.atlassian.net/browse/DE-2912",
+      "summary": "Fixing CNB-LA & First National Bank of Omaha RA Failures",
+      "description": null,
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-06-22T08:48:57.882-0500",
+      "updated_at": "2026-06-22T12:13:59.504-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32062,
+          "name": "DP - Sprint 237",
+          "state": "closed",
+          "start_date": "2026-06-11T20:07:44.787Z",
+          "end_date": "2026-06-25T20:07:30.000Z",
+          "complete_date": "2026-06-25T15:08:51.921Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2923",
+      "url": "https://qtwo.atlassian.net/browse/DE-2923",
+      "summary": "Data Studio Snowflake Enablement - PL Data Studio provisioning for BankUnited - LA, PROD and DV",
+      "description": "BankUnited will need Data Studio added to the following environments. Need this to be Snowflake Data Studio.\n\n**Data Team work items:**\u00a0\n\n* Validate data is already in Snowflake, if not, create ticket to pull the data into Snowflake\n* Add client to data share for PL_dataStudio\n\n\u00a0\n\n**Client Info:**\u00a0\n\n| \u00a0 | **Production** | **DV** |\n| --- | --- | --- |\n| **PL Client ID** | 4cc7cdba-c8e7-41d7-8c5d-4b85355a543c |  f8ebcaa4-3f60-4f6e-8fa5-5b16c23032cb |\n| **URL** | [https://bankunited.precisionlender.com](https://cnb.precisionlender.com/) | [https://bankunited-validation.precisionlender.com/](https://bankunited-validation.precisionlender.com/) |\n| \u00a0**SF Account** | [BankUnited N.A. \\| Account \\| Salesforce](https://q2.lightning.force.com/lightning/r/Account/0018000000b8TKtAAM/view)  | \u00a0[BankUnited - PL Data Validation \\| Account \\| Salesforce](https://q2.lightning.force.com/lightning/r/Account/001UR00000eOrNVYA0/view)  |\n\nClient go-live is October 2026 and we plan to connect Data Studio during implementation when available.\n\n**Snowflake Information:**\u00a0\n\n* Account Name: PROD\n* Org Name: BANKUNITED\n* Locator: **ETB79623**\n* Region: AWS_US_EAST_1\u00a0\n* Account Identifier: **BANKUNITED-PROD**\n\nSnowflake Hosting: AWS",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:257de4b5-f918-41fc-ad9c-abd5b1d721ad",
+        "display_name": "Darshna Gowin"
+      },
+      "created_at": "2026-06-23T15:46:46.732-0500",
+      "updated_at": "2026-07-15T10:36:55.319-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32065,
+          "name": "DP - Sprint 238",
+          "state": "closed",
+          "start_date": "2026-06-25T15:40:43.236Z",
+          "end_date": "2026-07-09T05:00:00.000Z",
+          "complete_date": "2026-07-09T15:09:00.950Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 32365,
+          "name": "DP - Sprint 239",
+          "state": "closed",
+          "start_date": "2026-07-09T05:00:10.925Z",
+          "end_date": "2026-07-23T05:00:00.000Z",
+          "complete_date": "2026-07-23T15:08:14.295Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-2953",
+      "url": "https://qtwo.atlassian.net/browse/DE-2953",
+      "summary": "Backfill Andi Telemetry for April - ALDS and Snowflake ",
+      "description": "There is a gap in the Andi data for the month of April because there was some days missing in the collection. We need to backfill the month so that we accurately capture the data from Andi\n\nBackfill ADLS and Snowflake datasets",
+      "issue_type": "Story",
+      "status": "In Progress",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-06-30T08:16:22.046-0500",
+      "updated_at": "2026-07-23T10:20:52.349-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32365,
+          "name": "DP - Sprint 239",
+          "state": "closed",
+          "start_date": "2026-07-09T05:00:10.925Z",
+          "end_date": "2026-07-23T05:00:00.000Z",
+          "complete_date": "2026-07-23T15:08:14.295Z"
+        },
+        {
+          "board": "pl-data",
+          "id": 34191,
+          "name": "PL Data - Sprint 240",
+          "state": "active",
+          "start_date": "2026-07-23T14:27:01.695Z",
+          "end_date": "2026-08-06T14:27:00.000Z",
+          "complete_date": null
+        }
+      ]
+    },
+    {
+      "key": "DE-2960",
+      "url": "https://qtwo.atlassian.net/browse/DE-2960",
+      "summary": "Update Databricks Token Process on DI-Schema-Definitions",
+      "description": "We need to update the process for updating Databricks Tokens.",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-06-30T11:14:50.806-0500",
+      "updated_at": "2026-07-07T10:30:16.273-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32065,
+          "name": "DP - Sprint 238",
+          "state": "closed",
+          "start_date": "2026-06-25T15:40:43.236Z",
+          "end_date": "2026-07-09T05:00:00.000Z",
+          "complete_date": "2026-07-09T15:09:00.950Z"
+        }
+      ]
+    },
+    {
+      "key": "DE-3023",
+      "url": "https://qtwo.atlassian.net/browse/DE-3023",
+      "summary": "Update Primary Core Treasury Accounts with new fields from Treasury Financial statements",
+      "description": "There are a few new fields on the Treasury source files from RA - need to add them to our primary datasets\n\nNew fields required\n\n* ContributionMargin\n* PriceVariance\n* PriceVariancePercent\n\n    \n\n\n\nSource: dbStagingTreasuryFinancialStatementBreakdowns.csv",
+      "issue_type": "Story",
+      "status": "In Progress",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-07-13T12:47:04.605-0500",
+      "updated_at": "2026-08-04T15:02:30.135-0500",
+      "sprints": [
+        {
+          "board": "pl-data",
+          "id": 34191,
+          "name": "PL Data - Sprint 240",
+          "state": "active",
+          "start_date": "2026-07-23T14:27:01.695Z",
+          "end_date": "2026-08-06T14:27:00.000Z",
+          "complete_date": null
+        }
+      ]
+    },
+    {
+      "key": "DE-3028",
+      "url": "https://qtwo.atlassian.net/browse/DE-3028",
+      "summary": "Add WSFS Bank to Nightly Data Feeds",
+      "description": "I\u2019ve recently provisioned WSFS Bank on US01 and I\u2019d like to ensure they are added to the nightly data feeds pipeline.  \n\nClient ID:  81914376-95ac-4531-8cf4-72ab1190d41f\n\nClient Name:  Wilmington Savings Fund Society, FSB aka WSFS Bank\n\nStack:  US01",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:e6c13054-33b6-4ec1-a79a-2cdb9d62faf1",
+        "display_name": "Laura English"
+      },
+      "created_at": "2026-07-14T14:26:40.489-0500",
+      "updated_at": "2026-07-30T15:45:24.105-0500",
+      "sprints": [
+        {
+          "board": "pl-data",
+          "id": 34191,
+          "name": "PL Data - Sprint 240",
+          "state": "active",
+          "start_date": "2026-07-23T14:27:01.695Z",
+          "end_date": "2026-08-06T14:27:00.000Z",
+          "complete_date": null
+        }
+      ]
+    },
+    {
+      "key": "DE-3044",
+      "url": "https://qtwo.atlassian.net/browse/DE-3044",
+      "summary": "Opp Datasets -- Add Draw to DBX & Snowflake",
+      "description": "Add Draws to DBX and Snowflkae\n\n* Account level opportunity history and snapshot\n* Pipeline scenario opportunity history and snapshot\n\nUpdate Snowflake and DBX.",
+      "issue_type": "Task",
+      "status": "Dev Complete",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-07-16T11:13:46.881-0500",
+      "updated_at": "2026-07-23T10:20:52.639-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 32365,
+          "name": "DP - Sprint 239",
+          "state": "closed",
+          "start_date": "2026-07-09T05:00:10.925Z",
+          "end_date": "2026-07-23T05:00:00.000Z",
+          "complete_date": "2026-07-23T15:08:14.295Z"
+        },
+        {
+          "board": "pl-data",
+          "id": 34191,
+          "name": "PL Data - Sprint 240",
+          "state": "active",
+          "start_date": "2026-07-23T14:27:01.695Z",
+          "end_date": "2026-08-06T14:27:00.000Z",
+          "complete_date": null
+        }
+      ]
+    },
+    {
+      "key": "DE-3077",
+      "url": "https://qtwo.atlassian.net/browse/DE-3077",
+      "summary": "Update Derived Core Treasury Accounts with new fields from Treasury Financial statements",
+      "description": "Update derived Core Treasury Accounts, Core Treasury Accounts Monthly with new fields\n\nNew fields required\n\n* ContributionMargin\n* PriceVariance\n* PriceVariancePercent\n\n    \n\n\n\nUpdate: \n\n* Databricks SQl\n* Snowflake\n\n",
+      "issue_type": "Story",
+      "status": "In Progress",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-07-23T14:08:26.213-0500",
+      "updated_at": "2026-08-04T10:02:08.880-0500",
+      "sprints": [
+        {
+          "board": "pl-data",
+          "id": 34191,
+          "name": "PL Data - Sprint 240",
+          "state": "active",
+          "start_date": "2026-07-23T14:27:01.695Z",
+          "end_date": "2026-08-06T14:27:00.000Z",
+          "complete_date": null
+        }
+      ]
+    },
+    {
+      "key": "DE-3078",
+      "url": "https://qtwo.atlassian.net/browse/DE-3078",
+      "summary": "PL Production Support - Sprint 240",
+      "description": "Ticket represents the work to analyze production logs every day and to create bug and/or investigation tickets for any issues uncovered.\\\\n\\\\nhttps://qtwo.atlassian.net/wiki/display/DI/Production+Support\\\\nhttps://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL\\\\n\\\\nhttps://qtwo.atlassian.net/wiki/display/DI/Internal+RCA \u2013 RCAs\\\\n\\\\n**Template**\\\\n\\\\n----------------------------------------------------------------------------\\\\n\\\\n`\\nLogical Execution Date: YYYY-MM-DD\\n\\nSatisfaction Score (Good, Meh, Bad, Ugly): placeholder\\n\\nChecklist:\\n* [ ] Reviewed Failures\\n* [ ] Reran Transient Errors\\n* [ ] Created Bug Tickets, if applicable\\n* [ ] Notified Team of Completion\\n* [ ] Logged Time to Ticket (factor in lost time due to context switching)\\n\\nOutstanding Issues:\\n* DE-####\\n\\nRelevant Observations:\\n* placeholder\\n`\\\\n\\\\n----------------------------------------------------------------------------\\\\n\\\\n**Prod Support Order:**\\\\n\\\\n\\* Jordan\\\\n\\* Andrew\\\\n\\* Michael\\\\n\\* Arunima",
+      "issue_type": "Story",
+      "status": "In Progress",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "60e6049b287807006836dbb2",
+        "display_name": "Arunima Gulia"
+      },
+      "created_at": "2026-07-23T14:25:31.922-0500",
+      "updated_at": "2026-07-29T12:30:43.318-0500",
+      "sprints": [
+        {
+          "board": "pl-data",
+          "id": 34191,
+          "name": "PL Data - Sprint 240",
+          "state": "active",
+          "start_date": "2026-07-23T14:27:01.695Z",
+          "end_date": "2026-08-06T14:27:00.000Z",
+          "complete_date": null
+        }
+      ]
+    },
+    {
+      "key": "DE-3079",
+      "url": "https://qtwo.atlassian.net/browse/DE-3079",
+      "summary": "PL Production Support - Sprint 240",
+      "description": "Ticket represents the work to analyze production logs every day and to create bug and/or investigation tickets for any issues uncovered.\\\\n\\\\nhttps://qtwo.atlassian.net/wiki/display/DI/Production+Support\\\\nhttps://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL\\\\n\\\\nhttps://qtwo.atlassian.net/wiki/display/DI/Internal+RCA \u2013 RCAs\\\\n\\\\n**Template**\\\\n\\\\n----------------------------------------------------------------------------\\\\n\\\\n`\\nLogical Execution Date: YYYY-MM-DD\\n\\nSatisfaction Score (Good, Meh, Bad, Ugly): placeholder\\n\\nChecklist:\\n* [ ] Reviewed Failures\\n* [ ] Reran Transient Errors\\n* [ ] Created Bug Tickets, if applicable\\n* [ ] Notified Team of Completion\\n* [ ] Logged Time to Ticket (factor in lost time due to context switching)\\n\\nOutstanding Issues:\\n* DE-####\\n\\nRelevant Observations:\\n* placeholder\\n`\\\\n\\\\n----------------------------------------------------------------------------\\\\n\\\\n\n\n**Prod Support Order:**\\\\n\\\\n\\* Jordan\\\\n\\* Andrew\\\\n\\* Michael\\\\n\\* Arunima",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-07-24T09:33:10.702-0500",
+      "updated_at": "2026-07-29T12:30:45.438-0500",
+      "sprints": [
+        {
+          "board": "pl-data",
+          "id": 34191,
+          "name": "PL Data - Sprint 240",
+          "state": "active",
+          "start_date": "2026-07-23T14:27:01.695Z",
+          "end_date": "2026-08-06T14:27:00.000Z",
+          "complete_date": null
+        }
+      ]
+    },
+    {
+      "key": "DE-3080",
+      "url": "https://qtwo.atlassian.net/browse/DE-3080",
+      "summary": "Data Studio Reader account enablement for PlainsCapital",
+      "description": "PlainsCapital bank has a new reader account created and needs their data to be shared to that account in Snowflake. \n\n**Data Team work items:**\u00a0\n\n* Add client to data share for PL_dataStudio\n* Please refer to the SFT ticket for details on the reader account\n\n\u00a0\n\n**Client Info:**\u00a0\n\n| \u00a0 | **Production** |\n| --- | --- |\n| **PL Client ID** | e9c94bf2-a135-47cb-b70b-43a8384559bd |\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:ccc69548-3427-47fe-b0ca-2afc9fe19151",
+        "display_name": "Kausik Kannan"
+      },
+      "created_at": "2026-07-24T12:36:14.530-0500",
+      "updated_at": "2026-07-27T15:39:32.331-0500",
+      "sprints": [
+        {
+          "board": "pl-data",
+          "id": 34191,
+          "name": "PL Data - Sprint 240",
+          "state": "active",
+          "start_date": "2026-07-23T14:27:01.695Z",
+          "end_date": "2026-08-06T14:27:00.000Z",
+          "complete_date": null
+        }
+      ]
+    },
+    {
+      "key": "DE-3086",
+      "url": "https://qtwo.atlassian.net/browse/DE-3086",
+      "summary": "Wells Fargo account_level_all_scenarios Failure",
+      "description": "Wells Fargo account_level_all_scenarios Failure",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-07-27T16:00:05.079-0500",
+      "updated_at": "2026-07-30T14:53:01.745-0500",
+      "sprints": [
+        {
+          "board": "pl-data",
+          "id": 34191,
+          "name": "PL Data - Sprint 240",
+          "state": "active",
+          "start_date": "2026-07-23T14:27:01.695Z",
+          "end_date": "2026-08-06T14:27:00.000Z",
+          "complete_date": null
+        }
+      ]
+    },
+    {
+      "key": "DE-3107",
+      "url": "https://qtwo.atlassian.net/browse/DE-3107",
+      "summary": "CNB Increase Resource on relationship_signals_time_series_agg_cp_to_snowflake",
+      "description": "CNB Increase Resource on relationship_signals_time_series_agg_cp_to_snowflake",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2026-07-30T12:47:14.259-0500",
+      "updated_at": "2026-07-30T15:10:32.422-0500",
+      "sprints": [
+        {
+          "board": "pl-data",
+          "id": 34191,
+          "name": "PL Data - Sprint 240",
+          "state": "active",
+          "start_date": "2026-07-23T14:27:01.695Z",
+          "end_date": "2026-08-06T14:27:00.000Z",
+          "complete_date": null
+        }
+      ]
+    },
+    {
+      "key": "QDS-8163",
+      "url": "https://qtwo.atlassian.net/browse/QDS-8163",
+      "summary": "Package up fiction ",
+      "description": "**This ticket is only for the underlined boldened bullets.**\n\nThe Console has specific data needs for testing. We should refine whatever pieces of fiction are necessary to make it able to be packaged up for their direct use.\n\n- [ ] **Create Dockerfile**\n- [ ] **should expose cli (entry point should be fiction cli)**\n\n\n- [ ] **Setup CI pipeline to build and push docker image**\n- [ ] Add ability / option to write results directly to snowflake (currently only supports files)\n- [ ] Create Airflow DAG / task which runs fiction container\n- [ ] logons\n- [ ] GTs\n- [ ] Security\n- [ ] CPFM\n\n\n\n",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "600ef009e3a14d0071c76541",
+        "display_name": "Gage Russell"
+      },
+      "created_at": "2025-09-04T15:50:31.938-0500",
+      "updated_at": "2026-04-23T14:29:54.055-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29251,
+          "name": "DP - Sprint 227",
+          "state": "closed",
+          "start_date": "2026-01-07T17:20:53.733Z",
+          "end_date": "2026-01-21T17:20:41.000Z",
+          "complete_date": "2026-01-21T16:08:47.188Z"
+        }
+      ]
+    },
+    {
+      "key": "QDS-8587",
+      "url": "https://qtwo.atlassian.net/browse/QDS-8587",
+      "summary": "Enable Trait",
+      "description": "Ticket to enable commercial_business_user_classification.",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2025-12-08T11:34:28.103-0600",
+      "updated_at": "2026-01-07T16:19:23.789-0600",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29251,
+          "name": "DP - Sprint 227",
+          "state": "closed",
+          "start_date": "2026-01-07T17:20:53.733Z",
+          "end_date": "2026-01-21T17:20:41.000Z",
+          "complete_date": "2026-01-21T16:08:47.188Z"
+        }
+      ]
+    },
+    {
+      "key": "QDS-8596",
+      "url": "https://qtwo.atlassian.net/browse/QDS-8596",
+      "summary": "Add option in fiction to write results directly to snowflake (currently only supports files)",
+      "description": "**This ticket is only for the underlined boldened bullets.**\n\nThe Console has specific data needs for testing. We should refine whatever pieces of fiction are necessary to make it able to be packaged up for their direct use.\n\n- [ ] Create Dockerfile\n- [ ] should expose cli (entry point should be fiction cli)\n\n\n- [ ] Setup CI pipeline to build and push docker image\n- [ ] **Add ability / option to write results directly to snowflake (currently only supports files)**\n- [ ] Create Airflow DAG / task which runs fiction container\n- [ ] logons\n- [ ] GTs\n- [ ] Security\n- [ ] CPFM\n\n\n\n",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "600ef009e3a14d0071c76541",
+        "display_name": "Gage Russell"
+      },
+      "created_at": "2025-12-09T11:33:39.306-0600",
+      "updated_at": "2026-04-23T14:29:48.653-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29251,
+          "name": "DP - Sprint 227",
+          "state": "closed",
+          "start_date": "2026-01-07T17:20:53.733Z",
+          "end_date": "2026-01-21T17:20:41.000Z",
+          "complete_date": "2026-01-21T16:08:47.188Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 29607,
+          "name": "DP - Sprint 228",
+          "state": "closed",
+          "start_date": "2026-01-21T17:01:37.529Z",
+          "end_date": "2026-02-04T17:01:20.000Z",
+          "complete_date": "2026-02-04T21:10:26.508Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 29608,
+          "name": "DP - Sprint 229",
+          "state": "closed",
+          "start_date": "2026-02-04T21:56:39.305Z",
+          "end_date": "2026-02-18T21:56:18.000Z",
+          "complete_date": "2026-02-18T16:05:32.685Z"
+        }
+      ]
+    },
+    {
+      "key": "QDS-8699",
+      "url": "https://qtwo.atlassian.net/browse/QDS-8699",
+      "summary": "Enable Remaining Traits",
+      "description": "Enabling all traits.",
+      "issue_type": "Task",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "created_at": "2025-12-18T15:34:08.655-0600",
+      "updated_at": "2026-04-23T14:29:45.941-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29251,
+          "name": "DP - Sprint 227",
+          "state": "closed",
+          "start_date": "2026-01-07T17:20:53.733Z",
+          "end_date": "2026-01-21T17:20:41.000Z",
+          "complete_date": "2026-01-21T16:08:47.188Z"
+        }
+      ]
+    },
+    {
+      "key": "QDS-8755",
+      "url": "https://qtwo.atlassian.net/browse/QDS-8755",
+      "summary": "PL Production Support - Sprint 227",
+      "description": "Ticket represents the work to analyze production logs every day and to create bug and/or investigation tickets for any issues uncovered.\n\n[https://qtwo.atlassian.net/wiki/display/DI/Production+Support](https://qtwo.atlassian.net/wiki/display/DI/Production+Support)  \n[https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL](https://qtwo.atlassian.net/wiki/display/DI/Support+Tasks+-+PL)\n\n[https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA](https://qtwo.atlassian.net/wiki/display/DI/Internal+RCA) \u2013 RCAs\n\n\u00a0\n\n**Template**\n\n\\----------------------------------------------------------------------------\n\n```java\nLogical Execution Date: YYYY-MM-DD\r\n\r\nSatisfaction Score (Good, Meh, Bad, Ugly): placeholder\r\n\r\nChecklist:\r\n* [ ] Reviewed Failures\r\n* [ ] Reran Transient Errors\r\n* [ ] Created Bug Tickets, if applicable\r\n* [ ] Notified Team of Completion\r\n* [ ] Logged Time to Ticket (factor in lost time due to context switching)\r\n\r\nOutstanding Issues:\r\n* QDS-####\r\n\r\nRelevant Observations:\r\n* placeholder\n```\n\n\\----------------------------------------------------------------------------\n\n**Prod Support Order:**\n\n* Gage\n* Andrew\n* Michael\n* Arunima\n* \u00a0\n\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "712020:29d927a6-0543-4851-8fda-4bf8ff357c49",
+        "display_name": "Andrew Capindo"
+      },
+      "created_at": "2026-01-07T09:36:53.689-0600",
+      "updated_at": "2026-04-23T14:29:45.141-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29251,
+          "name": "DP - Sprint 227",
+          "state": "closed",
+          "start_date": "2026-01-07T17:20:53.733Z",
+          "end_date": "2026-01-21T17:20:41.000Z",
+          "complete_date": "2026-01-21T16:08:47.188Z"
+        }
+      ]
+    },
+    {
+      "key": "QDS-8774",
+      "url": "https://qtwo.atlassian.net/browse/QDS-8774",
+      "summary": "Apply AutoSecure to Three Repos",
+      "description": "Apply AutoSecure to the highlighted additional repos.\n\nNon-highlighted repos will be depricated within the next month.\n\n![](blob:https://media.staging.atl-paas.net/?type=file&localId=null&id=ff03a9bd-8a79-42ac-9c64-10c1d59090ab&&collection=&height=638&occurrenceKey=null&width=940&__contextId=null&__displayType=null&__external=false&__fileMimeType=null&__fileName=null&__fileSize=null&__mediaTraceId=null&url=null)\n",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "61ae22e2f2415000725afae8",
+        "display_name": "Holger Trinks"
+      },
+      "created_at": "2026-01-13T15:21:25.309-0600",
+      "updated_at": "2026-04-23T14:29:45.080-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29607,
+          "name": "DP - Sprint 228",
+          "state": "closed",
+          "start_date": "2026-01-21T17:01:37.529Z",
+          "end_date": "2026-02-04T17:01:20.000Z",
+          "complete_date": "2026-02-04T21:10:26.508Z"
+        },
+        {
+          "board": "data-platform",
+          "id": 29608,
+          "name": "DP - Sprint 229",
+          "state": "closed",
+          "start_date": "2026-02-04T21:56:39.305Z",
+          "end_date": "2026-02-18T21:56:18.000Z",
+          "complete_date": "2026-02-18T16:05:32.685Z"
+        }
+      ]
+    },
+    {
+      "key": "QDS-8850",
+      "url": "https://qtwo.atlassian.net/browse/QDS-8850",
+      "summary": "Bump Warehouse to SPO Large: Small Biz Classification",
+      "description": "bump the warehouse size on Small biz model",
+      "issue_type": "Story",
+      "status": "Closed",
+      "assignee": {
+        "account_id": "712020:646f8ce2-209c-4122-b079-8f1e3d3f3bdd",
+        "display_name": "Jordan Eisenman"
+      },
+      "reporter": {
+        "account_id": "5f4fca9cd3796e0046b0cee8",
+        "display_name": "Alexander Catanzaro"
+      },
+      "created_at": "2026-02-04T15:41:02.065-0600",
+      "updated_at": "2026-04-23T14:29:42.055-0500",
+      "sprints": [
+        {
+          "board": "data-platform",
+          "id": 29608,
+          "name": "DP - Sprint 229",
+          "state": "closed",
+          "start_date": "2026-02-04T21:56:39.305Z",
+          "end_date": "2026-02-18T21:56:18.000Z",
+          "complete_date": "2026-02-18T16:05:32.685Z"
+        }
+      ]
+    }
+  ]
+}

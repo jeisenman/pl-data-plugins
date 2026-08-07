@@ -1,0 +1,121 @@
+{
+  "channel": "data-insights",
+  "channel_id": "C34PL5HCY",
+  "date_range": {
+    "from": "2026-02-06",
+    "to": "2026-08-06"
+  },
+  "scope": "Documented production-support updates identified in channel messages. Counts represent Slack-documented incidents and follow-ups, not a complete Airflow run history.",
+  "updates": [
+    {
+      "date": "2026-02-10",
+      "job": "Market Insights portfolio report",
+      "client": "Synovus",
+      "environment": "Production",
+      "status": "failing",
+      "summary": "The portfolio report job was failing for Synovus. The team planned to confirm whether the report was used and turn the job off if it was not.",
+      "message_ts": "1770756415.931239",
+      "permalink": "https://precisionlender.slack.com/archives/C34PL5HCY/p1770756415931239?thread_ts=1770756415.931239&cid=C34PL5HCY"
+    },
+    {
+      "date": "2026-05-05",
+      "job": "Opportunities backfill task",
+      "client": null,
+      "environment": "Production",
+      "status": "failed_rerun",
+      "summary": "Some opportunities were missed because a large batch arrived a day late. The backfill task failed and needed to be rerun.",
+      "message_ts": "1777989752.399029",
+      "permalink": "https://precisionlender.slack.com/archives/C34PL5HCY/p1777989752399029?thread_ts=1777563251.510899&cid=C34PL5HCY"
+    },
+    {
+      "date": "2026-06-22",
+      "job": "Data Studio production run / Core Loan Accounts Monthly",
+      "client": "CNB-LA",
+      "environment": "Production",
+      "status": "failed_or_stale",
+      "summary": "CNB-LA failed to produce data for June 21; the last successful output was June 17. The Relationships table refreshed, but Core Loan Accounts Monthly remained at the June 7 refresh.",
+      "message_ts": "1782136663.130089",
+      "permalink": "https://precisionlender.slack.com/archives/C34PL5HCY/p1782136663130089?thread_ts=1782130752.419679&cid=C34PL5HCY"
+    },
+    {
+      "date": "2026-06-22",
+      "job": "Data Studio DAG",
+      "client": "CNB-LA",
+      "environment": "Production",
+      "status": "partial_output",
+      "summary": "The DAG produced all expected outputs except Delivery to Promise.",
+      "message_ts": "1782149932.011959",
+      "permalink": "https://precisionlender.slack.com/archives/C34PL5HCY/p1782149932011959?thread_ts=1782130752.419679&cid=C34PL5HCY"
+    },
+    {
+      "date": "2026-06-29",
+      "job": "Data Library report-generation tests",
+      "client": "Bank of America",
+      "environment": "Beta and staging",
+      "status": "failing",
+      "summary": "Tests failed because no reports were returned even though two reports were expected: one opportunity report and one login-usage report.",
+      "message_ts": "1782758248.227579",
+      "permalink": "https://precisionlender.slack.com/archives/C34PL5HCY/p1782758248227579?thread_ts=1782758248.227579&cid=C34PL5HCY"
+    },
+    {
+      "date": "2026-07-09",
+      "job": "Login Usage report",
+      "client": "First Success Bank",
+      "environment": "US01 Production",
+      "status": "never_ran",
+      "summary": "The Login Usage report showed a Never ran status and a request was made to refresh it.",
+      "message_ts": "1783625831.063949",
+      "permalink": "https://precisionlender.slack.com/archives/C34PL5HCY/p1783625831063949?thread_ts=1783625831.063949&cid=C34PL5HCY"
+    },
+    {
+      "date": "2026-07-27",
+      "job": "Delivery to Promise data/report job",
+      "client": "FNBO",
+      "environment": "Production investigation",
+      "status": "investigating",
+      "summary": "A high-visibility Delivery to Promise data issue persisted after an RA-side change. Engineering investigated the data source and population logic.",
+      "message_ts": "1785163576.133669",
+      "permalink": "https://precisionlender.slack.com/archives/C34PL5HCY/p1785163576133669?thread_ts=1785163576.133669&cid=C34PL5HCY"
+    },
+    {
+      "date": "2026-07-27",
+      "job": "Delivery to Promise data job",
+      "client": "FNBO",
+      "environment": "Databricks / production pipeline",
+      "status": "logic_fix",
+      "summary": "The job expected a separate TreasuryZeroInterestDemand field, while RA supplied the value in the standard zero-interest balance field. The mapping was updated without changing the overall deposit total.",
+      "message_ts": "1785178520.034759",
+      "permalink": "https://precisionlender.slack.com/archives/C34PL5HCY/p1785178520034759?thread_ts=1785163576.133669&cid=C34PL5HCY"
+    },
+    {
+      "date": "2026-07-29",
+      "job": "Delivery to Promise data job",
+      "client": "FNBO",
+      "environment": "Production investigation",
+      "status": "investigating",
+      "summary": "A null RA run date was identified as a possible time-calculation issue in the job.",
+      "message_ts": "1785334948.307029",
+      "permalink": "https://precisionlender.slack.com/archives/C34PL5HCY/p1785334948307029?thread_ts=1785163576.133669&cid=C34PL5HCY"
+    },
+    {
+      "date": "2026-07-30",
+      "job": "Delivery to Promise data/report job",
+      "client": "FNBO",
+      "environment": "Alpha, staging, production deployment",
+      "status": "fix_validation",
+      "summary": "The fix passed alpha validation and was scheduled for staging and production deployment.",
+      "message_ts": "1785433027.854769",
+      "permalink": "https://precisionlender.slack.com/archives/C34PL5HCY/p1785433027854769?thread_ts=1785163576.133669&cid=C34PL5HCY"
+    },
+    {
+      "date": "2026-07-31",
+      "job": "Delivery to Promise report",
+      "client": "FNBO",
+      "environment": "Production",
+      "status": "manual_rerun_pending",
+      "summary": "The fix was ready for production and previously processed client reports would require manual reruns.",
+      "message_ts": "1785530036.938129",
+      "permalink": "https://precisionlender.slack.com/archives/C34PL5HCY/p1785530036938129?thread_ts=1785163576.938129&cid=C34PL5HCY"
+    }
+  ]
+}

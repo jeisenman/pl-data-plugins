@@ -5,6 +5,10 @@ description: Find, inspect, create and explain PrecisionLender data locations ac
 
 # DataFinder
 
+## Local Test-Suite Policy
+
+When working in `di-pipelines`, `di-scheduling`, or `di-pyjobs`, do not run local unit, integration, or full test suites. Use static inspection, targeted non-test checks, and remote or Alpha evidence instead. Run a local test suite only when the user explicitly requests it.
+
 Find, create, and explain data for testing data-engineering changes. Prefer alpha data, then staging only when no suitable alpha data exists. Work with one client at a time and require non-null test data for every requested source or transformation.
 
 ## Client eligibility

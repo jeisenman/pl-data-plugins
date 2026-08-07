@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source": "atlassian-rovo",
+  "jira": {
+    "base_url": "https://qtwo.atlassian.net",
+    "sprint_field": "customfield_10020"
+  },
+  "boards": {
+    "pl-data": {
+      "name": "PL Data",
+      "board_id": 5705,
+      "sprint_name_prefix": "PL Data - Sprint ",
+      "oldest_sprint": {
+        "name": "PL Data - Sprint 228"
+      },
+      "newest_sprint": {
+        "board": "pl-data",
+        "id": 34191,
+        "name": "PL Data - Sprint 240",
+        "state": "active",
+        "start_date": "2026-07-23T14:27:01.695Z",
+        "end_date": "2026-08-06T14:27:00.000Z",
+        "complete_date": null
+      },
+      "last_updated": "2026-08-05T10:36:29Z"
+    },
+    "data-platform": {
+      "name": "Data Platform",
+      "board_id": 2092,
+      "sprint_name_prefix": "DP - Sprint ",
+      "oldest_sprint": {
+        "name": "DP - Sprint 227"
+      },
+      "newest_sprint": {
+        "board": "data-platform",
+        "id": 32365,
+        "name": "DP - Sprint 239",
+        "state": "closed",
+        "start_date": "2026-07-09T05:00:10.925Z",
+        "end_date": "2026-07-23T05:00:00.000Z",
+        "complete_date": "2026-07-23T15:08:14.295Z"
+      },
+      "last_updated": "2026-08-05T10:36:29Z"
+    }
+  }
+}

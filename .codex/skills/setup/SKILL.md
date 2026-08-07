@@ -5,6 +5,10 @@ description: Set up the PL data-engineering workspace by adding the repositories
 
 # Workspace Setup
 
+## Local Test-Suite Policy
+
+When working in `di-pipelines`, `di-scheduling`, or `di-pyjobs`, do not run local unit, integration, or full test suites. Use static inspection, targeted non-test checks, and remote or Alpha evidence instead. Run a local test suite only when the user explicitly requests it.
+
 Run the deterministic setup script from this repository's root:
 
 ```bash

@@ -14,10 +14,18 @@ metadata:
     - "worktrees/di-pipelines/de-jobs/src/datamart/jobs/snowflake/metadata/**/*.py"
     - "worktrees/di-pipelines/de-jobs/src/datamart/jobs/snowflake/repeatable/**/*.py"
     - "worktrees/di-pipelines/dags/precisionlender/dags/**/*.py"
+    - "worktrees/di-schema-definitions/datasets/**/config.ini"
+    - "worktrees/di-schema-definitions/datasets/**/v*/schema.json"
+    - "worktrees/di-schema-definitions/datasets/**/v*/{alpha,prod}/**/*.sql"
+    - "worktrees/di-schema-definitions/datasets/**/views/{alpha,prod}/**/*.sql"
   type: engineering-rule
 ---
 
 # DI Field
+
+## Local Test-Suite Policy
+
+When working in `di-pipelines`, `di-scheduling`, or `di-pyjobs`, do not run local unit, integration, or full test suites. Use static inspection, targeted non-test checks, and remote or Alpha evidence instead. Run a local test suite only when the user explicitly requests it.
 
 ## Scope
 
@@ -58,8 +66,8 @@ c) Use data finder skill to find data in relevant data sources
 d) (Optional) if data does not exist, use datacreator skill to generate data 
 e) Identify `class [datasetname]MetaData`. Add field to dataset
 f) Complete steps a-e until no more primary datasets need to be adjusted.
-g) After validation passes, fetch and resolve merge conflicts, stage the scoped changes, commit with a message like "Add [field1, field2] to [dataset1]", and push the ticket branch to GitHub.
-h) Read the repository's `pull_request_template.md`, replace its placeholders with a ticket-specific description, then open a draft PR with that description. Check only checklist items supported by evidence; leave unperformed Alpha, integration, copy-log, data-explorer, scheduling, and changelog items unchecked.
+g) After validation passes, prepare the ticket branch and the commit message `Add [field1, field2] to [dataset1]`, then hand off all staging, committing, worktree refresh, dead-code checks, pushing, and draft-PR creation to `github:yeet`. Do not push directly from this skill.
+h) Give `github:yeet` the repository's `pull_request_template.md` with its placeholders replaced by a ticket-specific description. Check only checklist items supported by evidence; leave unperformed Alpha, integration, copy-log, data-explorer, scheduling, and changelog items unchecked.
 
 For the PR description:
 - State the ticket link, affected dataset(s), added field(s), source file/table, and whether the change is additive or breaking.
@@ -91,7 +99,7 @@ d) Document any rename, cast, join, aggregation, filtering, or deduplication.
 e) Add the field to derived metadata and bump the minor version for additive changes.
 f) Check inherited, monthly, or related derived datasets.
 g) Update DAG dataset versions and downstream DBX/Snowflake consumers.
-h) Add focused tests for source-to-derived projection and schema presence.
+h) Add focused test coverage for source-to-derived projection and schema presence when applicable; do not run it locally unless the user explicitly requests it.
 i) Identify required partition regeneration, backfill, or downstream reruns.
 
 ### Derived field naming and projection
@@ -235,8 +243,63 @@ TODO
 ## Snowflake
 TODO
 
-## DBX/Databricks
-TODO
+## Databricks (DBX) SQL
+
+Use this workflow after the source and derived contracts have been updated and
+the new field is present in the target dataset's ADLS output. A DBX schema
+change publishes that existing field; it does not create the field upstream.
+
+### Add an additive DBX column
+
+For a nullable, additive field in `worktrees/di-schema-definitions`:
+
+1. Find `datasets/<dataset_name>/`, determine the matching major-version
+   directory (for example, `v2`), and confirm the producer's field name,
+   PySpark-compatible type, nullability, and order. Keep the source-style
+   name in `schema.json`; the generated DBX SQL preserves that name.
+2. Decide whether the DBX view must select a specific new minor partition. If
+   it does, increment `[v<major>].static_minor_version` in `config.ini` to
+   the same minor version written by the upstream derived dataset. Do not add
+   a static minor version merely because a field is added when the dataset is
+   intentionally configured to read all minor partitions.
+3. Add the field, with its verified type, to
+   `datasets/<dataset_name>/v<major>/schema.json`. Preserve the contractual
+   field order. Additive fields normally belong at the end unless another
+   positional contract requires a different location.
+4. Check whether the field must be sanitized. If so, add it to
+   `[external_table].sanitized_fields` in `config.ini` before generating
+   views, following the DBX sanitization policy.
+5. From the `di-schema-definitions` worktree, regenerate tracked SQL for both
+   environments:
+
+   ```bash
+   python sql_utils/create_external.py --config <dataset_name> --version v<major> --execution-env prod
+   python sql_utils/create_external.py --config <dataset_name> --version v<major> --execution-env alpha
+   python sql_utils/create_view.py --config <dataset_name> --execution-env alpha
+   python sql_utils/create_view.py --config <dataset_name> --execution-env prod
+   ```
+
+   These generators update external-table and repair SQL for configured base
+   and isolated stacks, then update their corresponding views. Do not hand-edit
+   generated SQL except to correct the generator inputs or an established
+   stack-specific view exception.
+6. Inspect the generated diff. The column must occur in every applicable
+   `create_external_table_*.sql`, and in every applicable view `SELECT`
+   projection (including client-specific/sanitized views). Confirm the view's
+   `VersionPartition` predicate uses the intended static minor version when
+   one is configured. Keep generated `repair_external_table_*.sql` changes
+   produced by the generator.
+7. Perform targeted non-test validation: verify the JSON is valid; search the
+   generated SQL for the column in every expected environment/stack; and
+   compare the selected `VersionPartition` with the upstream derived version.
+   Do not run a local test suite unless explicitly requested. In the PR,
+   record the upstream dataset/version, column type and sanitization decision,
+   generators run, and Alpha DBX evidence when available.
+
+Examples of this pattern are merged PRs #125 (minor-version pin, schema,
+external tables, and views) and #134 (schema plus generated external tables
+and views) in `precisionlender/di-schema-definitions`.
+
 
 ## Change Guidance
 

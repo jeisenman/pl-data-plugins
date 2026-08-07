@@ -1,0 +1,44 @@
+{
+  "1bad59e0-e44e-421c-bbab-c1a78ba2e579": {
+    "api_status": "no-unique-match",
+    "last_checked": "2026-08-06",
+    "prod_support_ignore": true,
+    "prod_support_ignore_reason": "PrecisionLender Canary account",
+    "source": "unresolved"
+  },
+  "5301628b-e85f-4ff9-b5b3-e8d13c5926a7": {
+    "api_status": "unique-match",
+    "last_checked": "2026-08-05",
+    "name": "TD Bank (Wilmington, DE)",
+    "source": "resource-discovery-api"
+  },
+  "792f7424-402e-4a7e-b4de-69f811435d9c": {
+    "api_status": "no-unique-match",
+    "last_checked": "2026-08-05",
+    "name": "BoFA",
+    "source": "user-confirmed"
+  },
+  "81914376-95ac-4531-8cf4-72ab1190d41f": {
+    "api_status": "unique-match",
+    "last_checked": "2026-08-06",
+    "name": "Wilmington Savings Fund Society, FSB",
+    "source": "user-confirmed"
+  },
+  "9d272969-2cdd-401b-a373-6a73cf5a3042": {
+    "api_status": "no-unique-match",
+    "last_checked": "2026-08-06",
+    "name": "Glacier Bancorp",
+    "source": "user-confirmed"
+  },
+  "b441897e-a525-4546-b68c-3f6820de847c": {
+    "api_status": "unique-match",
+    "last_checked": "2026-08-06",
+    "name": "Citizens Bank - Validation",
+    "source": "resource-discovery-api"
+  },
+  "cd0c6dcb-fbd5-4bac-8b3a-8d48b0944a29": {
+    "api_status": "no-unique-match",
+    "last_checked": "2026-08-06",
+    "source": "unresolved"
+  }
+}

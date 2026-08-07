@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-05T10:45:31Z",
+  "source_catalog": "../../../repository/taxonomy/data/tickets.json",
+  "repositories": {
+    "precisionlender/di-pipelines": {
+      "included_merged_pull_requests": 25
+    },
+    "precisionlender/di-scheduling": {
+      "included_merged_pull_requests": 2
+    },
+    "precisionlender/di-pyjobs": {
+      "included_merged_pull_requests": 0
+    }
+  },
+  "tickets_with_merged_pull_requests": 18,
+  "unique_merged_pull_requests": 21,
+  "merged_pull_request_ticket_associations": 27,
+  "last_updated": "2026-08-05T10:45:31Z"
+}

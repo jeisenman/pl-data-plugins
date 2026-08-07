@@ -5,17 +5,23 @@ description: Discover, triage, and remediate di-pipelines production Airflow fai
 
 # Prod Support
 
+## Local Test-Suite Policy
+
+When working in `di-pipelines`, `di-scheduling`, or `di-pyjobs`, do not run local unit, integration, or full test suites. Use static inspection, targeted non-test checks, and remote or Alpha evidence instead. Run a local test suite only when the user explicitly requests it.
+
 You are an experienced software engineer responsible for finding production failures and for which clients. You access Airflow in US01 and CA environments and provide a clear concise report of the failures.
 
 You perform the following steps in order:
 - Discovery
-- 
+- Client identity resolution
+- Failure triage
+- Summary
 
 ## Discovery
 
 DO NOT USE BROWSWER CONTROL TO ACCESS Airflow RESOURCES. Do access Airflow programatically. 
 
-Run the discovery script first using `.env` file, querying production failures for the past day
+Run the discovery script first using `.env`, querying production failures for the past day. Airflow is a production network resource: invoke this read-only query with the environment's approved network access immediately. Do not run an unprivileged sandbox preflight or retry solely to diagnose DNS/network access; that path cannot reach the Airflow APIs and adds no diagnostic value.
 
 ```bash
 python3 .codex/skills/prod-support/scripts/discover_failures.py
@@ -41,14 +47,33 @@ Use `--env-file <path>` to load credentials from a different local file. `--dry-
 
 Report the script's `URLs to validate` block before the detailed findings. Check `US-01` before `CA-02`.
 
-Discovery will yield failures in the following categorites:
+Discovery will yield failures in the following categories:
 - Eventbus Opportunity Validation
 - High Quality (HQ)
 - Delivery To Promise
 - ra_group
 - Other client-DAG failures
 
+## Client identity resolution (required before reporting)
+
+Immediately after discovery and before investigating or writing any production-support update, extract every unique client UUID from discovered `l3-main-<client-uuid>` DAG IDs. Also include client UUIDs returned by EventBus validation when applicable.
+
+For each UUID, call the `resource-discovery` skill using the Resource Discovery API before composing the report:
+
+```bash
+python3 .codex/skills/resource-discovery/scripts/resource_discovery_api.py \
+  /api/v1/clients --query provisionedClientId=<client-uuid>
+```
+
+Create an authoritative UUID-to-name mapping from those results and use it in both developer and Data Internal Channel messages. Do not infer a name or environment from the Airflow region, DAG name, application subdomain, or a partial UUID.
+
+Fail closed for a client identity: if Resource Discovery returns no record, multiple client names, or an otherwise ambiguous result, label it `Unresolved client (<full UUID>)` and include `Resource Discovery: no unique match` in the developer message. Keep the full UUID in the channel message and do not replace it with a guessed name. This applies to every client-scoped failure, including Delivery-to-Promise; for example, do not report `792f7424-402e-4a7e-b4de-69f811435d9c` without first performing this lookup.
+
+If the resolved or user-confirmed client name is a PrecisionLender Canary account, ignore the client for prod-support reporting after identity resolution. When the quick lookup contains `prod_support_ignore: true`, honor it and omit that client from the developer and Data Internal Channel messages unless the failure has a clear production side effect outside the canary client.
+
 ## EventBus opportunity validation
+
+`validate_event_bus_opportunities` runs inside the per-client `l3-main-{clientId}` DAG, so investigate it with that client DAG/run context rather than as a global EventBus failure.
 
 For each failed task with `task_id=validate_event_bus_opportunities`, delegate one isolated investigation with the region, `l3-main-{clientId}` DAG/run context, and time window. Have it run:
 
@@ -79,27 +104,6 @@ export DATA_ENGINEERING_AZURE_TENANT_ID='...'
 
 The production-support query scripts load these variables from `.env` (without overriding exported values), then call `az login --service-principal` before each Log Analytics query. They fail closed if any are absent; never fall back to `RESOURCE_DISCOVERY_*` or generic `AZURE_*` credentials.
 
-## EventBus opportunity validation
-
-For each failed task with `task_id=validate_event_bus_opportunities`, delegate one isolated investigation with the region, `l3-main-{clientId}` DAG/run context, and time window. Have it run:
-
-```bash
-python3 .codex/skills/prod-support/scripts/validate_event_bus_opportunities.py \
-  --region us01 --run-id '<run-id>' --start-utc '<start>' --end-utc '<end>'
-```
-
-The script queries the applicable Log Analytics workspace for `ClientId`, `OpportunityId`, and `Is Recoverable`. It prints the affected DAG ID/link, recoverable IDs grouped by client for the Resend Opportunity Snapshots UI, and non-recoverable counts separately. It never sends an event.
-
-When examining captured task logs instead, pass `--log-file <path>`; use `--log-file -` to read from standard input. The parser recognizes records such as:
-
-```text
-ClientId: 8b2e8a38-b778-402a-819a-4904f42f5a2a
-OpportunityId: f67e50f5-251a-41ae-837c-6f9eba431b5f
-Is Recoverable: True
-```
-
-Keep recoverable and non-recoverable IDs separate. The Resend Opportunity Snapshots UI accepts at most 1,000 comma-separated Opportunity IDs per client; report any excess instead of silently dropping it.
-
 ## Resend recoverable opportunity snapshots
 
 Process one client UUID at a time:
@@ -128,7 +132,7 @@ python3 .codex/skills/prod-support/scripts/triage_high_quality.py \
   --run-id '<run-id>' --start-utc '<start>' --end-utc '<end>'
 ```
 
-The script gets the task logs from Log Analytics and detects either explicit `Distinctness validation failed for <DatasetForm>` errors or any `Validate distinctness - counts: <DatasetForm> - total: <n>; unique: <m>` record where total and unique differ. It converts each failing dataset form directly to its corresponding underlying RA `get_<job_name>` rerun target, without `high_quality_` (for example, `CoreAccountFinancialStatements` -> `get_core_account_financial_statements`, `LoanFinancialStatementsBreakdown` -> `get_loan_financial_statements_breakdown`, and `DepositFinancialStatementsBreakdown` -> `get_core_deposit_accounts`). It prints the `l3-main-{client-uuid}` DAG and one rerun target per line. If the log contains `**TimeoutError:`, classify the failure as a timeout under `Other`; do not label it as a generic Spark driver failure and do not infer a rerun target from that error alone.
+The script gets the task logs from Log Analytics and detects either explicit `Distinctness validation failed for <DatasetForm>` errors or any `Validate distinctness - counts: <DatasetForm> - total: <n>; unique: <m>` record where total and unique differ. It converts each failing dataset form directly to its corresponding underlying RA task (for example, `CoreAccountFinancialStatements` -> `get_core_account_financial_statements`, `LoanFinancialStatementsBreakdown` -> `get_loan_financial_statement_breakdown`, and `DepositFinancialStatementsBreakdown` -> `get_deposit_financial_statement_breakdown`). It prints the `l3-main-{client-uuid}` DAG and one rerun target per line. If the log contains `**TimeoutError:`, classify the failure as a timeout under `Other`; do not label it as a generic Spark driver failure and do not infer a rerun target from that error alone.
 
 When examining captured logs instead, use `--log-file <path>` or `--log-file -`. The subagent must report back to the discovery agent in this form:
 
@@ -143,9 +147,7 @@ This report directs the operator to rerun the listed jobs; it does not rerun the
 
 ## Mapping Client GUUIDs
 
-For the summary, we need to convert client GUUIDs to human-readable names. Create mapping of client GUUIDs -> name.
-
-Call the resource-discovery skill referencing your desired client GUUIDs.
+Complete the required Client identity resolution step before beginning the summary. Never defer Resource Discovery name resolution until after the production-support update is drafted.
 
 ## Summary and final output format
 
@@ -172,26 +174,49 @@ CA
 
 ```
 
-Compliant example: combine related failures for each client on one channel line. Use `suggest re-run` only for a validated distinctness target; do not claim that a job is rerunning unless the user authorized and confirmed that action.
+For Data Internal Channel messages, show only the first three characters of a
+client UUID in parentheses (for example, `cd0` or `1ba`). Developer messages
+must retain the full UUID whenever one is needed for investigation or operator
+action.
+
+## Developer Notes
+
+For every Delivery-to-Promise (D2P) or subscriber-client failure, verify whether it is new before omitting it from the report:
+
+- Query the prior 30 days for the same job and each affected client.
+- Report whether that client has a successful run in the prior month.
+- Identify every client for which the job failed in that period.
+- If it is recurring and has no relevant OOM or distinctness signal, summarize it as a known recurring issue rather than a new client failure.
+- If it is new for a client, or has a relevant OOM or distinctness signal, report it under `Other` and mark the region `- Ongoing`.
+
+## Compliant Example
+
+Combine related failures for each client on one channel line. Use `suggest re-run` only for a validated distinctness target; do not claim that a job is rerunning unless the user authorized and confirmed that action. Use Markdown links for the Airflow URLs.
 
 ~~~txt
+URLs to validate
+[https://airflow-us01.precisionlender.com/taskinstance/list/?_flt_3_state=failed&_flt_1_start_date=08%2F04%2F2026+7%3A00+AM#](https://airflow-us01.precisionlender.com/taskinstance/list/?_flt_3_state=failed&_flt_1_start_date=08%2F04%2F2026+7%3A00+AM#)
+[https://airflow-ca02.precisionlender.com/taskinstance/list/?_flt_3_state=failed&_flt_1_start_date=08%2F04%2F2026+7%3A00+AM#](https://airflow-ca02.precisionlender.com/taskinstance/list/?_flt_3_state=failed&_flt_1_start_date=08%2F04%2F2026+7%3A00+AM#)
+
 Message for developer:
-  - Distinctness validation: Valley National Bank, client 8b2e8a38-b778-402a-819a-4904f42f5a2a; suggest re-run l3-main-8b2e8a38-b778-402a-819a-4904f42f5a2a and get_core_deposit_accounts.
-  - Other: TD Bank, client 5301628b-e85f-4ff9-b5b3-e8d13c5926a7; high_quality_core_deposit_accounts_copy_client failed with no safe rerun inferred.
-  - Other: Scotiabank, client 1f06da19-2f61-401c-a1b7-38902e4f3543; similar_loans_portfolio and account_level_all_scenarios failed with no safe rerun inferred.
+  - Other: TD Bank (Wilmington, DE), client 5301628b-e85f-4ff9-b5b3-e8d13c5926a7; high_quality_core_deposit_accounts.high_quality_core_deposit_accounts_copy_client failed with return code -9. No distinctness validation marker found; no safe rerun inferred.
+  - Other: Scotiabank, client 1f06da19-2f61-401c-a1b7-38902e4f3543; account_level_opportunities.account_level_opportunities_snapshot.account_level_opportunities_snapshot failed with return code -9. No safe rerun inferred.
+  - Delivery-to-promise has failed consistently for past month on task `event_bus_to_payloads_historical`.
 
 Message for Data Internal Channel
-:bangbang: PROD SUPPORT 2026-08-03 :bangbang:
+:bangbang: PROD SUPPORT 2026-08-04 :bangbang:
 US
 - Ongoing
-  - Valley National Bank (8b2) failed distinctness validation; suggest re-run get_core_deposit_accounts
-  - TD Bank (530) failed on high_quality_core_deposit_accounts_copy_client; no safe rerun inferred
+  - TD Bank (530) failed on high_quality_core_deposit_accounts_copy_client
+  - Eventbus/D2P
 CA
 - Ongoing
-  - Scotiabank (1f0) failed on similar_loans_portfolio and account_level_all_scenarios; no safe rerun inferred
+  - Scotiabank (1f0) failed on account_level_opportunities_snapshot
 ~~~
 
-Non-compliant example: do not split one client's related failures across lines, infer a generic rerun, or claim that a rerun is in progress without authorization and a confirmed result.
+## Non-Compliant Example
+
+Do not split one client's related failures across lines, infer a generic rerun, claim that a rerun is in progress without authorization and a confirmed result, or call a D2P/subscriber failure recurring without checking the prior month by client.
 
 ~~~txt
 :bangbang: PROD SUPPORT 2026-08-03 :bangbang:
@@ -213,10 +238,11 @@ Apply these rules:
 - If a Derived RA `high_quality_*` task has a distinctness validation failure, list the client ID and suggest rerunning the affected `l3-main-<client ID>` DAG and each mapped `get_<job_name>` target.
 - Map a high-quality distinctness target to its underlying RA job by omitting `high_quality_`: for example, use `get_core_deposit_accounts`, not `get_high_quality_core_deposit_accounts`.
 - Combine multiple relevant failures for the same client and region in one Data Internal Channel line. List each failed task or safe rerun target in that line.
+- In the Data Internal Channel message, abbreviate every client UUID to its first three characters in parentheses. Do not use an ellipsis inside the parentheses.
 - Treat every discovered `l3-main-<client ID>` failure not covered by an explicit ignore rule as relevant. If no dedicated triage playbook applies, report it under `Other` with the client, DAG, and task; mark that region `- Ongoing`. Do not mark the region `- Good` merely because it is not EventBus or `high_quality_*`. For example, report `account_level_all_scenarios.account_level_all_scenarios` under `Other`.
 - Under `Other`, include only relevant failures not covered above.
 - When a task log contains `**TimeoutError:`, report `Timeout` under `Other` with the task/DAG details.
-- Ignore `check_for_subscriber_client_errors`, subscriber-client checks, Snowflake ingestion, delivery-to-promise, and historical pricing-event tasks unless the user specifically asks for them or they reveal a relevant OOM or distinctness issue.
+- Ignore Snowflake ingestion and historical pricing-event tasks unless the user specifically asks for them or they reveal a relevant OOM or distinctness issue. For `check_for_subscriber_client_errors`, subscriber-client checks, and delivery-to-promise, first apply the Developer Notes historical check; omit only recurring, non-OOM, non-distinctness failures.
 - Use `- Good` for a region with no relevant findings. Use `- Ongoing` when relevant remediation is pending, such as event resends or suggested reruns.
 
 Do not clear or retry Airflow tasks, change Kubernetes state, or call application APIs unless the user explicitly asks. Never resend non-recoverable opportunity snapshots.
