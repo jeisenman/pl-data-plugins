@@ -1,0 +1,4 @@
+interface:
+  display_name: "DTO Contract Gap Analysis"
+  short_description: "Find DTO fields missing from data pipelines"
+  default_prompt: "Use $dto-contract-gap-analysis to assess new DTO fields against di-pipelines."
