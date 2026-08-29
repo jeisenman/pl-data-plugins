@@ -1,0 +1,4 @@
+interface:
+  display_name: "Data Explorer Provisioning"
+  short_description: "Provision an assigned Data Explorer client ticket"
+  default_prompt: "Use $data-explorer-provisioning to find and prepare my eligible open provisioning ticket."

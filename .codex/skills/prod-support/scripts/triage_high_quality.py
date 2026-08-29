@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Identify safe rerun targets for Derived RA high_quality distinctness failures."""
+"""Identify Derived RA rerun targets from high_quality distinctness results."""
 
 from __future__ import annotations
 
@@ -72,8 +72,9 @@ def get_job_name(dataset_form: str) -> str:
     return f"get_{snake_case}"
 
 
-def parse_distinctness_failures(text: str) -> set[str]:
-    """Return DatasetForms whose distinctness counts do not match."""
+def parse_distinctness_results(text: str) -> tuple[dict[str, tuple[int, int]], set[str]]:
+    """Return all count results and DatasetForms with explicit or count mismatches."""
+    results: dict[str, tuple[int, int]] = {}
     failures: set[str] = set()
     for line in text.splitlines():
         if match := FAILURE.search(line):
@@ -81,9 +82,10 @@ def parse_distinctness_failures(text: str) -> set[str]:
             continue
         if match := COUNTS.search(line):
             dataset, total, unique = match.groups()
+            results[dataset.strip()] = (int(total), int(unique))
             if total != unique:
                 failures.add(dataset.strip())
-    return failures
+    return results, failures
 
 
 def kusto_query(task_id: str, run_id: str) -> str:
@@ -158,15 +160,26 @@ def main() -> int:
             print(f"Unable to get high_quality task logs: {error}", file=sys.stderr)
             return 1
 
-    datasets = sorted(parse_distinctness_failures(log_text))
-    if not datasets:
+    results, failures = parse_distinctness_results(log_text)
+    if not failures:
         if TIMEOUT.search(log_text):
             print("TimeoutError detected; classify this failure as a timeout. Do not rerun from this analysis.")
             return 0
         print("No Validate distinctness errors found; do not rerun from this analysis.")
         return 0
+    datasets = sorted(set(results) | failures)
     jobs = sorted({get_job_name(dataset) for dataset in datasets})
-    print(f"Validate distinctness error on {args.client_id}; re-running:")
+    print(f"Validate distinctness checks on {args.client_id}:")
+    for dataset in sorted(results):
+        total, unique = results[dataset]
+        status = "mismatch" if total != unique else "pass"
+        print(f"- {dataset}: total {total}; unique {unique}; {status}")
+    for dataset in sorted(failures - set(results)):
+        print(f"- {dataset}: explicit distinctness error")
+    print(
+        f"Validate distinctness error on {args.client_id}; suggest re-run every mapped "
+        "RA job represented in the validation results:"
+    )
     print(f"l3-main-{args.client_id}")
     for job in jobs:
         print(job)

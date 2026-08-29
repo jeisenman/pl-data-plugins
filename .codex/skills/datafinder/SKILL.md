@@ -1,6 +1,6 @@
 ---
 name: datafinder
-description: Find, inspect, create and explain PrecisionLender data locations across the local data-engineering repositories. Use when a request asks where a field, dataset, table, job, schema, DAG, resource, client data path, or pipeline behavior is defined or produced, especially across di-pipelines, di-pyjobs, di-schema-definitions, di-scheduling, and pl-application. Route primary Relationship Awareness (RA) questions to the RA finder and derived-dataset primary-source questions to the Primary finder subagent.
+description: Find and inspect PrecisionLender tables, columns, and datasets in ADLS, Snowflake, Eventbus, or databases. Use only when a request requires locating or tracing data in one of those systems. Route primary Relationship Awareness (RA) questions to the RA finder and derived-dataset primary-source questions to the Primary finder subagent.
 ---
 
 # DataFinder

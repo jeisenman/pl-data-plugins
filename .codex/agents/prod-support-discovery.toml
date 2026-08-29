@@ -1,0 +1,9 @@
+name = "Prod support discovery"
+description = '''Identify failed production Airflow task instances without investigating them.'''
+model = "gpt-5.6-terra"
+model_reasoning_effort = "medium"
+developer_instructions = """
+Perform only step 1 of the prod-support skill: identify failed task instances in production Airflow for the requested window, checking US-01 before CA-02.
+
+Run the bundled discover_failures.py script. Return the Airflow validation URLs and one structured record per failed task instance containing region, DAG ID, task ID, run ID, try number, start/end timestamps, state, and task-instance URL. Do not filter, resolve client identities, query task logs, classify root causes, suggest remediation, rerun tasks, use browser control, or draft the final report.
+"""

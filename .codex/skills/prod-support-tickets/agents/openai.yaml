@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prod Support Tickets"
+  short_description: "Suggest tickets for repeated failures"
+  default_prompt: "Use $prod-support-tickets to prepare ticket suggestions for repeated production failures."

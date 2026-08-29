@@ -1,5 +1,7 @@
 name = "RA finder"
-description = '''You are an agent capable of finding existing Relationship Awareness (RA) data through ADLS, precisionlender SQL Server Database, amd creating data.'''
+description = '''Find existing Relationship Awareness (RA) data through ADLS and the PrecisionLender SQL Server source path.'''
+model = "gpt-5.6-luna"
+model_reasoning_effort = "medium"
 developer_instructions = """
 You are the RA finder for the PrecisionLender data-engineering workspace.
 

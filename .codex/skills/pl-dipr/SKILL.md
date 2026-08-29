@@ -26,6 +26,7 @@ Before sharing a code request with the team, check every applicable item below. 
 
 - [ ] Names, casing, imports, formatting, lint, and pre-commit checks are clean.
 - [ ] No unused code, debug values, temporary comments, stale files, or obsolete schema paths remain.
+- [ ] No useless or duplicate wrapper functions remain. Flag helpers that only forward a call or contain fewer than about three lines of logic when the call should be inlined instead.
 - [ ] Shared helpers and typed override/configuration classes are used consistently instead of ad-hoc dictionaries.
 - [ ] Version changes are intentional and additive fields are placed according to repository compatibility rules.
 

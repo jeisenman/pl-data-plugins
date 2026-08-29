@@ -132,12 +132,17 @@ python3 .codex/skills/prod-support/scripts/triage_high_quality.py \
   --run-id '<run-id>' --start-utc '<start>' --end-utc '<end>'
 ```
 
-The script gets the task logs from Log Analytics and detects either explicit `Distinctness validation failed for <DatasetForm>` errors or any `Validate distinctness - counts: <DatasetForm> - total: <n>; unique: <m>` record where total and unique differ. It converts each failing dataset form directly to its corresponding underlying RA task (for example, `CoreAccountFinancialStatements` -> `get_core_account_financial_statements`, `LoanFinancialStatementsBreakdown` -> `get_loan_financial_statement_breakdown`, and `DepositFinancialStatementsBreakdown` -> `get_deposit_financial_statement_breakdown`). It prints the `l3-main-{client-uuid}` DAG and one rerun target per line. If the log contains `**TimeoutError:`, classify the failure as a timeout under `Other`; do not label it as a generic Spark driver failure and do not infer a rerun target from that error alone.
+The script gets the task logs from Log Analytics and detects either explicit `Distinctness validation failed for <DatasetForm>` errors or any `Validate distinctness - counts: <DatasetForm> - total: <n>; unique: <m>` record where total and unique differ. If any DatasetForm has a mismatch or explicit distinctness error, convert every DatasetForm with a captured validation result in that high-quality task to its corresponding underlying RA task (for example, `CoreAccountFinancialStatements` -> `get_core_account_financial_statements`, `LoanFinancialStatementsBreakdown` -> `get_loan_financial_statement_breakdown`, and `DepositFinancialStatementsBreakdown` -> `get_deposit_financial_statement_breakdown`). It prints the `l3-main-{client-uuid}` DAG and one rerun target per line. If the log contains `**TimeoutError:`, classify the failure as a timeout under `Other`; do not label it as a generic Spark driver failure and do not infer a rerun target from that error alone.
 
-When examining captured logs instead, use `--log-file <path>` or `--log-file -`. The subagent must report back to the discovery agent in this form:
+Report every `Validate distinctness - counts` record from each investigated task, including three or more records. For every DatasetForm, include total and unique counts and classify it as `pass` when they match or `mismatch` when they differ. When any result is a mismatch or the log has an explicit distinctness error, generate rerun targets for every DatasetForm represented in the validation results, including forms whose individual count comparison passed. When raw task logs are supplied, parse them with `triage_high_quality.py --log-file` instead of treating unavailable Log Analytics or an Airflow log-view error as evidence that no distinctness result exists.
+
+When examining captured logs instead, use `--log-file <path>` or `--log-file -`. The subagent must report every checked dataset form before the rerun targets in this form:
 
 ```text
-Validate distinctness error on <clientA>, <clientB>; re-running:
+Validate distinctness checks on <clientA>:
+- <DatasetFormA>: total <n>; unique <m>; pass|mismatch
+- <DatasetFormB>: total <n>; unique <m>; pass|mismatch
+Validate distinctness error on <clientA>, <clientB>; suggest re-run:
 l3-main-<clientA>
 get_<job1>
 get_<job2>
@@ -159,7 +164,7 @@ Then use this report format, replacing the date with the prior-day date covered 
 
 ```text
 Message for developer:
-  - Resending events for <client IDs>:
+  - Resending events for <client ID>:
   - <client name>: <comma-separated recoverable Opportunity IDs>
   - Distinctness validation: <client ID>; suggest re-run:
 
@@ -167,7 +172,7 @@ Message for Data Internal Channel
 :bangbang: PROD SUPPORT YYYY-MM-DD :bangbang:
 US
 - Ongoing
-  - Resending events for <client_name1>, <client_name2>,...
+  - Resending events for <client_name> (<UUID prefix>)
   - Distinctness validation: <client_name>
 CA
 - Good
@@ -177,7 +182,9 @@ CA
 For Data Internal Channel messages, show only the first three characters of a
 client UUID in parentheses (for example, `cd0` or `1ba`). Developer messages
 must retain the full UUID whenever one is needed for investigation or operator
-action.
+action. Use exactly one client per bullet in both messages. Do not combine or
+intermix multiple clients in a single bullet, even when the failure type and
+recommended action are the same.
 
 ## Developer Notes
 
@@ -191,7 +198,7 @@ For every Delivery-to-Promise (D2P) or subscriber-client failure, verify whether
 
 ## Compliant Example
 
-Combine related failures for each client on one channel line. Use `suggest re-run` only for a validated distinctness target; do not claim that a job is rerunning unless the user authorized and confirmed that action. Use Markdown links for the Airflow URLs.
+Combine related failures for each client on one channel line, but never combine multiple clients on that line. Use `suggest re-run` only for a validated distinctness target; do not claim that a job is rerunning unless the user authorized and confirmed that action. Use Markdown links for the Airflow URLs.
 
 ~~~txt
 URLs to validate
@@ -235,9 +242,9 @@ Apply these rules:
 - If EventBus validation finds recoverable events, list the client ID and every Opportunity ID to enter in the resend UI. Keep unrecoverable IDs separate and report their count. Say `Resending events for ...` as an operator instruction; never claim that events were resent unless the operator explicitly confirms that action.
 - If the resend UI confirms success, say `Resent events for ...` and include the resolved environment. If resending is awaiting authorization, authentication, or a UI result, keep `Resending events for ...` under `Ongoing` and state the blocker.
 - If a relevant task failed from out-of-memory, include `OOM`.
-- If a Derived RA `high_quality_*` task has a distinctness validation failure, list the client ID and suggest rerunning the affected `l3-main-<client ID>` DAG and each mapped `get_<job_name>` target.
+- If a Derived RA `high_quality_*` task has a distinctness validation failure, list the client ID and suggest rerunning the affected `l3-main-<client ID>` DAG and every mapped `get_<job_name>` target represented in that task's validation results.
 - Map a high-quality distinctness target to its underlying RA job by omitting `high_quality_`: for example, use `get_core_deposit_accounts`, not `get_high_quality_core_deposit_accounts`.
-- Combine multiple relevant failures for the same client and region in one Data Internal Channel line. List each failed task or safe rerun target in that line.
+- Combine multiple relevant failures for the same client and region in one Data Internal Channel line. List each failed task or safe rerun target in that line. Never list more than one client in a bullet; create a separate bullet for every client.
 - In the Data Internal Channel message, abbreviate every client UUID to its first three characters in parentheses. Do not use an ellipsis inside the parentheses.
 - Treat every discovered `l3-main-<client ID>` failure not covered by an explicit ignore rule as relevant. If no dedicated triage playbook applies, report it under `Other` with the client, DAG, and task; mark that region `- Ongoing`. Do not mark the region `- Good` merely because it is not EventBus or `high_quality_*`. For example, report `account_level_all_scenarios.account_level_all_scenarios` under `Other`.
 - Under `Other`, include only relevant failures not covered above.
@@ -246,6 +253,20 @@ Apply these rules:
 - Use `- Good` for a region with no relevant findings. Use `- Ongoing` when relevant remediation is pending, such as event resends or suggested reruns.
 
 Do not clear or retry Airflow tasks, change Kubernetes state, or call application APIs unless the user explicitly asks. Never resend non-recoverable opportunity snapshots.
+
+## Manual Approval for Airflow Retries
+
+Treat every Airflow clear or retry as an external side effect requiring a manual approval checkpoint, even when the user has broadly asked to rerun jobs.
+
+1. Verify the task instance is still failed and identify its exact region, DAG ID, DAG run ID, and task ID.
+2. Run the scoped `clearTaskInstances` request with `dry_run: true` and all upstream, downstream, past, and future flags set to `false`. Use `only_failed: true` by default. For a validated Derived RA distinctness target, use `only_failed: false` only when the mapped underlying `ra_group` task succeeded in the original DAG run; state that exception explicitly in the approval request.
+3. Present the exact task instance(s) selected by the dry run and ask the user for approval to retry those exact targets. Do not issue the mutating request until the user replies with clear approval.
+4. After approval, submit the identical request with `dry_run: false`. Reset the DAG run only when its current state is failed and the reset is required for scheduling.
+5. Read back the task state and report whether it is queued, running, successful, or still failed.
+
+In the final retry report, list each Airflow operation in order: failed-state verification, `clearTaskInstances` dry run, approval, mutating `clearTaskInstances` request, and state read-back. For each, include the region, DAG run, and exact task IDs affected. Airflow is accessed programmatically for this workflow, so report API operations rather than claiming browser buttons were clicked.
+
+Do not treat a general instruction such as "run prod support" as approval. An instruction naming exact jobs may authorize the dry run only; require the post-dry-run approval before clearing them.
 
 ## Reflection Mechanism: 
 

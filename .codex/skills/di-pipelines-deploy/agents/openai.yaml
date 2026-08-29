@@ -1,0 +1,4 @@
+interface:
+  display_name: "DI Pipelines Deploy"
+  short_description: "Deploy DE tickets to Alpha or Staging"
+  default_prompt: "Use $di-pipelines-deploy to deploy DE-1234 to Alpha."

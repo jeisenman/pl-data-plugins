@@ -1,24 +1,6 @@
 ---
 name: di-field
-description: This skill helps data engineers bring dataset fields end to end from primary ingestion, to derived dataset calculations, to Databricks/DBX, and Snowflake
-metadata:
-  scope:
-    - "worktrees/di-pipelines/ds-jobs/src/datascience_jobs/meta_data/datasets/**/*.py"
-    - "worktrees/di-pipelines/ds-jobs/src/datascience_jobs/utils/schemas/datamart/**/*.py"
-    - "worktrees/di-pipelines/ds-jobs/src/datascience_jobs/jobs/primary_ingestion/**/*.py"
-    - "worktrees/di-pipelines/ds-jobs/src/datascience_jobs/jobs/data/**/*.py"
-    - "worktrees/di-pipelines/ds-jobs/src/datascience_jobs/jobs/reports/**/*.py"
-    - "worktrees/di-pipelines/ds-jobs/src/datascience_jobs/jobs/dispatch/**/*.py"
-    - "worktrees/di-pipelines/de-jobs/src/datamart/jobs/ra/**/to_datamart.py"
-    - "worktrees/di-pipelines/de-jobs/src/datamart/jobs/snowflake/evolutions/**/*.py"
-    - "worktrees/di-pipelines/de-jobs/src/datamart/jobs/snowflake/metadata/**/*.py"
-    - "worktrees/di-pipelines/de-jobs/src/datamart/jobs/snowflake/repeatable/**/*.py"
-    - "worktrees/di-pipelines/dags/precisionlender/dags/**/*.py"
-    - "worktrees/di-schema-definitions/datasets/**/config.ini"
-    - "worktrees/di-schema-definitions/datasets/**/v*/schema.json"
-    - "worktrees/di-schema-definitions/datasets/**/v*/{alpha,prod}/**/*.sql"
-    - "worktrees/di-schema-definitions/datasets/**/views/{alpha,prod}/**/*.sql"
-  type: engineering-rule
+description: Orchestrate scoped subagents that bring PrecisionLender dataset fields end to end through source resolution, primary ingestion, derived datasets, Databricks/DBX, Snowflake, and final versioning, compatibility, regeneration, and backfill decisions. Use for additive or breaking dataset-field work that crosses one or more of these pipeline stages.
 ---
 
 # DI Field
@@ -27,12 +9,71 @@ metadata:
 
 When working in `di-pipelines`, `di-scheduling`, or `di-pyjobs`, do not run local unit, integration, or full test suites. Use static inspection, targeted non-test checks, and remote or Alpha evidence instead. Run a local test suite only when the user explicitly requests it.
 
-## Scope
+## Agent topology
 
-- The authoritative scope is the frontmatter `metadata.scope` field.
-- Apply this skill when a matched file changes a dataset field contract or one of its direct consumers.
-- Read contracts and source data from adjacent worktrees as needed, but do not modify them for this workflow.
-- Flag any required implementation change outside the frontmatter scope to the developer before editing it.
+Run the workflow through the `DI field orchestrator` role in
+`.codex/agents/di-field-orchestrator.toml`. It uses `gpt-5.6-sol` with `low`
+reasoning effort; `low` is the Codex configuration value for the requested light
+setting. If the current agent is not that role and can delegate, hand the complete
+request to it. The orchestrator coordinates work and performs the final
+administrative decision pass; it does not edit implementation files itself.
+
+Use these subagents and do not replace them with unscoped generic workers:
+
+| Stage | Agent | Model | Runs when |
+| --- | --- | --- | --- |
+| Source and data discovery | `DI field source resolver` | `gpt-5.6-luna`, medium | Always |
+| Data creation | `DI field data creator` | `gpt-5.6-terra`, medium | Only when discovery finds no representative non-null data |
+| Primary ingestion | `DI field primary` | `gpt-5.6-terra`, medium | When the primary contract or producer needs a change |
+| Derived dataset | `DI field derived` | `gpt-5.6-terra`, medium | When the derived contract or transformation needs a change |
+| DBX publication | `DI field DBX` | `gpt-5.6-terra`, medium | When DBX publishes the affected dataset |
+| Snowflake publication | `DI field Snowflake` | `gpt-5.6-terra`, medium | When Snowflake publishes the affected dataset |
+
+The source resolver uses `$datafinder` and `$pl-contracts`. Its RA and Primary
+finder delegates must use `gpt-5.6-luna` with medium reasoning. If it reports
+`data_status = absent`, run the data creator with `$datacreator`. Treat access or
+authentication failures as `unresolved`, not `absent`; do not create data for an
+unresolved search.
+
+## Scope contract
+
+Resolve exactly one ticket `di-pipelines` worktree and, when DBX changes are
+required, exactly one ticket `di-schema-definitions` worktree. Pass their absolute
+paths to the applicable agents. Do not inspect or modify sibling ticket worktrees.
+Pass the exact dataset, field list, and target client/environment with every handoff.
+
+- Source resolver: read only the selected `di-pipelines` worktree's metadata,
+  producer jobs, transformations, DAG tasks, RA data dictionary, and direct
+  publication references. It may search `repositories/pl-application` only for
+  exact field/contract identifiers and then follow their direct DTO, mapper,
+  persistence, and writer chain. It may read the selected dataset directory in
+  `di-schema-definitions` and use the `datafinder` scripts. It must not edit files.
+- Data creator: read only the source resolver's direct contract/writer paths and
+  the identified pipeline producer. Its only write surface is the explicitly
+  confirmed non-production client UI record. Do not write source code, databases,
+  APIs, fixtures, files, shared clients, or production resources.
+- Primary: write only the selected worktree's identified primary metadata class,
+  primary ingestion/source-mover job, exact primary DAG task/version reference,
+  and focused tests mirroring those modules. Do not edit derived, DBX, or Snowflake
+  surfaces.
+- Derived: write only the selected worktree's identified derived transformation,
+  derived metadata, active generated schema, exact derived/monthly DAG consumers,
+  and focused tests mirroring those modules. Do not edit primary, DBX, or
+  Snowflake surfaces.
+- DBX: write only `<schema-worktree>/datasets/<target-dataset>/`,
+  including its `config.ini`, matching major-version `schema.json`, and generated
+  Alpha/prod external-table, repair, and view SQL. Do not edit SQL generators or a
+  different dataset directory.
+- Snowflake: write only the selected `di-pipelines` worktree's direct target files
+  under `de-jobs/src/datamart/jobs/snowflake/{evolutions,metadata,repeatable}/`
+  and focused tests for those files. Do not edit upstream producers, DBX files, or
+  unrelated Snowflake objects.
+- Orchestrator administration: read the combined diffs and direct readers/writers
+  across those scopes. Do not edit implementation files during the final pass.
+
+If a required change falls outside an agent's write scope, stop that agent and
+return the exact path and reason to the orchestrator. The orchestrator must tell
+the developer before expanding scope.
 
 ## Definitions
 - Primary Ingestion: bring data from outside databases, data lakes, or APIs into data engineering ADLS/Snowflake
@@ -41,20 +82,30 @@ When working in `di-pipelines`, `di-scheduling`, or `di-pyjobs`, do not run loca
 - Databricks: creates schema definitions to copy data from ADLS to Databricks environment
 
 ## Workflow
-Run `scripts/update-worktrees.sh`
-Data within di-pipelines flows in the following stages:
-0. Create worktree branch
-1. Primary Ingestion
-2. Derived Datasets
-3. DBX/Databricks, Snowflake, and data library
 
-- If task only mentions downstream datasets, check that columns exist in derived. 
-- If not included in derived, check that column exists in primary. 
-- If column not exists in primary, use the datafinder skill to find representative data. Also use pl-contract skill to look inside of pl-application contracts to find relevant column
-- If column does not exist in primary, and datafinder skill doesn't find representative data, then use data-creator skill to create data.
-- If ticket says major version upgrade or entails dropping/re-naming a column, then FLAG to DEVELOPER IMMEDIATELY!
-
-Upon seeing ticket, breakdown and re-order tasks from primary ingestion, to derived, to DBX/Snowflake/Data Library (L3).
+1. Run `scripts/update-worktrees.sh`, create or select one ticket worktree for
+   each repository that will change, and record each absolute path. Preserve
+   unrelated user changes.
+2. Run `DI field source resolver`. Require a structured handoff containing source
+   contract, lineage, representative-data status (`found`, `absent`, or
+   `unresolved`), affected stages, exact paths, and compatibility classification.
+3. If and only if data status is `absent`, run `DI field data creator`. Pause for
+   user authorization before any support login or final UI save not already
+   explicitly authorized. After creation, rerun source validation before coding.
+4. Run `DI field primary` when required. Wait for it because Derived depends on
+   the resulting primary contract and version.
+5. Run `DI field derived` when required. Wait for it because publication depends
+   on the resulting derived contract and version.
+6. After the upstream contract is stable, run `DI field DBX` and `DI field
+   Snowflake` concurrently. Their write scopes are disjoint. If only one surface
+   consumes the dataset, skip the other with evidence.
+7. Wait for both publication agents, inspect their results, and run the final
+   administrative pass below. Do not publish or open a PR before it passes.
+8. If the ticket requests a major version or entails a rename, removal,
+   incompatible type change, stricter nullability, positional reorder, or semantic
+   change, flag it to the developer immediately. Agents may investigate read-only,
+   but must not implement the breaking change until the migration decision is
+   confirmed.
 
 ## Primary Ingestion
 Identify the primary dataset(s) that must be changed. Document the source dataset and the relevant fields.
@@ -66,8 +117,9 @@ c) Use data finder skill to find data in relevant data sources
 d) (Optional) if data does not exist, use datacreator skill to generate data 
 e) Identify `class [datasetname]MetaData`. Add field to dataset
 f) Complete steps a-e until no more primary datasets need to be adjusted.
-g) After validation passes, prepare the ticket branch and the commit message `Add [field1, field2] to [dataset1]`, then hand off all staging, committing, worktree refresh, dead-code checks, pushing, and draft-PR creation to `github:yeet`. Do not push directly from this skill.
-h) Give `github:yeet` the repository's `pull_request_template.md` with its placeholders replaced by a ticket-specific description. Check only checklist items supported by evidence; leave unperformed Alpha, integration, copy-log, data-explorer, scheduling, and changelog items unchecked.
+g) Return changed paths, validation evidence, selected versions, and unresolved
+   downstream effects to the orchestrator. Do not stage, commit, push, or open a
+   PR from this stage.
 
 For the PR description:
 - State the ticket link, affected dataset(s), added field(s), source file/table, and whether the change is additive or breaking.
@@ -237,11 +289,22 @@ assert "CoreBillableGroupAccountId" in derived_schema.fieldNames()
 ```
 
 
-## Report
-TODO
-
 ## Snowflake
-TODO
+
+Run this stage only after the upstream source and derived contracts are stable.
+The Snowflake agent must:
+
+1. Identify the exact metadata, repeatable object, and evolution files that own or
+   publish the target dataset. Do not infer ownership from a similarly named table.
+2. Confirm the Snowflake column name, source field, type, nullability, order, and
+   any sanitization or client-specific behavior against the derived contract.
+3. Add an additive nullable column only to the direct owning objects. Preserve the
+   existing naming and evolution style; do not refactor unrelated definitions.
+4. Verify every applicable create/alter/evolution and repeatable view projection,
+   including isolated-stack or client-specific variants.
+5. Perform targeted static or generation checks without running a local test suite
+   unless explicitly requested. Return changed paths, generated artifacts,
+   selected versions, and Alpha evidence or remaining validation needs.
 
 ## Databricks (DBX) SQL
 
@@ -304,3 +367,32 @@ and views) in `precisionlender/di-schema-definitions`.
 ## Change Guidance
 
 Before changing a field contract, compare the proposed schema with all known readers and writers. Call out required backfills, versioning, migration windows, and validation coverage. Keep any implementation scoped to the affected contract and its direct producers or consumers.
+
+## Final administrative pass
+
+After Primary, Derived, DBX, and Snowflake have completed or returned an
+evidence-backed skip, the orchestrator must inspect the combined changes and issue
+one administrative decision report:
+
+1. **Versioning:** state the old and new version at every changed stage. Confirm a
+   nullable additive field uses the correct minor bump and every pinned writer,
+   copy task, backfill, view, and publisher agrees. Treat rename, removal,
+   incompatible type/nullability/order, or semantic changes as major-version work.
+2. **Compatibility:** list affected writers and readers, coexistence or migration
+   requirements, and any consumer that cannot read the proposed contract. A major
+   change remains blocked until the developer confirms the migration strategy.
+3. **Historical data:** decide `backfill required`, `regeneration required`,
+   `future writes only`, or `unresolved`. A version bump never updates old
+   partitions automatically.
+4. **Execution order:** when historical work is required, list the exact dependency
+   order: source/primary backfill, derived rerun, monthly regeneration, then DBX,
+   Snowflake, and other publishers. Do not execute operational reruns unless the
+   user explicitly authorizes them.
+5. **Generated artifacts:** state which DBX or Snowflake files were regenerated,
+   which generators ran, and whether the diff stayed inside the assigned dataset
+   scope.
+6. **Validation and release:** list completed static, generator, schema, and Alpha
+   checks plus every remaining blocker. Only after this pass succeeds, prepare the
+   ticket-specific commit message and PR description and hand staging, committing,
+   dead-code checks, pushing, and draft-PR creation to `github:yeet`. Check only PR
+   template items supported by evidence.
