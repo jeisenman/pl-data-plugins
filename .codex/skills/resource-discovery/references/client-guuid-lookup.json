@@ -12,13 +12,13 @@
   },
   "076939cf-4a4a-4fa4-a5e6-44a4c8d33bb2": {
     "api_status": "unique-match",
-    "last_checked": "2026-08-22",
+    "last_checked": "2026-08-29",
     "name": "Wells Fargo Bank, National Association",
     "source": "resource-discovery-api"
   },
   "09641549-76d9-4ba3-9b1c-ec0bbb4f437c": {
     "api_status": "unique-match",
-    "last_checked": "2026-08-29",
+    "last_checked": "2026-08-30",
     "name": "Seacoast Bank",
     "source": "resource-discovery-api"
   },
@@ -32,6 +32,12 @@
     "api_status": "unique-match",
     "last_checked": "2026-08-20",
     "name": "First Bank (Creve Coeur, MO)",
+    "source": "resource-discovery-api"
+  },
+  "1b8ba46c-91c7-4cfb-998c-d583dd08e980": {
+    "api_status": "unique-match",
+    "last_checked": "2026-08-29",
+    "name": "American AgCredit (Santa Rosa, CA)",
     "source": "resource-discovery-api"
   },
   "1bad59e0-e44e-421c-bbab-c1a78ba2e579": {
@@ -49,7 +55,7 @@
   },
   "1f06da19-2f61-401c-a1b7-38902e4f3543": {
     "api_status": "unique-match",
-    "last_checked": "2026-08-29",
+    "last_checked": "2026-08-30",
     "name": "Scotiabank",
     "source": "resource-discovery-api"
   },
@@ -73,8 +79,14 @@
   },
   "32fc2ab6-1a8d-471c-8d11-d8b51f9de0b1": {
     "api_status": "unique-match",
-    "last_checked": "2026-08-29",
+    "last_checked": "2026-08-30",
     "name": "State Savings Bank",
+    "source": "resource-discovery-api"
+  },
+  "385c35bf-29c4-48a7-9527-a91963b7af69": {
+    "api_status": "unique-match",
+    "last_checked": "2026-08-30",
+    "name": "U.S. Bancorp (Minneapolis, MN)",
     "source": "resource-discovery-api"
   },
   "3fd3c589-cbff-41b8-897d-72362213bc8f": {
@@ -91,7 +103,7 @@
   },
   "5301628b-e85f-4ff9-b5b3-e8d13c5926a7": {
     "api_status": "unique-match",
-    "last_checked": "2026-08-20",
+    "last_checked": "2026-08-30",
     "name": "TD Bank (Wilmington, DE)",
     "source": "resource-discovery-api"
   },
@@ -101,9 +113,21 @@
     "name": "Farmers & Merchants Bank",
     "source": "resource-discovery-api"
   },
+  "60009dc8-695b-4b58-b512-1fc72c3c98e7": {
+    "api_status": "unique-match",
+    "last_checked": "2026-08-30",
+    "name": "Popular Community Bank",
+    "source": "resource-discovery-api"
+  },
+  "631c7704-582e-4705-af1e-1dbd04af145f": {
+    "api_status": "unique-match",
+    "last_checked": "2026-08-30",
+    "name": "Sunflower Bank, NA",
+    "source": "resource-discovery-api"
+  },
   "792f7424-402e-4a7e-b4de-69f811435d9c": {
     "api_status": "no-unique-match",
-    "last_checked": "2026-08-29",
+    "last_checked": "2026-08-30",
     "name": "BoFA",
     "source": "user-confirmed"
   },
@@ -123,6 +147,18 @@
     "api_status": "unique-match",
     "last_checked": "2026-08-25",
     "name": "Valley National Bank",
+    "source": "resource-discovery-api"
+  },
+  "8f472547-3491-479b-9731-cd81ba90b992": {
+    "api_status": "unique-match",
+    "last_checked": "2026-08-29",
+    "name": "Busey Bank",
+    "source": "resource-discovery-api"
+  },
+  "951ddcc6-dc43-408e-a4f4-bf0a67015ccc": {
+    "api_status": "unique-match",
+    "last_checked": "2026-08-30",
+    "name": "Synovus Bank (Columbus, GA)",
     "source": "resource-discovery-api"
   },
   "96c60b8e-d2ca-48ce-a74a-32ee65a35cbc": {
@@ -145,13 +181,13 @@
   },
   "99b9412b-70fd-4221-8431-d1b3934889ec": {
     "api_status": "unique-match",
-    "last_checked": "2026-08-20",
+    "last_checked": "2026-08-30",
     "name": "First Example Bank",
     "source": "resource-discovery-api"
   },
   "9d272969-2cdd-401b-a373-6a73cf5a3042": {
     "api_status": "ambiguous",
-    "last_checked": "2026-08-25",
+    "last_checked": "2026-08-30",
     "name": "Glacier Bancorp",
     "source": "user-confirmed"
   },
@@ -197,6 +233,12 @@
     "name": "Ag Texas Farm Credit Services",
     "source": "resource-discovery-api"
   },
+  "cb635fb3-df32-4dd0-9f4f-258959ef8d15": {
+    "api_status": "unique-match",
+    "last_checked": "2026-08-30",
+    "name": "Citizens Bank (Providence, RI)",
+    "source": "resource-discovery-api"
+  },
   "cd0c6dcb-fbd5-4bac-8b3a-8d48b0944a29": {
     "api_status": "no-unique-match",
     "last_checked": "2026-08-06",
@@ -204,7 +246,7 @@
   },
   "dff9e5f7-c60a-4e43-b7a9-845ab44f34d0": {
     "api_status": "unique-match",
-    "last_checked": "2026-08-21",
+    "last_checked": "2026-08-30",
     "name": "Atlantic Union Bank (Richmond, VA)",
     "source": "resource-discovery-api"
   },
